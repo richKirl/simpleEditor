@@ -29,8 +29,6 @@ class Editor extends JFrame implements ActionListener {
     // Frame
     private JFrame f;                                        //frame-likewWindow
 
-    private StringBuilder LineN;                             //string
-
     private String prompter=" \n % ";                        //prompt
 
     String commander;                                        //command after prompt
@@ -56,15 +54,13 @@ class Editor extends JFrame implements ActionListener {
 
     private Color tConsoleTextError;                         //new Color(255,101,100);
 
-    private boolean CURV=false;
-
     private String Path;                                     //Path for widget Pather
 
     private String FilePathw;                                //nameFile with res
 
     private String FileExt;                                  //nameFile
 
-    private String ExtFile;
+    private String ExtFile;                                  //.{}
 
     private JTextPane Pather;                                //buffer for pathViewer
 
@@ -162,38 +158,38 @@ class Editor extends JFrame implements ActionListener {
 	t.addKeyListener(new CounterLines());//connect listen keyboard
 
 
-      // Create a menubar
-      JMenuBar mb = new JMenuBar();//menubar top
+       // Create a menubar
+       JMenuBar mb = new JMenuBar();//menubar top
 
-      // Create amenu for menu
-      JMenu m1 = new JMenu("File");//menu for file
+       // Create amenu for menu
+       JMenu m1 = new JMenu("File");//menu for file
 
-      // Create menu items
-      JMenuItem mi1 = new JMenuItem("New");//item for file
+       // Create menu items
+       JMenuItem mi1 = new JMenuItem("New");//item for file
 
-      JMenuItem mi2 = new JMenuItem("Open");//item for file
+       JMenuItem mi2 = new JMenuItem("Open");//item for file
 
-      JMenuItem mi3 = new JMenuItem("Save");//item for file
+       JMenuItem mi3 = new JMenuItem("Save");//item for file
 
-      JMenuItem mi9 = new JMenuItem("Print");//item for file
+       JMenuItem mi9 = new JMenuItem("Print");//item for file
 
-      // Add action listener
-      mi1.addActionListener(this);//connect event
+       // Add action listener
+       mi1.addActionListener(this);//connect event
 
-      mi2.addActionListener(this);
-	
-      mi3.addActionListener(this);
-	
-      mi9.addActionListener(this);
-	
-      m1.add(mi1);//connect to File
-	
-      m1.add(mi2);
-	
-      m1.add(mi3);
-	
-      m1.add(mi9);
-      //EndCreateMenuBar
+       mi2.addActionListener(this);
+
+       mi3.addActionListener(this);
+
+       mi9.addActionListener(this);
+
+       m1.add(mi1);//connect to File
+
+       m1.add(mi2);
+
+       m1.add(mi3);
+
+       m1.add(mi9);
+       //EndCreateMenuBar
 
 
 
@@ -231,7 +227,7 @@ class Editor extends JFrame implements ActionListener {
 	col.addMouseListener(new ColorStyle());
 
 	mb.add(m1);//connect all menu to menubar-top
-	
+
 	mb.add(m2);
 
 	mb.add(mc);
@@ -440,7 +436,7 @@ class Editor extends JFrame implements ActionListener {
        panel2.add(panel1,BorderLayout.CENTER);
 
 
-       	f.add(mb,BorderLayout.NORTH);//menubar to up
+       f.add(mb,BorderLayout.NORTH);//menubar to up
 
 	f.add(mbViewer,BorderLayout.WEST);
 
@@ -474,9 +470,9 @@ class Editor extends JFrame implements ActionListener {
 
     // If a button is pressed
     public void actionPerformed(ActionEvent e) {//actions for items
- 
+
         String s = e.getActionCommand();
- 
+
         if (s.equals("cut")) {
 
             cutFunction();
@@ -602,7 +598,7 @@ class Editor extends JFrame implements ActionListener {
 
 
     public void OpenFile() {
-	    
+
 	// Create an object of JFileChooser class
 	JFileChooser j = new JFileChooser("f:");
 
@@ -758,7 +754,7 @@ class Editor extends JFrame implements ActionListener {
 	t.copy();
 
     }
-    
+
     public void pasteFunction() {
 
 	t.paste();
@@ -775,89 +771,89 @@ class Editor extends JFrame implements ActionListener {
 	    String s1 = t.getText();//
 
 	    int countOCQ=0;
-	   
+
 	    t.setText("");//(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
-	    
+
 	    String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");//"((?= )|(?=\t)|(?<=\n))"(?=\\w)
-	    
+
 	    List<String> list = new ArrayList<String>();
-	    
+
 	    for(String r: parts)list.add(r);
 
 	    final Iterator<String> it = list.iterator();
-	    
+
 	    for(String next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
-		
+
 		String previous = current;
-		
+
 		current = next;
-		
+
 		next = it.hasNext() ? it.next() : null;
     
 		if(current.equals("#")&&next.equals("include")){               appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("include")&&previous.equals("#")){      appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("<")){                                  appendToPane(t,current,tBody);}
-		
+
 		else if(previous.equals("<")&&current.equals("std")==false){   appendToPane(t,current,tBody);}
-		
+
 		else if(current.equals(">")){                                  appendToPane(t,current,tBody);}
-		
+
 		else if(current.equals("return"))                              appendToPane(t,current,tMagenta);
-		
+
 		else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("wchar")){                              appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("double")){                             appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("unsigned")){                           appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("long")){                               appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("uint8_t")){                            appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("uint16_t")){                           appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("uint32_t")){                           appendToPane(t,current,tBlue);}
 
 		else if(current.equals("int8_t")){                             appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("int16_t")){                            appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("int32_t")){                            appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("class")){                              appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("struct")){                             appendToPane(t,current,tBlue);}
 
 		else if(current.equals("union")){                              appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("using")){                              appendToPane(t,current,tBlue);}
 
 		else if(current.equals("import")){                             appendToPane(t,current,tBlue);}
 
 		else if(current.equals("namespace")){                          appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("static")){                             appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("constexpr")){                          appendToPane(t,current,tBlue);}
 
 		else if(current.equals("const")){                              appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("protected")){                          appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("public")){                             appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("private")){                            appendToPane(t,current,tBlue);}
 
 		else if(current.equals("void")){                               appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("std")&&next.equals(":")){              appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("new")){                                appendToPane(t,current,tBlue);}
 
 		else if(current.equals("delete")){                             appendToPane(t,current,tBlue);}
@@ -865,42 +861,42 @@ class Editor extends JFrame implements ActionListener {
 		else if(current.equals("do")){                                 appendToPane(t,current,tMagenta);}
 
 		else if(current.equals("for")){                                appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("while")){                              appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("if")){                                 appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("try")){                                appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("catch")){                              appendToPane(t,current,tMagenta);}
-		
+
 		else if(previous.equals(":")&&!current.equals(":")){           appendToPane(t,current,tBlue);}
 
 		else if(current.equals("/")){                                  appendToPane(t,current,tGreen);}
-		
+
 		else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("}")){                                  appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("main")){                               appendToPane(t,current,tYellow);}
 
 		else if((current.equals("\""))){                               appendToPane(t,current,tBody);}
-		
+
 		else appendToPane(t,current,tTextWCF);
-		
-              
+
+
 		// Do something using 'current', 'previous' and 'next'.
 		// NB: 'previous' and/or 'next' are null when 'current' is
 		// the first and/or last element respectively
+	    }list.clear();
 	    }
-	    }
-  
+
            else if(ExtFile.equals("c")) {
 
 
@@ -909,95 +905,95 @@ class Editor extends JFrame implements ActionListener {
            else if(ExtFile.equals("Java")) {
 
 	    String s1 = t.getText();//
-	    
+
 	    int countOCQ=0;
-	   
+
 	    t.setText("");//(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
-	    
+
 	    String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");//"((?= )|(?=\t)|(?<=\n))"(?=\\w)
-	    
+
 	    List<String> list = new ArrayList<String>();
-	    
+
 	    for(String r: parts)list.add(r);
 
 	    final Iterator<String> it = list.iterator();
-	    
+
 	    for(String next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
-		
+
 		String previous = current;
-		
+
 		current = next;
-		
+
 		next = it.hasNext() ? it.next() : null;
-    
+
 		if(current.equals("import")){                                  appendToPane(t,current,tBlue);}
 
 		else if(current.equals("return"))                              appendToPane(t,current,tMagenta);
-		
+
 		else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("double")){                             appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("unsigned")){                           appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("long")){                               appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("class")){                              appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("static")){                             appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("protected")){                          appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("public")){                             appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("private")){                            appendToPane(t,current,tBlue);}
 
 		else if(current.equals("void")){                               appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("new")){                                appendToPane(t,current,tBlue);}
 
               else if(current.equals("break")){                               appendToPane(t,current,tBlue);}
 
-              else if(current.equals("continue")){                           appendToPane(t,current,tMagenta);}
+              else if(current.equals("continue")){                            appendToPane(t,current,tMagenta);}
 
 		else if(current.equals("do")){                                 appendToPane(t,current,tMagenta);}
 
 		else if(current.equals("for")){                                appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("while")){                              appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("if")){                                 appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("try")){                                appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("catch")){                              appendToPane(t,current,tMagenta);}
 
 		else if(current.equals("extends")){                            appendToPane(t,current,tBlue);}
 
 		else if(current.equals("implements")){                         appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("/")){                                  appendToPane(t,current,tGreen);}
-		
+
 		else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
-		
+
 		else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("}")){                                  appendToPane(t,current,tMagenta);}
-		
+
 		else if(current.equals("main")){                               appendToPane(t,current,tBlue);}
 
 		else if(current.equals("\"")){                                 appendToPane(t,current,tBody);}
-              
-		else                                                           appendToPane(t,current,tTextWCF);
- 
-		}
 
+		else                                                           appendToPane(t,current,tTextWCF);
+
+		}
+              list.clear();
            }
 
 	    System.gc();
@@ -1006,107 +1002,106 @@ class Editor extends JFrame implements ActionListener {
      }
 
     private void appendToConsolePane(JTextPane tp, String msg, Color c) {
-	
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-	
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
-	
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+      StyleContext sc = StyleContext.getDefaultStyleContext();
 
-	
-        int len = tp.getDocument().getLength();
-	
-        tp.setCaretPosition(len);
-	
-        tp.setCharacterAttributes(aset, false);
-	
-        tp.replaceSelection(msg);
-	
+      AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+      aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+
+      aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+
+
+      int len = tp.getDocument().getLength();
+
+      tp.setCaretPosition(len);
+
+      tp.setCharacterAttributes(aset, false);
+
+      tp.replaceSelection(msg);
+
     }
 
-    
+
     private void appendToPane(JTextPane tp, String msg, Color c) {
 
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-	
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+      StyleContext sc = StyleContext.getDefaultStyleContext();
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+      AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-	aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+      aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+
+      aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
 
 
-	int len = tp.getDocument().getLength();
+      int len = tp.getDocument().getLength();
 
-	tp.setCaretPosition(len);
-	
-        tp.setCharacterAttributes(aset,false);
-	
-        tp.replaceSelection(msg);
-	
+      tp.setCaretPosition(len);
+
+      tp.setCharacterAttributes(aset,false);
+
+      tp.replaceSelection(msg);
+
     }
 
     
     private void appendToPaneTabs(JTextPane tp, String msg, Color c) {
 
-		
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-	
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+      StyleContext sc = StyleContext.getDefaultStyleContext();
 
-	aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+      AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+      aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+
+      aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
 
 
-	int len = tp.getCaretPosition();
+      int len = tp.getCaretPosition();
 
-	tp.setCaretPosition(len);
-	
-        tp.setCharacterAttributes(aset,false);
-	
-        tp.replaceSelection(msg);
-	
+      tp.setCaretPosition(len);
+
+      tp.setCharacterAttributes(aset,false);
+
+      tp.replaceSelection(msg);
+
     }
     
     //AddTabs to current position
     private void appendToPaneNumbers(JTextPane tp, String msg, Color c) {
 
-		
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-	
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+      StyleContext sc = StyleContext.getDefaultStyleContext();
 
-	aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+      AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-	int len = tp.getCaretPosition();
+      aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
 
-	tp.setCaretPosition(len);
-	
-        tp.setCharacterAttributes(aset,true);
-	
-        tp.replaceSelection(msg);
-	
+      aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+
+      int len = tp.getCaretPosition();
+
+      tp.setCaretPosition(len);
+
+      tp.setCharacterAttributes(aset,true);
+
+      tp.replaceSelection(msg);
+
     }  
-    
+
     //exit after clicked on Close Menu!=item
     class ExitAction extends MouseInputAdapter {
-	
+
 	public void mouseClicked(MouseEvent mouseEvent) {
-	    
+
 	    System.exit(0);
-	    
+
 	}
     }
 
 
-	
     public void setCounterL(String s) {
-	    
+
 	String parts10[] = s.split("\n");
 
 	int sz = parts10.length;
@@ -1114,20 +1109,20 @@ class Editor extends JFrame implements ActionListener {
 	for(String sL:parts10) {
 
 	    LineNN+=1;
-		
+
 	    appendToPane(t1,""+LineNN+" \n",tTextWCF);
-		
+
 	}
 
 	System.gc();
 
     }
 
-    
+
     class CounterLines extends KeyAdapter {//listen keyboard event for enter if enter add \n +i to numberLines
-	
+
 	public void keyPressed(KeyEvent e) {
-	    
+
 	    if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
 		LineNN+=1;
@@ -1148,27 +1143,27 @@ class Editor extends JFrame implements ActionListener {
 	    else if(e.getKeyCode() == KeyEvent.VK_P && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
 		printFile();
-		
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_X && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
 		//cutFunction();
-		
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_C && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
 		//copyFunction();
-		
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_V && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
-		
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_TAB){
-		
+
 		e.consume();
-		
+
 		appendToPaneTabs(t,"  ",tTextWCF);
-		
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_M &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
@@ -1182,7 +1177,7 @@ class Editor extends JFrame implements ActionListener {
 
 		}
 		else { mbConsole.setVisible(true); }
-		
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_V &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
@@ -1196,7 +1191,7 @@ class Editor extends JFrame implements ActionListener {
 
 		}
 		else { mbViewer.setVisible(true); }
-		
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_UP &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
@@ -1204,7 +1199,7 @@ class Editor extends JFrame implements ActionListener {
 
 		mbConsole.setSize(500,mbConsoleSizeH);
 
-	        mbConsole.setPreferredSize(new Dimension(500,mbConsoleSizeH));
+	       mbConsole.setPreferredSize(new Dimension(500,mbConsoleSizeH));
 
 		mbConsole.setVisible(false);
 
@@ -1217,7 +1212,7 @@ class Editor extends JFrame implements ActionListener {
 
 		mbConsole.setSize(500,mbConsoleSizeH);
 
-	        mbConsole.setPreferredSize(new Dimension(500,mbConsoleSizeH));
+	       mbConsole.setPreferredSize(new Dimension(500,mbConsoleSizeH));
 
 		mbConsole.setVisible(false);
 
@@ -1257,7 +1252,6 @@ class Editor extends JFrame implements ActionListener {
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_F && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
 
-		//mbSearcher.setVisible(true);
 		VisualSearcher+=1;
 
 		if(VisualSearcher==2) {
@@ -1273,9 +1267,9 @@ class Editor extends JFrame implements ActionListener {
            else if(e.getKeyCode() == KeyEvent.VK_DOWN && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
 
               if(StartTempSearch==tempSearch.size())StartTempSearch=0;
-            
+
               StartTempSearch++;
-              
+
               t.requestFocus();
 
               t.setCaretPosition(tempSearch.get(StartTempSearch));
@@ -1284,7 +1278,7 @@ class Editor extends JFrame implements ActionListener {
            else if(e.getKeyCode() == KeyEvent.VK_Q && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
 
               tempSearch.clear();
-              
+
               StartTempSearch=0;
 
               System.gc();
@@ -1293,13 +1287,13 @@ class Editor extends JFrame implements ActionListener {
            else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
 
               if(StartTempSearch==0)StartTempSearch=tempSearch.size();
-            
+
               StartTempSearch--;
-              
+
               t.requestFocus();
 
               t.setCaretPosition(tempSearch.get(StartTempSearch));
-              
+
 
            }
            else if(e.getKeyCode() == KeyEvent.VK_J && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
@@ -1314,40 +1308,40 @@ class Editor extends JFrame implements ActionListener {
 
 		}
 		else { mbJumper.setVisible(true); }
-              
+
            }
 
            t4.setText(t.getText().toString().length()+" chars"+" "+(t.getText().split("\n").length)+" lines"+"   File: "+FileExt+" Language: "+ExtFile);
-           
+
            if(CountFORFREE==30){CountFORFREE=0;System.gc();}
 
            CountFORFREE++;
-           
+
 	    //
 	}
     }
-    
+
     public static void centreWindow(Window frame) {//set center Window
-	
+
 	Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();//get size
-	
+
 	int x = (int) ((dimension.getWidth() - frame.getWidth()) * 0.5);//
-	
+
 	int y = (int) ((dimension.getHeight() - frame.getHeight()) * 0.5);
-	
+
 	frame.setLocation(x, y);
-	
+
     }
 
 
     class SearchPrompter extends KeyAdapter {
-      
+
       public void keyPressed(KeyEvent e) {
-        
+
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
           String s1 = t3.getText();
-          
+
           String parts[] = s1.split("\n");
 
           int sz = parts.length;
@@ -1357,7 +1351,7 @@ class Editor extends JFrame implements ActionListener {
           String parts2[] = part1.split("SearchL: ");
 
           int sz1 = parts2.length;
-          
+
           String jLine = parts2[sz1-1];
 
           String parts3[] = t.getText().split("\n");
@@ -1462,7 +1456,7 @@ class Editor extends JFrame implements ActionListener {
                   if(commander.contains("*")) {
 
                     String Temparts[] = commander.split(" ");
-                
+
                       for(String r:Temparts) {
 
                         if(r.contains("*")) {
@@ -1498,8 +1492,6 @@ class Editor extends JFrame implements ActionListener {
                   }
 		    try {//try
 
-                      //System.out.println("1"+commander);
-
 			Process pR = Runtime.getRuntime().exec(commander);//call program
 
 			int exitCode = pR.waitFor();
@@ -1527,7 +1519,7 @@ class Editor extends JFrame implements ActionListener {
 
 				appendToPane(t2,"\n"+s,tConsoleTextError);
 
-			    }	
+			    }
 			}
 
 			pR.destroy();
@@ -1604,17 +1596,17 @@ class Editor extends JFrame implements ActionListener {
 		    while((s=cmdLineErr.readLine())!=null){//read line by line
 
 			appendToPane(Pather,"\n"+s,tConsoleTextError);
-			    
-		    }	
+
+		    }
 		}
-		    
+
 		pR.destroy();
-		    
+
 	    }
            catch (IOException e1) {
-		    
+
 		e1.printStackTrace();
-		    
+
           }
           catch (InterruptedException e1) {
 
