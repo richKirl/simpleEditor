@@ -24,7 +24,7 @@ class Editor extends JFrame implements ActionListener {
 
     private JTextPane t4;                                    //bottom
 
-    private JTextPane t5;                                    //bottomJumper
+    private JTextPane t5;                                    //top Jumper
 
     // Frame
     private JFrame f;                                        //frame-likewWindow
