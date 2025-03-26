@@ -1017,9 +1017,48 @@ class Editor extends JFrame implements ActionListener {
 
 		else if(current.equals("main")){                               appendToPane(t,current,tBlue);}
 
-		else if(current.equals("\"")){                                 appendToPane(t,current,tBody);}
+		//else if(current.equals("\"")){                                 appendToPane(t,current,tBody);}
 
-		else                                                           appendToPane(t,current,tTextWCF);
+              	else if(current.equals("\"")){
+                    
+                    if(current.equals("\"")&&next.equals("\"")){
+                      
+                      appendToPane(t,current,tBody);
+                        previous = current;
+
+                        current = next;
+
+                        next = it.hasNext() ? it.next() : null;
+                      appendToPane(t,current,tBody);
+
+                    }
+                    else {
+
+                      appendToPane(t,current,tBody);
+
+                      appendToPane(t,next,tBody);
+
+                      for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+                        previous = current;
+
+                        current = next;
+
+                        next = it.hasNext() ? it.next() : null;
+
+                        if(current.equals("\"")){ if(next.equals("\"")){appendToPane(t,current,tBody);previous = current;current = next;next = it.hasNext() ? it.next() : null;appendToPane(t,current,tBody);}else {appendToPane(t,current,tBody);}break; }
+
+                        else appendToPane(t,current,tBody);
+
+                      }
+
+                    }
+
+              }
+
+
+
+		else appendToPane(t,current,tTextWCF);
 
 		}
               list.clear();
