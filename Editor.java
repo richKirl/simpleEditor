@@ -112,6 +112,11 @@ class Editor extends JFrame implements ActionListener {
 
     JPanel panel1;
 
+
+
+    private int FlagForComment=0;
+
+
     // Constructor
     public Editor() {
 
@@ -898,6 +903,10 @@ class Editor extends JFrame implements ActionListener {
 
 		else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
 
+		else if(current.equals("[")){                                  appendToPane(t,current,tBlue);}
+
+		else if(current.equals("]")){                                  appendToPane(t,current,tBlue);}
+
 		else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
 
 		else if(current.equals("}")){                                  appendToPane(t,current,tMagenta);}
@@ -1077,6 +1086,10 @@ class Editor extends JFrame implements ActionListener {
 
 		else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
 
+		else if(current.equals("[")){                                  appendToPane(t,current,tBlue);}
+
+		else if(current.equals("]")){                                  appendToPane(t,current,tBlue);}
+
 		else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
 
 		else if(current.equals("}")){                                  appendToPane(t,current,tMagenta);}
@@ -1232,6 +1245,10 @@ class Editor extends JFrame implements ActionListener {
 		else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
 
 		else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
+
+		else if(current.equals("[")){                                  appendToPane(t,current,tBlue);}
+
+		else if(current.equals("]")){                                  appendToPane(t,current,tBlue);}
 
 		else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
 
@@ -1449,6 +1466,56 @@ class Editor extends JFrame implements ActionListener {
 
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_V && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+
+              //pasteFunction();
+
+	    }
+	    else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+              
+	    }
+	    else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+
+              int currentPos = t.getCaretPosition();
+
+              String s1 = t.getText();
+
+              String tt[] = s1.split("\n");
+
+              String ttt = new String();
+
+              t.setText("");
+
+              int tpos=0;
+
+              int tcols=1;
+
+              int first=0;
+
+              for(String r:tt) {
+
+                tpos+=r.length()+1;
+
+                if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {  
+
+                  first = 1;
+
+                }
+
+                else {
+
+                  ttt+=r;
+
+                  ttt+="\n";
+
+                  tcols++;
+
+                }
+
+              }
+
+              t.setText(ttt);
+
+              System.gc();
 
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_TAB){
@@ -1912,9 +1979,26 @@ class Editor extends JFrame implements ActionListener {
 	    System.gc();//just
 
 	}
+
     }
 
+    public class CmrCommenter {
 
+      public void caretUpdate(CaretEvent e) {
+
+        Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
+
+        for(int i = 0; i < h.length; i++) {
+
+          System.out.println(h[i].getStartOffset());
+
+          System.out.println(h[i].getEndOffset());
+
+        }
+
+      }
+
+    }
 
     // Main class
     public static void main(String[] args) {
