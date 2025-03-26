@@ -1471,7 +1471,17 @@ class Editor extends JFrame implements ActionListener {
 
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
-              
+
+              Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
+
+              for(int i = 0; i < h.length; i++) {
+
+                System.out.println(h[i].getStartOffset());
+
+                System.out.println(h[i].getEndOffset());
+
+              }
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
@@ -1979,24 +1989,6 @@ class Editor extends JFrame implements ActionListener {
 	    System.gc();//just
 
 	}
-
-    }
-
-    public class CmrCommenter {
-
-      public void caretUpdate(CaretEvent e) {
-
-        Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
-
-        for(int i = 0; i < h.length; i++) {
-
-          System.out.println(h[i].getStartOffset());
-
-          System.out.println(h[i].getEndOffset());
-
-        }
-
-      }
 
     }
 
