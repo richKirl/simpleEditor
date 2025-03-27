@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 
-class Editor extends JFrame implements ActionListener {
+class Editor extends JFrame implements ActionListener  {
 
     // Text component
     private JTextPane t;                                     //code
@@ -127,6 +127,9 @@ class Editor extends JFrame implements ActionListener {
 
 
 	f = new JFrame("editor");
+
+
+
 
        tempSearch = new ArrayList<Integer>();
 
@@ -410,7 +413,6 @@ class Editor extends JFrame implements ActionListener {
 	//COLORENDINIT
 
 
-
 	JPanel panel = new JPanel();//create panel
 
 	panel.setLayout(new BorderLayout());//create template for complians
@@ -447,19 +449,25 @@ class Editor extends JFrame implements ActionListener {
        panel2.add(panel1,BorderLayout.CENTER);
 
 
+
+       f.add(new JLabel(new ImageIcon("1155667.png")));
+       
+
+
+	f.add(panel2);//connect all panel to frame
+
+
        f.add(mb,BorderLayout.NORTH);//menubar to up
 
 	f.add(mbViewer,BorderLayout.WEST);
 
 	f.add(mbConsole,BorderLayout.SOUTH);//set scroll to cli and set bottom position
 
-	f.add(panel2);//connect all panel to frame
-
-
 
 	f.setSize(1200, 900);//set size wxh
 
 	centreWindow(f);//set center position
+
 
 	f.setVisible(true);//show()
 
@@ -476,8 +484,6 @@ class Editor extends JFrame implements ActionListener {
 	appendToPane(t2,"\n"+" % ",tTextWCF);
 
 	testls = new CmrViewer();//connect keyevent
-
-
 
     }
 
@@ -650,11 +656,7 @@ class Editor extends JFrame implements ActionListener {
 
               ExtFile = partsDim[sz2-1];
 
-              if(ExtFile.equals("java"))ExtFile=langSupport[2];
 
-              else if(ExtFile.equals("cpp"))ExtFile=langSupport[1];
-
-              else if(ExtFile.equals("c"))ExtFile=langSupport[0];
 
 		String tt=new String();
 
@@ -686,6 +688,13 @@ class Editor extends JFrame implements ActionListener {
 
 		// Set the text
 		t.setText(sl);
+
+              if(ExtFile.equals("java")){ ExtFile=langSupport[2]; cmrColorTexte(); }
+
+              else if(ExtFile.equals("cpp")){ ExtFile=langSupport[1];cmrColorTexte(); }
+
+              else if(ExtFile.equals("c")){ ExtFile=langSupport[0]; cmrColorTexte(); }
+
 
 		System.gc();
 
@@ -778,6 +787,14 @@ class Editor extends JFrame implements ActionListener {
     class ColorStyle extends MouseInputAdapter {
 
 	public void mouseClicked(MouseEvent mouseEvent) {
+
+          cmrColorTexte();
+
+       }
+
+     }
+
+      public void cmrColorTexte() {
 
          int currPosC=t.getCaretPosition();
 
@@ -1199,6 +1216,8 @@ class Editor extends JFrame implements ActionListener {
 
 		else if(current.equals("protected")){                          appendToPane(t,current,tBlue);}
 
+		else if(current.equals("throws")){                             appendToPane(t,current,tBlue);}
+
 		else if(current.equals("public")){                             appendToPane(t,current,tBlue);}
 
 		else if(current.equals("private")){                            appendToPane(t,current,tBlue);}
@@ -1304,9 +1323,6 @@ class Editor extends JFrame implements ActionListener {
                     }
 
               }
-
-
-
 		else appendToPane(t,current,tTextWCF);
 
 		}
@@ -1320,29 +1336,6 @@ class Editor extends JFrame implements ActionListener {
 	    System.gc();
 
 	}
-
-     }
-
-    private void appendToConsolePane(JTextPane tp, String msg, Color c) {
-
-      StyleContext sc = StyleContext.getDefaultStyleContext();
-
-      AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-      aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
-
-      aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
-
-
-      int len = tp.getDocument().getLength();
-
-      tp.setCaretPosition(len);
-
-      tp.setCharacterAttributes(aset, false);
-
-      tp.replaceSelection(msg);
-
-    }
 
 
     private void appendToPane(JTextPane tp, String msg, Color c) {
@@ -1384,28 +1377,6 @@ class Editor extends JFrame implements ActionListener {
       tp.setCaretPosition(len);
 
       tp.setCharacterAttributes(aset,false);
-
-      tp.replaceSelection(msg);
-
-    }
-    
-    //AddTabs to current position
-    private void appendToPaneNumbers(JTextPane tp, String msg, Color c) {
-
-
-      StyleContext sc = StyleContext.getDefaultStyleContext();
-
-      AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-      aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
-
-      aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
-
-      int len = tp.getCaretPosition();
-
-      tp.setCaretPosition(len);
-
-      tp.setCharacterAttributes(aset,true);
 
       tp.replaceSelection(msg);
 
@@ -1461,6 +1432,8 @@ class Editor extends JFrame implements ActionListener {
 
 		OpenFile();
 
+              cmrColorTexte();
+
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_P && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
@@ -1484,130 +1457,14 @@ class Editor extends JFrame implements ActionListener {
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-              int currentPosC = t.getCaretPosition();
+              cmrCommenter();
 
-              Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
-
-              int hi=-1;
-
-              int hl=-1;
-
-              for(int i = 0; i < h.length; i++) {
-
-                hi=h[i].getStartOffset();
-
-                hl=h[i].getEndOffset();
-
-              }
-
-              if(hi==-1&&hl==-1){}
-
-              else {
-
-                int currentPos = hi;
-
-                String s1 = t.getText();
-
-                int countLI=1;
-
-                String s2 = s1.substring(hi,hl);
-
-                String tt2[] = s2.split("\n");
-
-                countLI = tt2.length-1;
-
-                String tt[] = s1.split("\n");
-
-                String ttt = new String();
-
-                t.setText("");
-
-                int tpos=0;
-
-                int tcols=1;
-
-                int first=0;
-
-                for(String r:tt) {
-
-                  tpos+=r.length()+1;
-
-                  if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {  
-
-                    if(countLI==0)first=1;
-
-                    ttt+="//"+r+"\n";
-
-                    countLI--;
-
-                  }
-
-                  else {
-
-                    ttt+=r;
-
-                    ttt+="\n";
-
-                    tcols++;
-
-                  }
-
-                }
-
-              t.setText(ttt);
-
-              t.setCaretPosition(currentPosC);
-
-              System.gc();
-
-              }
+              cmrColorTexte();
 
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-              int currentPos = t.getCaretPosition();
-
-              String s1 = t.getText();
-
-              String tt[] = s1.split("\n");
-
-              String ttt = new String();
-
-              t.setText("");
-
-              int tpos=0;
-
-              int tcols=1;
-
-              int first=0;
-
-              for(String r:tt) {
-
-                tpos+=r.length()+1;
-
-                if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {  
-
-                  first = 1;
-
-
-
-                }
-
-                else {
-
-                  ttt+=r;
-
-                  ttt+="\n";
-
-                  tcols++;
-
-                }
-
-              }
-
-              t.setText(ttt);
-              t.setCaretPosition(currentPos);
-              System.gc();
+              cmrDeleterLine();
 
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_TAB){
@@ -1773,6 +1630,141 @@ class Editor extends JFrame implements ActionListener {
 	}
     }
 
+
+    public void cmrCommenter() {
+
+      int currentPosC = t.getCaretPosition();
+
+      Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
+
+      int hi=-1;
+
+      int hl=-1;
+
+      for(int i = 0; i < h.length; i++) {
+
+        hi=h[i].getStartOffset();
+
+        hl=h[i].getEndOffset();
+
+      }
+
+      if(hi==-1&&hl==-1){}
+
+      else {
+
+        int currentPos = hi;
+
+        String s1 = t.getText();
+
+        int countLI=1;
+
+        String s2 = s1.substring(hi,hl);
+
+        String tt2[] = s2.split("\n");
+
+        countLI = tt2.length-1;
+
+        String tt[] = s1.split("\n");
+
+        String ttt = new String();
+
+        t.setText("");
+
+        int tpos=0;
+
+        int tcols=1;
+
+        int first=0;
+
+        for(String r:tt) {
+
+          tpos+=r.length()+1;
+
+          if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {  
+
+             if(countLI==0)first=1;
+
+               ttt+="//"+r+"\n";
+
+               countLI--;
+
+             }
+
+             else {
+
+               ttt+=r;
+
+               ttt+="\n";
+
+               tcols++;
+
+             }
+
+           }
+
+          t.setText(ttt);
+
+          t.setCaretPosition(currentPosC);
+
+          System.gc();
+
+              
+
+        }
+
+    }
+
+
+    public void cmrDeleterLine() {
+
+      int currentPos = t.getCaretPosition();
+
+      String s1 = t.getText();
+
+      String tt[] = s1.split("\n");
+
+      String ttt = new String();
+
+      t.setText("");
+
+      int tpos=0;
+
+      int tcols=1;
+
+      int first=0;
+
+      for(String r:tt) {
+
+        tpos+=r.length()+1;
+
+        if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {  
+
+          first = 1;
+
+        }
+
+        else {
+
+          ttt+=r;
+
+          ttt+="\n";
+
+          tcols++;
+
+        }
+
+      }
+
+      t.setText(ttt);
+
+      t.setCaretPosition(currentPos);
+
+      System.gc();
+
+    }
+
+
     public static void centreWindow(Window frame) {//set center Window
 
 	Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();//get size
@@ -1827,7 +1819,6 @@ class Editor extends JFrame implements ActionListener {
       }
 
     }
-
 
     class  jumpPrompter extends KeyAdapter {
 
