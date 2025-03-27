@@ -21,9 +21,9 @@ ctrl+o open doc
 
 ctrl+p print doc
 
-}
+};
 
-ctrl+w comment
+ctrl+w comment;
 
 
 #specific
@@ -37,7 +37,7 @@ ctrl+down
 
 ctrl+q
 
-}
+};
 
 
 #panels
@@ -51,4 +51,4 @@ alt+q "withFocus-caret on File-space" jump to minicli with save position-caret a
 
 alt+up/down/left/right "withFocus-caret on File-space" up/down minicli, "withFocus-caret on File-space" left/right viewerFile 
 
-}
+};
