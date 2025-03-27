@@ -6,32 +6,49 @@ simpleEditor
 # How to use
 manual
 
-ctrl+v
+#base
+{
 
-ctrl+c
+ctrl+v default
 
-ctrl+x
+ctrl+c default
 
-ctrl+j
+ctrl+x default
 
-ctrl+l
+ctrl+s default
 
-ctrl+o
+ctrl+o open doc
 
-ctrl+p
+ctrl+p print doc
 
-ctrl+up
+}
 
-ctrl+down
+ctrl+w comment
 
-ctrl+w
+
+#specific
+{
+
+ctrl+j close/open panel SearchJ - search from number line
+
+ctrl+f close/open panel SearchL - search text in line then use ctrl+down and if end with searching ctrl+q for free container
+
+ctrl+down 
 
 ctrl+q
 
-alt+v
+}
 
-alt+m
 
-alt+q
+#panels
+{
 
-alt+up/down/left/right
+alt+v notVisible/Visible viewerFile
+
+alt+m notVisible/Visible minicli
+
+alt+q "withFocus-caret on File-space" jump to minicli with save position-caret and "withFocus-caret on minicli-space" return to caretsavepos to File-Space  
+
+alt+up/down/left/right "withFocus-caret on File-space" up/down minicli, "withFocus-caret on File-space" left/right viewerFile 
+
+}
