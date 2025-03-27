@@ -227,9 +227,13 @@ class Editor extends JFrame implements ActionListener {
 
 	JMenu col = new JMenu("ColorText");//menu button for close instant
 
+       JMenu stat = new JMenu("Stat");//menu button for close instant
+
 	mc.addMouseListener(new ExitAction());//connect event
 
 	col.addMouseListener(new ColorStyle());
+
+       stat.setToolTipText("Click this button to disable the middle button.");
 
 	mb.add(m1);//connect all menu to menubar-top
 
@@ -238,6 +242,8 @@ class Editor extends JFrame implements ActionListener {
 	mb.add(mc);
 
 	mb.add(col);
+
+       mb.add(stat);
 
 
 	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit on button close X
@@ -470,6 +476,8 @@ class Editor extends JFrame implements ActionListener {
 	appendToPane(t2,"\n"+" % ",tTextWCF);
 
 	testls = new CmrViewer();//connect keyevent
+
+
 
     }
 
@@ -770,6 +778,8 @@ class Editor extends JFrame implements ActionListener {
     class ColorStyle extends MouseInputAdapter {
 
 	public void mouseClicked(MouseEvent mouseEvent) {
+
+         int currPosC=t.getCaretPosition();
 
          if(ExtFile.equals("cpp")) {
 
@@ -1305,6 +1315,8 @@ class Editor extends JFrame implements ActionListener {
 
            }
 
+           t.setCaretPosition(currPosC);
+
 	    System.gc();
 
 	}
@@ -1472,6 +1484,8 @@ class Editor extends JFrame implements ActionListener {
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
+              int currentPosC = t.getCaretPosition();
+
               Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
 
               int hi=-1;
@@ -1489,10 +1503,6 @@ class Editor extends JFrame implements ActionListener {
               if(hi==-1&&hl==-1){}
 
               else {
-
-                
-
-                
 
                 int currentPos = hi;
 
@@ -1546,6 +1556,8 @@ class Editor extends JFrame implements ActionListener {
 
               t.setText(ttt);
 
+              t.setCaretPosition(currentPosC);
+
               System.gc();
 
               }
@@ -1577,6 +1589,8 @@ class Editor extends JFrame implements ActionListener {
 
                   first = 1;
 
+
+
                 }
 
                 else {
@@ -1592,7 +1606,7 @@ class Editor extends JFrame implements ActionListener {
               }
 
               t.setText(ttt);
-
+              t.setCaretPosition(currentPos);
               System.gc();
 
 	    }
