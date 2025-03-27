@@ -425,7 +425,7 @@ class Editor extends JFrame implements ActionListener  {
        panel1.setLayout(new BorderLayout());
 
        panel2.setLayout(new BorderLayout());
-
+        
        //left because numbers
        panel1.add(mbSearcher, BorderLayout.NORTH);
 
@@ -447,12 +447,7 @@ class Editor extends JFrame implements ActionListener  {
        panel1.add(panelScrollText,BorderLayout.CENTER);
 
        panel2.add(panel1,BorderLayout.CENTER);
-
-
-
-       f.add(new JLabel(new ImageIcon("1155667.png")));
        
-
 
 	f.add(panel2);//connect all panel to frame
 
@@ -543,7 +538,7 @@ class Editor extends JFrame implements ActionListener  {
 
     public void SaveFunction() {
 
-	if(FilePathw!=null){
+	if(FilePathw!=null) {
 
 	    try {
 
@@ -569,7 +564,7 @@ class Editor extends JFrame implements ActionListener  {
 
 
 	}
-	else if(FilePathw==null){
+	else if(FilePathw==null) {
 
 	    // Create an object of JFileChooser class
 	    JFileChooser j = new JFileChooser("f:");
@@ -1336,6 +1331,21 @@ class Editor extends JFrame implements ActionListener  {
 	    System.gc();
 
 	}
+
+    public void cmrFormatTexte() {
+
+      String s1 = t.getText();
+
+      t.setText("");
+
+      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
+
+      List<String> list = new ArrayList<String>();
+
+      for(String r: parts)list.add(r);
+
+    }
+
 
 
     private void appendToPane(JTextPane tp, String msg, Color c) {
