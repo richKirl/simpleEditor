@@ -599,11 +599,12 @@ class Editor extends JFrame implements ActionListener  {
             JOptionPane.showMessageDialog(f, evt.getMessage());
 
           }
+
         }
+
       }
       // If the user cancelled the operation
-      else
-      JOptionPane.showMessageDialog(f, "the user cancelled the operation");
+      else JOptionPane.showMessageDialog(f, "the user cancelled the operation");
 
 
       System.gc();
@@ -703,8 +704,7 @@ class Editor extends JFrame implements ActionListener  {
       }
 
       // If the user cancelled the operation
-      else
-      JOptionPane.showMessageDialog(f, "the user cancelled the operation");
+      else JOptionPane.showMessageDialog(f, "the user cancelled the operation");
 
     }
 
@@ -1427,7 +1427,7 @@ class Editor extends JFrame implements ActionListener  {
           else if(current.equals("}")){countCCCC-=1;}
 
         }
-        //System.out.println(countCCCC);
+
         list.clear();
 
       }
@@ -1492,6 +1492,7 @@ class Editor extends JFrame implements ActionListener  {
         System.exit(0);
 
       }
+
     }
 
 
@@ -1572,8 +1573,6 @@ class Editor extends JFrame implements ActionListener  {
         else if(e.getKeyCode() == KeyEvent.VK_F && (e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
 
           cmrFormatTexte();cmrColorTexte();
-
-          //cmrDeleterLine();cmrColorTexte();
 
         }
         else if(e.getKeyCode() == KeyEvent.VK_TAB){
@@ -1735,8 +1734,8 @@ class Editor extends JFrame implements ActionListener  {
 
       CountFORFREE++;
 
-      // 
     }
+
   }
 
 
@@ -1973,7 +1972,7 @@ class Editor extends JFrame implements ActionListener  {
 
       }
 
-      }      
+    }      
 
   }
 
@@ -2063,6 +2062,7 @@ class Editor extends JFrame implements ActionListener  {
                 appendToPane(t2,"\n"+s,tTextWCF);
 
               }
+
             }
 
             if(exitCode!=0) {
@@ -2072,6 +2072,7 @@ class Editor extends JFrame implements ActionListener  {
                 appendToPane(t2,"\n"+s,tConsoleTextError);
 
               }
+
             }
 
             pR.destroy();
@@ -2087,6 +2088,7 @@ class Editor extends JFrame implements ActionListener  {
             e1.printStackTrace();
 
           }
+
         }
 
         commander= "";//free command string
@@ -2105,7 +2107,9 @@ class Editor extends JFrame implements ActionListener  {
         t.requestFocus();t.setCaretPosition(CaretPosSave);
 
       }
+
     }
+
   }
 
 
@@ -2141,6 +2145,7 @@ class Editor extends JFrame implements ActionListener  {
             appendToPane(Pather,"\n"+s,tTextWCF);
 
           }
+
         }
 
         if(exitCode!=0) {
@@ -2150,6 +2155,7 @@ class Editor extends JFrame implements ActionListener  {
             appendToPane(Pather,"\n"+s,tConsoleTextError);
 
           }
+
         }
 
         pR.destroy();
@@ -2180,4 +2186,5 @@ class Editor extends JFrame implements ActionListener  {
     Editor e = new Editor();//jump to editor
 
   }
+
 }
