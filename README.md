@@ -32,7 +32,7 @@ format on panel //{without "//}" "= {"};
 
 ctrl+j notVisible/Visible panel SearchJ - search from number line;
 
-ctrl+f notVisible/Visible panel SearchL - search text in line then use ctrl+down and if end with searching ctrl+q for free container;
+ctrl+f notVisible/Visible panel SearchL - search text in line then use ctrl+down/up and if end with searching ctrl+q for free container;
 
 ctrl+down/up;
 
