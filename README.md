@@ -24,7 +24,7 @@ ctrl+p print doc;
 };
 
 ctrl+w comment;
-
+ctrl+f format
 
 #specific
 {
