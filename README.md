@@ -25,7 +25,7 @@ ctrl+p print doc;
 
 ctrl+w comment;
 
-shift+f format;
+format on panel //{without "//}" "= {"};
 
 #specific
 {
