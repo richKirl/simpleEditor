@@ -9,7 +9,6 @@ simpleEditor
 manual
 
 # base
-{
 
 ctrl+v default;
 
@@ -23,14 +22,13 @@ ctrl+o open doc;
 
 ctrl+p print doc;
 
-};
+# simpleFuncs
 
 ctrl+w comment;
 
 format on panel //{without "//}" "= {"};
 
 # specific
-{
 
 ctrl+j notVisible/Visible panel SearchJ - search from number line;
 
@@ -40,11 +38,10 @@ ctrl+down;
 
 ctrl+q;
 
-};
+
 
 
 # panels
-{
 
 alt+v notVisible/Visible viewerFile;
 
@@ -54,4 +51,4 @@ alt+q "withFocus-caret on File-space" jump to minicli with save position-caret a
 
 alt+up/down/left/right "withFocus-caret on File-space" up/down minicli, "withFocus-caret on File-space" left/right viewerFile;
 
-};
+
