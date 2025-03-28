@@ -1332,17 +1332,109 @@ class Editor extends JFrame implements ActionListener  {
 
 	}
 
+    //test
     public void cmrFormatTexte() {
 
       String s1 = t.getText();
 
       t.setText("");
 
-      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
+      String s2[] = s1.split("\n");
+
+      String ttt = new String();
+
+      int countCCCC=0;int first=0;
 
       List<String> list = new ArrayList<String>();
 
-      for(String r: parts)list.add(r);
+      for(String r:s2) {
+
+        r=r.replaceFirst("^\\s*", "");
+
+        if(r.length()==1&&r.contains("}")){countCCCC--;}
+
+        for(int i=0;i<countCCCC;i++){if(r.equals("")){}else{ttt+="  ";}}
+
+        if(r.length()==1&&r.contains("}")){countCCCC++;}
+
+        ttt+=r;ttt+="\n";
+
+        String parts[] = r.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
+
+        
+
+        for(String r1: parts)list.add(r1);
+
+        final Iterator<String> it = list.iterator();
+
+	 for(String next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+          String previous = current;
+
+          current = next;
+
+          next = it.hasNext() ? it.next() : null;
+
+          if(current.equals("{")){countCCCC++;}
+
+          else if(current.equals("{")&&next.equals("}")) {
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+          }
+          else if(current.equals("\"")&&next.equals("{")) {
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+            
+
+          }
+          else if(current.equals("\"")&&next.equals("}")) {
+
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+          }
+          else if(current.equals("}")){countCCCC-=1;}
+
+        }
+        //System.out.println(countCCCC);
+        list.clear();
+
+      }
+
+      t.setText(ttt);
+
+      System.gc();
 
     }
 
@@ -1474,7 +1566,15 @@ class Editor extends JFrame implements ActionListener  {
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-              cmrDeleterLine();
+
+              cmrFormatTexte();
+
+              //cmrDeleterLine();cmrColorTexte();
+
+	    }
+	    else if(e.getKeyCode() == KeyEvent.VK_1 && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+
+              
 
 	    }
 	    else if(e.getKeyCode() == KeyEvent.VK_TAB){
