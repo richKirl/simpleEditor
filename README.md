@@ -8,7 +8,7 @@ simpleEditor
 # How to use
 manual
 
-#base
+# base
 {
 
 ctrl+v default;
@@ -29,7 +29,7 @@ ctrl+w comment;
 
 format on panel //{without "//}" "= {"};
 
-#specific
+# specific
 {
 
 ctrl+j notVisible/Visible panel SearchJ - search from number line;
@@ -43,7 +43,7 @@ ctrl+q;
 };
 
 
-#panels
+# panels
 {
 
 alt+v notVisible/Visible viewerFile;
