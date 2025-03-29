@@ -28,7 +28,7 @@ ctrl+w comment;
 
 format on panel //{without "//}" "= {"};
 
-shift+9 with focus on doc with select string for () after shift+9 need delete left (
+shift+9 with focus on doc with select string for () 
 
 # specific
 
