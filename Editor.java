@@ -117,6 +117,8 @@ class Editor extends JFrame implements ActionListener  {
   private int FlagForComment=0;
 
 
+  private int FlagBraces=0;
+
   // Constructor
   public Editor() {
 
@@ -273,17 +275,17 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-    t3 = new JTextPane(); 
+    t3 = new JTextPane();
 
     t3.setPreferredSize(new Dimension(600,30));
 
-    t4 = new JTextPane(); 
+    t4 = new JTextPane();
 
-    t4.setPreferredSize(new Dimension(600,30));	
+    t4.setPreferredSize(new Dimension(600,30));
 
-    t5 = new JTextPane(); 
+    t5 = new JTextPane();
 
-    t5.setPreferredSize(new Dimension(600,30));	
+    t5.setPreferredSize(new Dimension(600,30));
 
 
     mbConsole.add(new JScrollPane(t2));//connect jtextarea-cli to bottom menubar
@@ -1359,7 +1361,7 @@ class Editor extends JFrame implements ActionListener  {
     for(String r:s2) {
 
       r=r.replaceFirst("^\\s*", "");
-
+      r=r.replaceFirst("\\s*$", "");
       if(r.length()==1&&r.contains("}")){countCCCC--;}
       for(int i=0;i<countCCCC;i++){if(r.equals("")){}else{ttt+="  ";}}
 
@@ -1587,6 +1589,11 @@ class Editor extends JFrame implements ActionListener  {
         cmrCommenter();
 
         cmrColorTexte();
+
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_9 && (e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
+
+        cmrBraces();
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
@@ -1860,7 +1867,7 @@ class Editor extends JFrame implements ActionListener  {
 
         tpos+=r.length()+1;
 
-        if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {  
+        if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {
 
           if(countLI==0)first=1;
 
@@ -1888,12 +1895,50 @@ class Editor extends JFrame implements ActionListener  {
 
       System.gc();
 
-
-
     }
 
   }
 
+  public void cmrBraces() {
+
+    int currentPosC = t.getCaretPosition();
+
+    Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
+
+    int hi=-1;
+
+    int hl=-2;
+
+    for(int i = 0; i < h.length; i++) {
+
+      hi=h[i].getStartOffset();
+
+      hl=h[i].getEndOffset();
+
+    }
+
+    if(hi==-1&&hl==-2||hi==hl){}
+    else {
+
+      FlagBraces=1;
+
+      int currentPos = hi;
+
+      t.setText(t.getText().substring(0,hi)+"("+t.getText().substring(hi,t.getText().length()));
+
+      t.setText(t.getText().substring(0,hl+1)+")"+t.getText().substring(hl+1,t.getText().length()));
+
+      t.setCaretPosition(currentPosC);
+
+      //t.setText(t.getText().replaceFirst(t.getText().valueOf(currentPos-1),""));
+      //String ttt=new String();
+      //System.out.println(hi+" "+hl);
+
+      System.gc();
+
+    }
+
+  }
 
   public void cmrDeleterLine() {
 
@@ -1917,7 +1962,7 @@ class Editor extends JFrame implements ActionListener  {
 
       tpos+=r.length()+1;
 
-      if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {  
+      if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {
 
         first = 1;
 
@@ -2043,7 +2088,7 @@ class Editor extends JFrame implements ActionListener  {
 
       }
 
-      }      
+    }
 
   }
 
@@ -2257,5 +2302,4 @@ class Editor extends JFrame implements ActionListener  {
     Editor e = new Editor();//jump to editor
 
   }
-
 }
