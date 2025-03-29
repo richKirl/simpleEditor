@@ -1599,9 +1599,9 @@ class Editor extends JFrame implements ActionListener  {
 
       }
       else if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
-      
-        
-        
+
+
+
         if(e.getKeyCode() == KeyEvent.VK_BACK_QUOTE  ) {
 
           CaretPosSave=t.getCaretPosition();
@@ -1610,7 +1610,7 @@ class Editor extends JFrame implements ActionListener  {
 
           t.setCaretPosition(CaretPosSave+1);
 
-        }  
+        }
         else if(e.getKeyCode() == KeyEvent.VK_1) {
 
           CaretPosSave=t.getCaretPosition();
