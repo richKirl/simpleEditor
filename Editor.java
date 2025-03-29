@@ -8,8 +8,10 @@ import javax.swing.text.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
+import java.awt.event.ActionListener;
 
 class Editor extends JFrame implements ActionListener  {
 
@@ -1346,6 +1348,8 @@ class Editor extends JFrame implements ActionListener  {
   //test
   public void cmrFormatTexte() {
 
+    int ccc=t.getCaretPosition();
+
     String s1 = t.getText();
 
     t.setText("");
@@ -1460,6 +1464,8 @@ class Editor extends JFrame implements ActionListener  {
 
     t.setText(ttt);
 
+    t.setCaretPosition(ccc);
+
     System.gc();
 
   }
@@ -1545,6 +1551,7 @@ class Editor extends JFrame implements ActionListener  {
 
     public void keyPressed(KeyEvent e) {
 
+
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
         LineNN+=1;
@@ -1591,9 +1598,361 @@ class Editor extends JFrame implements ActionListener  {
         cmrColorTexte();
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_9 && (e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
+      else if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
+      
+        
+        
+        if(e.getKeyCode() == KeyEvent.VK_BACK_QUOTE  ) {
 
-        cmrBraces();cmrColorTexte();
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"~"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }  
+        else if(e.getKeyCode() == KeyEvent.VK_1) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"!"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_2) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"@"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_3) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"#"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_4) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"$"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_5) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"%"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_6) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"^"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_7) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"&"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_8) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"*"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_9) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          cmrBraces();cmrColorTexte();
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_0) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+")"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_MINUS) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"_"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"+"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_Q) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"Q"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_W) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"W"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_E) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"E"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_R) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"R"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_T) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"T"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_Y) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"Y"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_U) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"U"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_I) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"I"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_O) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"O"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_P) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"P"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_A) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"A"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_S) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"S"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_D) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"D"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_F) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"F"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_G) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"G"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_H) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"H"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_J) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"J"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_K) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"K"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_L) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"L"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_Z) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"Z"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_X) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"X"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_C) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"C"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_V) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"V"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_B) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"B"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_N) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"N"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_M) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          t.setText(t.getText().substring(0,CaretPosSave)+"M"+t.getText().substring(CaretPosSave,t.getText().length()));
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
@@ -1691,6 +2050,21 @@ class Editor extends JFrame implements ActionListener  {
       if(CountFORFREE==30){CountFORFREE=0;System.gc();}
 
       CountFORFREE++;
+
+    }
+    public void keyTyped(KeyEvent e) {
+
+      if(( (e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) ) {
+
+        e.consume();
+
+        if(e.getKeyCode() == KeyEvent.VK_9){
+
+          //e.consume();
+
+        }
+
+      }
 
     }
 
@@ -1899,6 +2273,7 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+
   public void cmrBraces() {
 
     int currentPosC = t.getCaretPosition();
@@ -1917,7 +2292,13 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-    if(hi==-1&&hl==-2||hi==hl){}
+    if(hi==-1&&hl==-2||hi==hl){
+
+      int currentPos=t.getCaretPosition();
+
+      t.setText(t.getText().substring(0,currentPos)+"("+t.getText().substring(currentPos,t.getText().length()));
+
+    }
     else {
 
       FlagBraces=1;
@@ -1929,10 +2310,6 @@ class Editor extends JFrame implements ActionListener  {
       t.setText(t.getText().substring(0,hl+1)+")"+t.getText().substring(hl+1,t.getText().length()));
 
       t.setCaretPosition(currentPosC);
-
-      //t.setText(t.getText().replaceFirst(t.getText().valueOf(currentPos-1),""));
-      //String ttt=new String();
-      //System.out.println(hi+" "+hl);
 
       System.gc();
 
