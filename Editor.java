@@ -1593,7 +1593,7 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_9 && (e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
 
-        cmrBraces();
+        cmrBraces();cmrColorTexte();
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
