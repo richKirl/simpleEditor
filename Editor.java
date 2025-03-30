@@ -443,7 +443,6 @@ class Editor extends JFrame implements ActionListener  {
 
     panel.add(t, BorderLayout.CENTER);//right extend to center
 
-
     panelScrollText = new JScrollPane(panel);
 
     panelScrollText.setRowHeaderView(t1);
@@ -453,6 +452,8 @@ class Editor extends JFrame implements ActionListener  {
     panel1.add(panelScrollText,BorderLayout.CENTER);
 
     panel2.add(panel1,BorderLayout.CENTER);
+
+
 
 
     f.add(panel2);//connect all panel to frame
@@ -1469,7 +1470,44 @@ class Editor extends JFrame implements ActionListener  {
     System.gc();
 
   }
+  private void appendToPaneCurrPos(JTextPane tp, String msg, Color c,int pos) {
 
+    StyleContext sc = StyleContext.getDefaultStyleContext();
+
+    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+    aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+
+    aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+
+    tp.setCaretPosition(pos);
+
+    tp.setCharacterAttributes(aset,false);
+
+    tp.replaceSelection(msg);
+
+  }
+
+  private void appendToPaneCurr(JTextPane tp, String msg, Color c) {
+
+    StyleContext sc = StyleContext.getDefaultStyleContext();
+
+    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+    aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+
+    aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+
+
+    int len = tp.getCaretPosition();
+
+    tp.setCaretPosition(len);
+
+    tp.setCharacterAttributes(aset,false);
+
+    tp.replaceSelection(msg);
+
+  }
 
 
   private void appendToPane(JTextPane tp, String msg, Color c) {
@@ -1559,6 +1597,24 @@ class Editor extends JFrame implements ActionListener  {
         appendToPane(t1,""+LineNN+" \n",tTextWCF);
 
       }
+      else if(e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
+
+        CaretPosSave=t.getCaretPosition();
+
+        appendToPaneCurrPos(t,"[",tBlue,CaretPosSave);
+
+        t.setCaretPosition(CaretPosSave+1);
+
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) {
+
+        CaretPosSave=t.getCaretPosition();
+
+        appendToPaneCurrPos(t,"]",tBlue,CaretPosSave);
+
+        t.setCaretPosition(CaretPosSave+1);
+
+      }
       else if(e.getKeyCode() == KeyEvent.VK_S && (e.getModifiersEx() ==( KeyEvent.CTRL_DOWN_MASK))) {
 
         SaveFunction();
@@ -1606,7 +1662,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"~"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"~",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1615,7 +1671,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"!"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"!",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1624,7 +1680,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"@"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"@",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1633,7 +1689,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"#"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"#",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1642,7 +1698,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"$"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"$",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1651,7 +1707,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"%"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"%",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1660,7 +1716,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"^"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"^",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1669,7 +1725,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"&"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"&",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1678,7 +1734,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"*"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"*",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1687,7 +1743,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          cmrBraces();cmrColorTexte();
+          cmrBraces();//cmrColorTexte();
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1696,7 +1752,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+")"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,")",tBlue,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1705,7 +1761,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"_"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"_",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1714,7 +1770,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"+"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"+",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1723,7 +1779,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"Q"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"Q",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1732,7 +1788,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"W"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"W",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1741,7 +1797,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"E"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"E",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1750,7 +1806,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"R"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"R",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1759,7 +1815,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"T"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"T",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1768,7 +1824,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"Y"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"Y",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1777,7 +1833,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"U"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"U",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1786,7 +1842,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"I"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"I",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1795,7 +1851,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"O"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"O",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1804,7 +1860,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"P"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"P",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1813,7 +1869,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"A"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"A",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1822,7 +1878,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"S"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"S",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1831,7 +1887,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"D"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"D",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1840,7 +1896,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"F"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"F",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1849,7 +1905,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"G"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"G",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1858,7 +1914,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"H"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"H",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1867,7 +1923,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"J"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"J",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1876,7 +1932,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"K"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"K",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1885,7 +1941,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"L"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"L",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1894,7 +1950,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"Z"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"Z",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1903,7 +1959,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"X"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"X",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1912,7 +1968,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"C"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"C",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1921,7 +1977,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"V"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"V",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1930,7 +1986,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"B"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"B",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1939,7 +1995,8 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"N"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"N",tTextWCF,CaretPosSave);
+          //t.setText(t.getText().substring(0,CaretPosSave)+"N"+t.getText().substring(CaretPosSave,t.getText().length()));
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -1948,12 +2005,83 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          t.setText(t.getText().substring(0,CaretPosSave)+"M"+t.getText().substring(CaretPosSave,t.getText().length()));
+          appendToPaneCurrPos(t,"M",tTextWCF,CaretPosSave);
 
           t.setCaretPosition(CaretPosSave+1);
 
         }
+        else if(e.getKeyCode() == KeyEvent.VK_COMMA) {
 
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,"<",tTextWCF,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_PERIOD) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,">",tTextWCF,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_SLASH) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,"?",tTextWCF,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_SEMICOLON) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,":",tTextWCF,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_QUOTE) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,"\"",tBody,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,"|",tTextWCF,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,"{",tMagenta,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) {
+
+          CaretPosSave=t.getCaretPosition();
+
+          appendToPaneCurrPos(t,"}",tMagenta,CaretPosSave);
+
+          t.setCaretPosition(CaretPosSave+1);
+
+        }
       }
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
@@ -2296,7 +2424,7 @@ class Editor extends JFrame implements ActionListener  {
 
       int currentPos=t.getCaretPosition();
 
-      t.setText(t.getText().substring(0,currentPos)+"("+t.getText().substring(currentPos,t.getText().length()));
+      appendToPaneCurrPos(t,"(",tBlue,currentPos);
 
     }
     else {
@@ -2305,9 +2433,9 @@ class Editor extends JFrame implements ActionListener  {
 
       int currentPos = hi;
 
-      t.setText(t.getText().substring(0,hi)+"("+t.getText().substring(hi,t.getText().length()));
+      appendToPaneCurrPos(t,"(",tBlue,hi);
 
-      t.setText(t.getText().substring(0,hl+1)+")"+t.getText().substring(hl+1,t.getText().length()));
+      appendToPaneCurrPos(t,")",tBlue,hl);
 
       t.setCaretPosition(currentPosC);
 
@@ -2679,4 +2807,5 @@ class Editor extends JFrame implements ActionListener  {
     Editor e = new Editor();//jump to editor
 
   }
+
 }
