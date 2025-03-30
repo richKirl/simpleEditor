@@ -1366,8 +1366,11 @@ class Editor extends JFrame implements ActionListener  {
     for(String r:s2) {
 
       r=r.replaceFirst("^\\s*", "");
+
       r=r.replaceFirst("\\s*$", "");
+
       if(r.length()==1&&r.contains("}")){countCCCC--;}
+
       for(int i=0;i<countCCCC;i++){if(r.equals("")){}else{ttt+="  ";}}
 
       if(r.length()==1&&r.contains("}")){countCCCC++;}
@@ -1392,6 +1395,7 @@ class Editor extends JFrame implements ActionListener  {
 
 
         if(current.equals("{")){countCCCC++;}
+
         else if(current.equals("{")&&next.equals("}")) {
 
           previous = current;
@@ -1597,24 +1601,6 @@ class Editor extends JFrame implements ActionListener  {
         appendToPane(t1,""+LineNN+" \n",tTextWCF);
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
-
-        CaretPosSave=t.getCaretPosition();
-
-        appendToPaneCurrPos(t,"[",tBlue,CaretPosSave);
-
-        t.setCaretPosition(CaretPosSave+1);
-
-      }
-      else if(e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) {
-
-        CaretPosSave=t.getCaretPosition();
-
-        appendToPaneCurrPos(t,"]",tBlue,CaretPosSave);
-
-        t.setCaretPosition(CaretPosSave+1);
-
-      }
       else if(e.getKeyCode() == KeyEvent.VK_S && (e.getModifiersEx() ==( KeyEvent.CTRL_DOWN_MASK))) {
 
         SaveFunction();
@@ -1654,8 +1640,7 @@ class Editor extends JFrame implements ActionListener  {
         cmrColorTexte();
 
       }
-      else if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
-
+      if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
 
 
         if(e.getKeyCode() == KeyEvent.VK_BACK_QUOTE  ) {
