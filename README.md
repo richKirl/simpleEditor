@@ -9,7 +9,7 @@ simpleEditor
 # How to use
 manual
 
-# base
+# base funcs
 
 ctrl+v default;
 
@@ -23,7 +23,7 @@ ctrl+o open doc;
 
 ctrl+p print doc;
 
-# simpleFuncs
+# simpleFuncs editor space
 
 ctrl+w comment;
 
@@ -46,7 +46,7 @@ ctrl+q;
 
 
 
-# panels
+# panels funcs
 
 alt+v notVisible/Visible viewerFile;
 
@@ -57,6 +57,6 @@ alt+q "withFocus-caret on File-space" jump to minicli with save position-caret a
 alt+up/down/left/right "withFocus-caret on File-space" up/down minicli, "withFocus-caret on File-space" left/right viewerFile;
 
 
-# minicli
+# minicli space
 
 up minicli history-ring
