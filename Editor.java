@@ -2837,7 +2837,7 @@ class Editor extends JFrame implements ActionListener  {
 
         String ttt = new String();
 
-        ttt+="\n";
+        //        ttt+="\n";
 
         int TL=0;
 
