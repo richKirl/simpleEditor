@@ -31,7 +31,7 @@ format on panel //{without "//}" "= {"};
 
 shift+9 with focus on doc with select string for ()
 
-up minicli history-ring
+
 
 # specific
 
@@ -57,3 +57,6 @@ alt+q "withFocus-caret on File-space" jump to minicli with save position-caret a
 alt+up/down/left/right "withFocus-caret on File-space" up/down minicli, "withFocus-caret on File-space" left/right viewerFile;
 
 
+# minicli
+
+up minicli history-ring
