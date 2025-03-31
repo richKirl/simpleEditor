@@ -62,4 +62,4 @@ alt+up/down/left/right "withFocus-caret on File-space" up/down change Height min
 
 # minicli space
 
-up minicli history-ring
+key-up minicli history-ring
