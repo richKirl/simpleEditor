@@ -134,7 +134,7 @@ class Editor extends JFrame implements ActionListener  {
 
   private List<String> HListCommands;
 
-  int CurrHListCom=0; 
+  int CurrHListCom=0;
 
   // Constructor
   public Editor() {
@@ -2033,82 +2033,6 @@ class Editor extends JFrame implements ActionListener  {
 
           t.setCaretPosition(CaretPosSave+1);
 
-          String text = t.getText();
-
-          String ttt[] = text.split("\n");
-
-
-          //Because font metrics is based on a graphics context, we need to create
-          //a small, temporary image so we can ascertain the width and height
-          //of the final image
-
-
-          BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
-
-          Graphics2D g2d = img.createGraphics();
-
-          Font font = new Font("monospaced", Font.PLAIN, 16);
-
-          g2d.setFont(font);
-
-          FontMetrics fm = g2d.getFontMetrics();
-
-          int width = 1920;
-
-          int height = fm.getHeight();
-
-          int gg = 1920 / (height*2971);
-
-          img = new BufferedImage(width,height*ttt.length, BufferedImage.TYPE_INT_RGB);
-
-          g2d.fillRect(0, 0, 1920, height*ttt.length);
-
-          g2d = img.createGraphics();
-
-          g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-
-          g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-          g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-
-          g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-
-          g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-
-          g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
-          g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-
-          g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-
-          g2d.setFont(font);
-
-          fm = g2d.getFontMetrics();
-
-          g2d.setColor(Color.WHITE);
-
-          int countH=0;
-
-          for(String r:ttt) {
-
-            g2d.drawString(r, (float)0,(float)(countH*height)+ fm.getAscent());
-
-            countH++;
-
-          }
-
-          g2d.dispose();
-
-          try {
-
-            ImageIO.write(img, "png", new File("Text.png"));
-
-            } catch (IOException ex) {
-
-            ex.printStackTrace();
-
-          }
-
         }
         else if(e.getKeyCode() == KeyEvent.VK_C) {
 
@@ -2814,7 +2738,7 @@ class Editor extends JFrame implements ActionListener  {
 
             commander+=ttttt;
 
-            
+
 
             System.gc();
 
@@ -2822,8 +2746,8 @@ class Editor extends JFrame implements ActionListener  {
           try {//try
 
             Process pR = Runtime.getRuntime().exec(commander);//call program
-            
-            
+
+
             int exitCode = pR.waitFor();
 
             PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
@@ -2876,7 +2800,7 @@ class Editor extends JFrame implements ActionListener  {
 
         appendToPane(t2,"\n"+" % ",tTextWCF);
 
-        
+
 
         t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));//set cursor after prompt
 
@@ -2892,7 +2816,7 @@ class Editor extends JFrame implements ActionListener  {
       else if(e.getKeyCode() == KeyEvent.VK_UP){
 
         e.consume();
-        
+
         if(CurrHListCom<0) {
 
           if(HListCommands.size()==1)CurrHListCom=0;
@@ -2902,8 +2826,8 @@ class Editor extends JFrame implements ActionListener  {
         }
 
         commander=HListCommands.get(CurrHListCom);
-        
-        
+
+
 
         String tt[] = t2.getText().split("\n");
 
