@@ -12,6 +12,15 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.awt.event.ActionListener;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 class Editor extends JFrame implements ActionListener  {
 
@@ -121,6 +130,12 @@ class Editor extends JFrame implements ActionListener  {
 
   private int FlagBraces=0;
 
+
+
+  private List<String> HListCommands;
+
+  int CurrHListCom=0; 
+
   // Constructor
   public Editor() {
 
@@ -136,6 +151,8 @@ class Editor extends JFrame implements ActionListener  {
 
 
     tempSearch = new ArrayList<Integer>();
+
+    HListCommands = new ArrayList<String>();
 
     try {
 
@@ -234,15 +251,15 @@ class Editor extends JFrame implements ActionListener  {
 
     JMenu col = new JMenu("ColorText");//menu button for close instant
 
-    JMenu stat = new JMenu("formatText");//menu button for close instant
+    JMenu formatText = new JMenu("formatText");//menu button for close instant
 
     mc.addMouseListener(new ExitAction());//connect event
 
     col.addMouseListener(new ColorStyle());
 
-    stat.addMouseListener(new FormatStyle());
+    formatText.addMouseListener(new FormatStyle());
 
-    stat.setToolTipText("Click this button to disable the middle button.");
+    formatText.setToolTipText("Click for formatText.");
 
     mb.add(m1);//connect all menu to menubar-top
 
@@ -252,7 +269,7 @@ class Editor extends JFrame implements ActionListener  {
 
     mb.add(col);
 
-    mb.add(stat);
+    mb.add(formatText);
 
 
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit on button close X
@@ -311,6 +328,8 @@ class Editor extends JFrame implements ActionListener  {
     Pather.setFont(new Font("monospaced",Font.PLAIN,16));
 
     Pather.setPreferredSize(new Dimension(200,300));
+
+    Pather.addKeyListener(new CmrViewer());
 
     mbViewer.add(new JScrollPane(Pather));
 
@@ -485,7 +504,7 @@ class Editor extends JFrame implements ActionListener  {
 
     appendToPane(t2,"\n"+" % ",tTextWCF);
 
-    testls = new CmrViewer();//connect keyevent
+    //testls = new CmrViewer();//connect keyevent
 
   }
 
@@ -672,7 +691,7 @@ class Editor extends JFrame implements ActionListener  {
 
         Path=tt;
 
-        testls.viewDir(Path);
+        viewDir(Path);
 
         // Initialize sl
         sl = br.readLine();
@@ -978,7 +997,29 @@ class Editor extends JFrame implements ActionListener  {
 
               next = it.hasNext() ? it.next() : null;
 
-              if(current.equals("\"")){ if(next.equals("\"")){ appendToPane(t,current,tBody); previous = current;current = next;next = it.hasNext() ? it.next() : null;appendToPane(t,current,tBody); } else { appendToPane(t,current,tBody); } break; }
+              if(current.equals("\"")){
+
+                if(next.equals("\"")){
+
+                  appendToPane(t,current,tBody);
+
+                  previous = current;
+
+                  current = next;
+
+                  next = it.hasNext() ? it.next() : null;
+
+                  appendToPane(t,current,tBody);
+
+                }
+                else {
+
+                  appendToPane(t,current,tBody);
+
+                }
+                break;
+
+              }
 
               else appendToPane(t,current,tBody);
 
@@ -1161,8 +1202,30 @@ class Editor extends JFrame implements ActionListener  {
 
               next = it.hasNext() ? it.next() : null;
 
-              if(current.equals("\"")){ if(next.equals("\"")) { appendToPane(t,current,tBody); previous = current; current = next; next = it.hasNext() ? it.next() : null; appendToPane(t,current,tBody); } else { appendToPane(t,current,tBody); } break; }
+              if(current.equals("\"")){
 
+                if(next.equals("\"")) {
+
+                  appendToPane(t,current,tBody);
+
+                  previous = current;
+
+                  current = next;
+
+                  next = it.hasNext() ? it.next() : null;
+
+                  appendToPane(t,current,tBody);
+
+                }
+                else {
+
+                  appendToPane(t,current,tBody);
+
+                }
+
+                break;
+
+              }
               else appendToPane(t,current,tBody);
 
             }
@@ -1323,8 +1386,30 @@ class Editor extends JFrame implements ActionListener  {
 
               next = it.hasNext() ? it.next() : null;
 
-              if(current.equals("\"")) { if(next.equals("\"")) { appendToPane(t,current,tBody); previous = current; current = next; next = it.hasNext() ? it.next() : null; appendToPane(t,current,tBody); } else { appendToPane(t,current,tBody); } break; }
+              if(current.equals("\"")) {
 
+                if(next.equals("\"")) {
+
+                  appendToPane(t,current,tBody);
+
+                  previous = current;
+
+                  current = next;
+
+                  next = it.hasNext() ? it.next() : null;
+
+                  appendToPane(t,current,tBody);
+
+                }
+                else {
+
+                  appendToPane(t,current,tBody);
+
+                }
+
+                break;
+
+              }
               else appendToPane(t,current,tBody);
 
             }
@@ -1948,6 +2033,82 @@ class Editor extends JFrame implements ActionListener  {
 
           t.setCaretPosition(CaretPosSave+1);
 
+          String text = t.getText();
+
+          String ttt[] = text.split("\n");
+
+
+          //Because font metrics is based on a graphics context, we need to create
+          //a small, temporary image so we can ascertain the width and height
+          //of the final image
+
+
+          BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+
+          Graphics2D g2d = img.createGraphics();
+
+          Font font = new Font("monospaced", Font.PLAIN, 16);
+
+          g2d.setFont(font);
+
+          FontMetrics fm = g2d.getFontMetrics();
+
+          int width = 1920;
+
+          int height = fm.getHeight();
+
+          int gg = 1920 / (height*2971);
+
+          img = new BufferedImage(width,height*ttt.length, BufferedImage.TYPE_INT_RGB);
+
+          g2d.fillRect(0, 0, 1920, height*ttt.length);
+
+          g2d = img.createGraphics();
+
+          g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+
+          g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+          g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+
+          g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+
+          g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+
+          g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+          g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+          g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+
+          g2d.setFont(font);
+
+          fm = g2d.getFontMetrics();
+
+          g2d.setColor(Color.WHITE);
+
+          int countH=0;
+
+          for(String r:ttt) {
+
+            g2d.drawString(r, (float)0,(float)(countH*height)+ fm.getAscent());
+
+            countH++;
+
+          }
+
+          g2d.dispose();
+
+          try {
+
+            ImageIO.write(img, "png", new File("Text.png"));
+
+            } catch (IOException ex) {
+
+            ex.printStackTrace();
+
+          }
+
         }
         else if(e.getKeyCode() == KeyEvent.VK_C) {
 
@@ -2115,6 +2276,11 @@ class Editor extends JFrame implements ActionListener  {
         CaretPosSave=t.getCaretPosition();t2.requestFocus();t2.setCaretPosition(t2.getText().length());
 
       }
+      else if(e.getKeyCode() == KeyEvent.VK_W &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+
+        CaretPosSave=t.getCaretPosition();Pather.requestFocus();Pather.setCaretPosition(Pather.getText().length());
+
+      }
       else if(e.getKeyCode() == KeyEvent.VK_F && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
 
         toggleSearcher();
@@ -2165,6 +2331,7 @@ class Editor extends JFrame implements ActionListener  {
       CountFORFREE++;
 
     }
+
     public void keyTyped(KeyEvent e) {
 
       if(( (e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) ) {
@@ -2420,7 +2587,7 @@ class Editor extends JFrame implements ActionListener  {
 
       appendToPaneCurrPos(t,"(",tBlue,hi);
 
-      appendToPaneCurrPos(t,")",tBlue,hl);
+      appendToPaneCurrPos(t,")",tBlue,hl+1);
 
       t.setCaretPosition(currentPosC);
 
@@ -2606,8 +2773,11 @@ class Editor extends JFrame implements ActionListener  {
 
         String ttttt=new String();
 
-        if(commander.equals("clear")==true){t2.setText("");}
+        if(commander.equals("clear")==true){
 
+          t2.setText("");
+
+        }
         else {
 
           if(commander.contains("*")) {
@@ -2644,13 +2814,16 @@ class Editor extends JFrame implements ActionListener  {
 
             commander+=ttttt;
 
+            
+
             System.gc();
 
           }
           try {//try
 
             Process pR = Runtime.getRuntime().exec(commander);//call program
-
+            
+            
             int exitCode = pR.waitFor();
 
             PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
@@ -2697,10 +2870,13 @@ class Editor extends JFrame implements ActionListener  {
 
         }
 
+        HListCommands.add(commander);
+
         commander= "";//free command string
 
         appendToPane(t2,"\n"+" % ",tTextWCF);
 
+        
 
         t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));//set cursor after prompt
 
@@ -2713,6 +2889,55 @@ class Editor extends JFrame implements ActionListener  {
         t.requestFocus();t.setCaretPosition(CaretPosSave);
 
       }
+      else if(e.getKeyCode() == KeyEvent.VK_UP){
+
+        e.consume();
+        
+        if(CurrHListCom<0) {
+
+          if(HListCommands.size()==1)CurrHListCom=0;
+
+          else CurrHListCom=CurrHListCom=HListCommands.size()-1;
+
+        }
+
+        commander=HListCommands.get(CurrHListCom);
+        
+        
+
+        String tt[] = t2.getText().split("\n");
+
+        t2.setText("");
+
+        tt[tt.length-1] = "";
+
+        String ttt = new String();
+
+        ttt+="\n";
+
+        int TL=0;
+
+        for(String r:tt){
+
+          if(TL==tt.length-1)break;
+
+          ttt+=r+"\n";
+
+          TL++;
+
+        }
+
+        t2.setText(ttt);
+
+        appendToPane(t2," % "+commander,tTextWCF);
+
+        commander="";
+
+        CurrHListCom--;
+
+        System.gc();
+
+      }
 
     }
 
@@ -2720,69 +2945,97 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-  class CmrViewer {//cmd\n - \n emulate enter
+  class CmrViewer extends KeyAdapter {//cmd\n - \n emulate enter
 
-    public void viewDir(String stringDir) {
 
-      Pather.setText("");
+    public void keyPressed(KeyEvent e) {
 
-      String commander1;//set command token
+      if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-      try {//try
-
-        commander1="ls "+stringDir+"\n";
-
-        Process pR = Runtime.getRuntime().exec(commander1);//call program
-
-        int exitCode = pR.waitFor();
-
-        PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
-
-        BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
-
-        BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
-
-        String s = null;
-
-        if(exitCode==0||exitCode==2) {
-
-          while((s=cmdLineOut.readLine())!=null){//read line by line
-
-            appendToPane(Pather,"\n"+s,tTextWCF);
-
-          }
-
-        }
-
-        if(exitCode!=0) {
-
-          while((s=cmdLineErr.readLine())!=null){//read line by line
-
-            appendToPane(Pather,"\n"+s,tConsoleTextError);
-
-          }
-
-        }
-
-        pR.destroy();
+        System.out.println("Enter on VIEWERCMR");
 
       }
-      catch (IOException e1) {
+      else if(e.getKeyCode() == KeyEvent.VK_DOWN && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        e1.printStackTrace();
-
-      }
-      catch (InterruptedException e1) {
-
-        e1.printStackTrace();
+        System.out.println("ctrl+down on VIEWERCMR");
 
       }
+      else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-      commander1= "";//free command string
+        System.out.println("ctrl+up on VIEWERCMR");
 
-      System.gc();//just
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
+
+        System.out.println("alt+w on VIEWERCMR");
+
+        t.requestFocus();t.setCaretPosition(CaretPosSave);
+
+      }
 
     }
+
+  }
+
+  public void viewDir(String stringDir) {
+
+    Pather.setText("");
+
+    String commander1;//set command token
+
+    try {//try
+
+      commander1="ls "+stringDir+"\n";
+
+      Process pR = Runtime.getRuntime().exec(commander1);//call program
+
+      int exitCode = pR.waitFor();
+
+      PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
+
+      BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
+
+      BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
+
+      String s = null;
+
+      if(exitCode==0||exitCode==2) {
+
+        while((s=cmdLineOut.readLine())!=null) {//read line by line
+
+          appendToPane(Pather,"\n"+s,tTextWCF);
+
+        }
+
+      }
+
+      if(exitCode!=0) {
+
+        while((s=cmdLineErr.readLine())!=null) {//read line by line
+
+          appendToPane(Pather,"\n"+s,tConsoleTextError);
+
+        }
+
+      }
+
+      pR.destroy();
+
+    }
+    catch (IOException e1) {
+
+      e1.printStackTrace();
+
+    }
+    catch (InterruptedException e1) {
+
+      e1.printStackTrace();
+
+    }
+
+    commander1= "";//free command string
+
+    System.gc();//just
 
   }
 
