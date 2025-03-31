@@ -27,6 +27,8 @@ ctrl+p print doc;
 
 ctrl+w comment;
 
+ctrl+d delete curr string
+
 format on panel //{without "//}" "= {"};
 
 shift+9 with focus on doc with select string for ()
