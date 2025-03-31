@@ -56,7 +56,7 @@ alt+q to minicli/to return ;
 
 alt+up/down/left/right "withFocus-caret on File-space" up/down minicli, "withFocus-caret on File-space" left/right viewerFile;
 
-alt+w to viewerFile/to return(TODO)
+(TODO)alt+w to viewerFile/to return(TODO)
 
 # minicli space
 
