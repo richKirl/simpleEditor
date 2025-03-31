@@ -52,10 +52,11 @@ alt+v notVisible/Visible viewerFile;
 
 alt+m notVisible/Visible minicli;
 
-alt+q "withFocus-caret on File-space" jump to minicli with save position-caret and "withFocus-caret on minicli-space" return to caretsavepos to File-Space;
+alt+q to minicli/to return ;
 
 alt+up/down/left/right "withFocus-caret on File-space" up/down minicli, "withFocus-caret on File-space" left/right viewerFile;
 
+alt+w to viewerFile/to return(TODO)
 
 # minicli space
 
