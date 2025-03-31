@@ -29,7 +29,9 @@ ctrl+w comment;
 
 format on panel //{without "//}" "= {"};
 
-shift+9 with focus on doc with select string for () 
+shift+9 with focus on doc with select string for ()
+
+up minicli history-ring
 
 # specific
 
