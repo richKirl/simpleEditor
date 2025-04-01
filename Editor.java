@@ -2924,9 +2924,9 @@ class Editor extends JFrame implements ActionListener  {
 
         commander=HListCommands.get(CurrHListCom);
 
-//        replaceSelection(String content)
-//        Replaces the currently selected content with new content represented by the given string.
-//        appendToPane(t2,"\n % "+commander,tTextWCF);
+        //        replaceSelection(String content)
+        //        Replaces the currently selected content with new content represented by the given string.
+        //        appendToPane(t2,"\n % "+commander,tTextWCF);
 
         replaceToPane(t2,"\n % "+commander,tTextWCF,t2.getText().lastIndexOf("\n %"),t2.getText().length());
 
