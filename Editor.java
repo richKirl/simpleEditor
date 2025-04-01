@@ -2698,7 +2698,7 @@ class Editor extends JFrame implements ActionListener  {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        String jLine = getFromPane(t3,t3.getText().lastIndexOf(" ")+1,t3.getText().length());
+        String jLine = getFromPane(t3,t3.getText().indexOf(" ",0)+1,t3.getText().length());
 
         String parts3[] = t.getText().split("\n");
 
@@ -2728,7 +2728,7 @@ class Editor extends JFrame implements ActionListener  {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        int jLine = Integer.parseInt(getFromPane(t5,t5.getText().lastIndexOf(" ")+1,t5.getText().length()));
+        int jLine = Integer.parseInt(getFromPane(t5,t5.getText().indexOf(" ",0)+1,t5.getText().length()));
 
         t.requestFocus();
 
