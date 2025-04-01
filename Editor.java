@@ -1629,6 +1629,7 @@ class Editor extends JFrame implements ActionListener  {
     System.gc();
 
   }
+
   private void appendToPaneCurrPos(JTextPane tp, String msg, Color c,int pos) {
 
     StyleContext sc = StyleContext.getDefaultStyleContext();
@@ -1713,6 +1714,31 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  private void replaceToPane(JTextPane tp, String msg, Color c,int start,int end) {
+
+    StyleContext sc = StyleContext.getDefaultStyleContext();
+
+    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+    aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+
+    aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+
+
+    int len = tp.getDocument().getLength();
+
+    tp.setCaretPosition(len);
+
+    tp.setCharacterAttributes(aset,false);
+
+    tp.setSelectionStart(start);
+
+    tp.setSelectionEnd(end);
+
+    tp.replaceSelection(msg);
+
+  }
+
   //exit after clicked on Close Menu!=item
   class ExitAction extends MouseInputAdapter {
 
@@ -1782,430 +1808,8 @@ class Editor extends JFrame implements ActionListener  {
       }
       if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
 
+        checkShiftKeys(e);
 
-        if(e.getKeyCode() == KeyEvent.VK_BACK_QUOTE  ) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"~",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_1) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"!",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_2) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"@",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_3) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"#",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_4) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"$",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_5) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"%",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_6) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"^",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_7) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"&",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_8) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"*",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_9) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          cmrBraces();
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_0) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,")",tBlue,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_MINUS) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"_",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"+",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_Q) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"Q",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_W) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"W",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_E) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"E",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_R) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"R",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_T) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"T",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_Y) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"Y",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_U) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"U",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_I) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"I",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_O) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"O",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_P) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"P",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_A) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"A",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_S) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"S",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_D) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"D",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_F) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"F",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_G) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"G",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_H) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"H",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_J) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"J",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_K) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"K",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_L) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"L",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_Z) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"Z",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_X) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"X",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_C) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"C",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_V) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"V",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_B) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"B",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_N) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"N",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_M) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"M",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_COMMA) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"<",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_PERIOD) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,">",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_SLASH) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"?",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_SEMICOLON) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,":",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_QUOTE) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"\"",tBody,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"|",tTextWCF,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"{",tMagenta,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) {
-
-          CaretPosSave=t.getCaretPosition();
-
-          appendToPaneCurrPos(t,"}",tMagenta,CaretPosSave);
-
-          t.setCaretPosition(CaretPosSave+1);
-
-        }
       }
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
@@ -2330,6 +1934,434 @@ class Editor extends JFrame implements ActionListener  {
         }
 
       }
+
+    }
+
+  }
+
+  public void checkShiftKeys(KeyEvent e) {
+
+    if(e.getKeyCode() == KeyEvent.VK_BACK_QUOTE  ) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"~",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_1) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"!",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_2) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"@",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_3) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"#",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_4) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"$",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_5) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"%",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_6) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"^",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_7) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"&",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_8) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"*",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_9) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      cmrBraces();
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_0) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,")",tBlue,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_MINUS) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"_",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"+",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_Q) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"Q",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_W) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"W",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_E) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"E",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_R) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"R",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_T) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"T",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_Y) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"Y",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_U) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"U",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_I) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"I",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_O) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"O",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_P) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"P",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_A) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"A",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_S) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"S",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_D) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"D",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_F) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"F",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_G) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"G",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_H) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"H",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_J) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"J",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_K) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"K",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_L) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"L",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_Z) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"Z",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_X) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"X",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_C) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"C",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_V) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"V",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_B) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"B",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_N) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"N",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_M) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"M",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_COMMA) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"<",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_PERIOD) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,">",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_SLASH) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"?",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_SEMICOLON) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,":",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_QUOTE) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"\"",tBody,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"|",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"{",tMagenta,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"}",tMagenta,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
 
     }
 
@@ -2892,31 +2924,11 @@ class Editor extends JFrame implements ActionListener  {
 
         commander=HListCommands.get(CurrHListCom);
 
+//        replaceSelection(String content)
+//        Replaces the currently selected content with new content represented by the given string.
+//        appendToPane(t2,"\n % "+commander,tTextWCF);
 
-
-        String tt[] = t2.getText().split("\n");
-
-        t2.setText("");
-
-        tt[tt.length-1] = "";
-
-        String ttt = new String();
-
-        int TL=0;
-
-        for(String r:tt){
-
-          if(TL==tt.length-1)break;
-
-          ttt+=r+"\n";
-
-          TL++;
-
-        }
-
-        t2.setText(ttt);
-
-        appendToPane(t2," % "+commander,tTextWCF);
+        replaceToPane(t2,"\n % "+commander,tTextWCF,t2.getText().lastIndexOf("\n %"),t2.getText().length());
 
         commander="";
 
