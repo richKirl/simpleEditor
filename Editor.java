@@ -16,27 +16,35 @@ import java.awt.event.ActionListener;
 
 class Editor extends JFrame implements ActionListener  {
 
-  // Text component
-  private JTextPane t;                                     //code
+  // Text component//code
+  private JTextPane t;
 
-  private JTextPane t1;                                    //lineNumbers
+  //lineNumbers
+  private JTextPane t1;
 
-  private JTextPane t2;                                    //mini cli
+  //mini cli
+  private JTextPane t2;
 
-  private JTextPane t3;                                    //top linesearch
+  //top linesearch
+  private JTextPane t3;
 
-  private JTextPane t4;                                    //bottom
+  //bottom
+  private JTextPane t4;
 
-  private JTextPane t5;                                    //top Jumper
+  //top Jumper
+  private JTextPane t5;
 
-  // Frame
-  private JFrame f;                                        //frame-likewWindow
+  // Frame//frame-likewWindow
+  private JFrame f;
 
-  private String prompter=" \n % ";                        //prompt
+  //prompt
+  private String prompter=" \n % ";
 
-  String commander;                                        //command after prompt
+  //command after prompt
+  String commander;
 
-  private int LineNN=1;                                    //number of lines on doc
+  //number of lines on doc
+  private int LineNN=1;
 
   //Style
   private Color tTextWC;                                   //new Color(0,0,0,255);BackGround
@@ -151,8 +159,8 @@ class Editor extends JFrame implements ActionListener  {
       // Set metal look and feel
       UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 
-      // Set theme to ocean
-      MetalLookAndFeel.setCurrentTheme(new OceanTheme());//set theme read in doc
+      // Set theme to ocean//set theme read in doc
+      MetalLookAndFeel.setCurrentTheme(new OceanTheme());
 
     }
     catch (Exception e) {
@@ -160,7 +168,6 @@ class Editor extends JFrame implements ActionListener  {
 
 
     //config jtextarea for numberLines
-
     t1 = new JTextPane();
 
     t1.setFont(new Font("monospaced", Font.PLAIN, 16));
@@ -174,28 +181,30 @@ class Editor extends JFrame implements ActionListener  {
 
     t.setFont(new Font("monospaced", Font.PLAIN, 16));
 
-    t.setCaretPosition(t.getDocument().getLength());//set cursor position in doc
+    //set cursor position in doc
+    t.setCaretPosition(t.getDocument().getLength());
 
-    t.addKeyListener(new CounterLines());//connect listen keyboard
+    //connect listen keyboard
+    t.addKeyListener(new CounterLines());
 
 
-    // Create a menubar
-    JMenuBar mb = new JMenuBar();//menubar top
+    // Create a menubar//menubar top
+    JMenuBar mb = new JMenuBar();
 
-    // Create amenu for menu
-    JMenu m1 = new JMenu("File");//menu for file
+    // Create amenu for menu//menu for file
+    JMenu m1 = new JMenu("File");
 
-    // Create menu items
-    JMenuItem mi1 = new JMenuItem("New");//item for file
+    // Create menu items//item for file
+    JMenuItem mi1 = new JMenuItem("New");
 
-    JMenuItem mi2 = new JMenuItem("Open");//item for file
+    JMenuItem mi2 = new JMenuItem("Open");
 
-    JMenuItem mi3 = new JMenuItem("Save");//item for file
+    JMenuItem mi3 = new JMenuItem("Save");
 
-    JMenuItem mi9 = new JMenuItem("Print");//item for file
+    JMenuItem mi9 = new JMenuItem("Print");
 
-    // Add action listener
-    mi1.addActionListener(this);//connect event
+    // Add action listener//connect event
+    mi1.addActionListener(this);
 
     mi2.addActionListener(this);
 
@@ -203,7 +212,7 @@ class Editor extends JFrame implements ActionListener  {
 
     mi9.addActionListener(this);
 
-    m1.add(mi1);//connect to File
+    m1.add(mi1);
 
     m1.add(mi2);
 
@@ -218,20 +227,20 @@ class Editor extends JFrame implements ActionListener  {
     JMenu m2 = new JMenu("Edit");//menu for Edit
 
     // Create menu items
-    JMenuItem mi4 = new JMenuItem("cut");//item for edit
+    JMenuItem mi4 = new JMenuItem("cut");
 
-    JMenuItem mi5 = new JMenuItem("copy");//item for edit
+    JMenuItem mi5 = new JMenuItem("copy");
 
-    JMenuItem mi6 = new JMenuItem("paste");//item for edit
+    JMenuItem mi6 = new JMenuItem("paste");
 
-    // Add action listener
-    mi4.addActionListener(this);//connect event
+    // Add action listener//connect event
+    mi4.addActionListener(this);
 
     mi5.addActionListener(this);
 
     mi6.addActionListener(this);
 
-    m2.add(mi4);//connect to Edit
+    m2.add(mi4);
 
     m2.add(mi5);
 
@@ -253,7 +262,7 @@ class Editor extends JFrame implements ActionListener  {
 
     formatText.setToolTipText("Click for formatText.");
 
-    mb.add(m1);//connect all menu to menubar-top
+    mb.add(m1);
 
     mb.add(m2);
 
@@ -264,7 +273,7 @@ class Editor extends JFrame implements ActionListener  {
     mb.add(formatText);
 
 
-    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit on button close X
+    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 
@@ -298,8 +307,8 @@ class Editor extends JFrame implements ActionListener  {
 
     t5.setPreferredSize(new Dimension(600,30));
 
-
-    mbConsole.add(new JScrollPane(t2));//connect jtextarea-cli to bottom menubar
+    //connect jtextarea-cli to bottom menubar
+    mbConsole.add(new JScrollPane(t2));
 
     mbConsole.setLocation(0,200);
 
@@ -340,8 +349,8 @@ class Editor extends JFrame implements ActionListener  {
     t.setForeground(tTextWCF);
 
 
-
-    JMenuBar mFunctionality = new JMenuBar();//menubar top
+    //menubar top
+    JMenuBar mFunctionality = new JMenuBar();
 
 
     Color c1 = new Color(50,50,50,255);
@@ -496,8 +505,6 @@ class Editor extends JFrame implements ActionListener  {
 
     appendToPane(t2,"\n"+" % ",tTextWCF);
 
-    //testls = new CmrViewer();//connect keyevent
-
   }
 
   // If a button is pressed
@@ -547,7 +554,7 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-    repaint();//
+    repaint();
 
     revalidate();
 
@@ -693,7 +700,8 @@ class Editor extends JFrame implements ActionListener  {
 
           sl = sl + "\n" + s1;
 
-          LineNN+=1;//set linenumbers while if line
+          //set linenumbers while if line
+          LineNN+=1;
 
           appendToPane(t1,""+LineNN+"\n",tTextWCF);
 
@@ -820,11 +828,13 @@ class Editor extends JFrame implements ActionListener  {
 
     if(ExtFile.equals("cpp")) {
 
-      String s1 = t.getText();//
+      String s1 = t.getText();
 
-      t.setText("");//(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
+      //(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
+      t.setText("");
 
-      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");//"((?= )|(?=\t)|(?<=\n))"(?=\\w)
+      //"((?= )|(?=\t)|(?<=\n))"(?=\\w)
+      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
 
       List<String> list = new ArrayList<String>();
 
@@ -1035,11 +1045,13 @@ class Editor extends JFrame implements ActionListener  {
 
     else if(ExtFile.equals("c")) {
 
-      String s1 = t.getText();//
+      String s1 = t.getText();
 
-      t.setText("");//(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
+      //(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
+      t.setText("");
 
-      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");//"((?= )|(?=\t)|(?<=\n))"(?=\\w)
+      //"((?= )|(?=\t)|(?<=\n))"(?=\\w)
+      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
 
       List<String> list = new ArrayList<String>();
 
@@ -1240,11 +1252,13 @@ class Editor extends JFrame implements ActionListener  {
     }
     else if(ExtFile.equals("Java")) {
 
-      String s1 = t.getText();//
+      String s1 = t.getText();
 
-      t.setText("");//(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
+      //(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
+      t.setText("");
 
-      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");//"((?= )|(?=\t)|(?<=\n))"(?=\\w)
+      //"((?= )|(?=\t)|(?<=\n))"(?=\\w)
+      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
 
       List<String> list = new ArrayList<String>();
 
@@ -1665,8 +1679,8 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-
-  class CounterLines extends KeyAdapter {//listen keyboard event for enter if enter add \n +i to numberLines
+  //listen keyboard event for enter if enter add \n +i to numberLines
+  class CounterLines extends KeyAdapter {
 
     public void keyPressed(KeyEvent e) {
 
@@ -1693,21 +1707,6 @@ class Editor extends JFrame implements ActionListener  {
       else if(e.getKeyCode() == KeyEvent.VK_P && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         printFile();
-
-      }
-      else if(e.getKeyCode() == KeyEvent.VK_X && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
-
-        //cutFunction();
-
-      }
-      else if(e.getKeyCode() == KeyEvent.VK_C && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
-
-        //copyFunction();
-
-      }
-      else if(e.getKeyCode() == KeyEvent.VK_V && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
-
-        //pasteFunction();
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
@@ -1805,7 +1804,7 @@ class Editor extends JFrame implements ActionListener  {
 
           CaretPosSave=t.getCaretPosition();
 
-          cmrBraces();//cmrColorTexte();
+          cmrBraces();
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -2058,7 +2057,6 @@ class Editor extends JFrame implements ActionListener  {
           CaretPosSave=t.getCaretPosition();
 
           appendToPaneCurrPos(t,"N",tTextWCF,CaretPosSave);
-          //t.setText(t.getText().substring(0,CaretPosSave)+"N"+t.getText().substring(CaretPosSave,t.getText().length()));
 
           t.setCaretPosition(CaretPosSave+1);
 
@@ -2264,7 +2262,6 @@ class Editor extends JFrame implements ActionListener  {
 
         if(e.getKeyCode() == KeyEvent.VK_9){
 
-          //e.consume();
 
         }
 
@@ -2403,7 +2400,7 @@ class Editor extends JFrame implements ActionListener  {
 
     int hi=-1;
 
-    int hl=-1;
+    int hl=-2;
 
     for(int i = 0; i < h.length; i++) {
 
@@ -2413,7 +2410,7 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-    if(hi==-1&&hl==-1){}
+    if(hi==-1&&hl==-2){}
 
     else {
 
@@ -2569,12 +2566,12 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-
-  public static void centreWindow(Window frame) {//set center Window
+  //set center Window
+  public static void centreWindow(Window frame) {
 
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();//get size
 
-    int x = (int) ((dimension.getWidth() - frame.getWidth()) * 0.5);//
+    int x = (int) ((dimension.getWidth() - frame.getWidth()) * 0.5);
 
     int y = (int) ((dimension.getHeight() - frame.getHeight()) * 0.5);
 
@@ -2673,8 +2670,8 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-
-  class CmrPrompter extends KeyAdapter { //cmd\n - \n emulate enter
+  //cmd\n - \n emulate enter
+  class CmrPrompter extends KeyAdapter {
 
     public void keyPressed(KeyEvent e) {
 
@@ -2743,7 +2740,7 @@ class Editor extends JFrame implements ActionListener  {
             System.gc();
 
           }
-          try {//try
+          try {
 
             Process pR = Runtime.getRuntime().exec(commander);//call program
 
@@ -2796,7 +2793,7 @@ class Editor extends JFrame implements ActionListener  {
 
         HListCommands.add(commander);
 
-        commander= "";//free command string
+        commander= "";
 
         appendToPane(t2,"\n"+" % ",tTextWCF);
 
@@ -2804,7 +2801,7 @@ class Editor extends JFrame implements ActionListener  {
 
         t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));//set cursor after prompt
 
-        System.gc();//just
+        System.gc();
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
@@ -2855,7 +2852,7 @@ class Editor extends JFrame implements ActionListener  {
 
         commander="";
 
-        CurrHListCom--;        
+        CurrHListCom--;
 
         System.gc();
 
@@ -2866,8 +2863,8 @@ class Editor extends JFrame implements ActionListener  {
   }
 
 
-
-  class CmrViewer extends KeyAdapter {//cmd\n - \n emulate enter
+  //cmd\n - \n emulate enter
+  class CmrViewer extends KeyAdapter {
 
 
     public void keyPressed(KeyEvent e) {
@@ -2903,9 +2900,9 @@ class Editor extends JFrame implements ActionListener  {
 
     Pather.setText("");
 
-    String commander1;//set command token
+    String commander1;
 
-    try {//try
+    try {
 
       commander1="ls "+stringDir+"\n";
 
@@ -2955,9 +2952,9 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-    commander1= "";//free command string
+    commander1= "";
 
-    System.gc();//just
+    System.gc();
 
   }
 
