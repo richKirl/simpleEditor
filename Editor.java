@@ -1739,6 +1739,22 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  private String getFromPane(JTextPane tp, int start,int end) {
+
+    StyleContext sc = StyleContext.getDefaultStyleContext();
+
+    int len = tp.getDocument().getLength();
+
+    tp.setCaretPosition(len);
+
+    tp.setSelectionStart(start);
+
+    tp.setSelectionEnd(end);
+
+    return tp.getSelectedText();
+
+  }
+
   //exit after clicked on Close Menu!=item
   class ExitAction extends MouseInputAdapter {
 
@@ -2682,19 +2698,7 @@ class Editor extends JFrame implements ActionListener  {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        String s1 = t3.getText();
-
-        String parts[] = s1.split("\n");
-
-        int sz = parts.length;
-
-        String part1 = parts[sz-1];
-
-        String parts2[] = part1.split("SearchL: ");
-
-        int sz1 = parts2.length;
-
-        String jLine = parts2[sz1-1];
+        String jLine = getFromPane(t3,t3.getText().lastIndexOf(" ")+1,t3.getText().length());
 
         String parts3[] = t.getText().split("\n");
 
@@ -2724,19 +2728,7 @@ class Editor extends JFrame implements ActionListener  {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        String s1 = t5.getText();
-
-        String parts[] = s1.split("\n");
-
-        int sz = parts.length;
-
-        String part1 = parts[sz-1];
-
-        String parts2[] = part1.split("SearchJ: ");
-
-        int sz1 = parts2.length;
-
-        int jLine = Integer.parseInt(parts2[sz1-1]);
+        int jLine = Integer.parseInt(getFromPane(t5,t5.getText().lastIndexOf(" ")+1,t5.getText().length()));
 
         t.requestFocus();
 
@@ -2924,9 +2916,9 @@ class Editor extends JFrame implements ActionListener  {
 
         commander=HListCommands.get(CurrHListCom);
 
-        //        replaceSelection(String content)
-        //        Replaces the currently selected content with new content represented by the given string.
-        //        appendToPane(t2,"\n % "+commander,tTextWCF);
+        //replaceSelection(String content)from doc
+        //Replaces the currently selected content with new content represented by the given string.
+        //appendToPane(t2,"\n % "+commander,tTextWCF);
 
         replaceToPane(t2,"\n % "+commander,tTextWCF,t2.getText().lastIndexOf("\n %"),t2.getText().length());
 
