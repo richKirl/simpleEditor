@@ -12,15 +12,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.awt.event.ActionListener;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+
 
 class Editor extends JFrame implements ActionListener  {
 
@@ -2197,12 +2189,20 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
 
-        CaretPosSave=t.getCaretPosition();t2.requestFocus();t2.setCaretPosition(t2.getText().length());
+        CaretPosSave=t.getCaretPosition();
+
+        t2.requestFocus();
+
+        t2.setCaretPosition(t2.getText().length());
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_W &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
 
-        CaretPosSave=t.getCaretPosition();Pather.requestFocus();Pather.setCaretPosition(Pather.getText().length());
+        CaretPosSave=t.getCaretPosition();
+
+        Pather.requestFocus();
+
+        Pather.setCaretPosition(Pather.getText().length());
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_F && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
@@ -2837,8 +2837,6 @@ class Editor extends JFrame implements ActionListener  {
 
         String ttt = new String();
 
-        //        ttt+="\n";
-
         int TL=0;
 
         for(String r:tt){
@@ -2857,7 +2855,7 @@ class Editor extends JFrame implements ActionListener  {
 
         commander="";
 
-        CurrHListCom--;
+        CurrHListCom--;        
 
         System.gc();
 
