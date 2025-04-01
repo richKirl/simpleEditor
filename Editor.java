@@ -46,41 +46,58 @@ class Editor extends JFrame implements ActionListener  {
   //number of lines on doc
   private int LineNN=1;
 
-  //Style
-  private Color tTextWC;                                   //new Color(0,0,0,255);BackGround
+  //Style//new Color(0,0,0,255);BackGround
+  private Color tTextWC;
 
-  private Color tTextWCF;                                  //new Color(200,200,200,255);ForeGround
+  //new Color(200,200,200,255);ForeGround
+  private Color tTextWCF;
 
-  private Color tBlue;                                     //new Color(23,159,241);
+  //new Color(23,159,241);
+  private Color tBlue;
 
-  private Color tBody;                                     //new Color(206,145,120);
+  //new Color(206,145,120);
+  private Color tBody;
 
-  private Color tMagenta;                                  //new Color(218,112,214);
+  //new Color(218,112,214);
+  private Color tMagenta;
 
-  private Color tLBlue;                                    //new Color(156,220,254);
+  //new Color(156,220,254);
+  private Color tLBlue;
 
-  private Color tYellow;                                   //new Color(255,201,20);
+  //new Color(255,201,20);
+  private Color tYellow;
 
-  private Color tGreen;                                    //new Color(25,201,20);
+  //new Color(25,201,20);
+  private Color tGreen;
 
-  private Color tConsoleTextError;                         //new Color(255,101,100);
+  //new Color(255,101,100);
+  private Color tConsoleTextError;
 
-  private String Path;                                     //Path for widget Pather
+  //Path for widget Pather
+  private String Path;
 
-  private String FilePathw;                                //nameFile with res
+  //nameFile with res
+  private String FilePathw;
 
-  private String FileExt;                                  //nameFile
+  //nameFile
+  private String FileExt;
 
-  private String ExtFile;                                  //.{}
+  //.{}
+  private String ExtFile;
 
-  private JTextPane Pather;                                //buffer for pathViewer
+  //buffer for pathViewer
+  private JTextPane Pather;
 
-  private CmrViewer testls;                                //bufferViewerDirectory
+  //bufferViewerDirectory
+  private CmrViewer testls;
 
-
+  //supportcolorschemaforlangs
   private String[] langSupport={"C","C++","Java"};
 
+  //sizetabinspaces
   private static final int TAB_SIZE = 2;
+
+
 
 
   JMenuBar mbConsole;
@@ -97,44 +114,62 @@ class Editor extends JFrame implements ActionListener  {
   private int mbViewerSizeW = 200;
 
 
-  JScrollPane panelScrollText;
 
 
   private short CountFORFREE = 0;
+
+
+
 
 
   JMenuBar mbSearcher;
 
   private int VisualSearcher = 0;
 
+
   JMenuBar mbJumper;
 
   private int VisualJumper = 0;
+
 
   JMenuBar mbInfoBar;
 
   private int VisualInfoBar = 0;
 
+
+  //possave
   int CaretPosSave;
 
+  //listforsearch
   private List<Integer> tempSearch;
 
+  //startposinsave
   private int StartTempSearch=0;
 
+
+
+
   JPanel panel1;
+
+  JScrollPane panelScrollText;
+
 
 
 
   private int FlagForComment=0;
 
 
+
+
   private int FlagBraces=0;
 
 
 
+  //history-ring
   private List<String> HListCommands;
 
   int CurrHListCom=0;
+
 
   // Constructor
   public Editor() {
@@ -247,14 +282,17 @@ class Editor extends JFrame implements ActionListener  {
     m2.add(mi6);
 
 
+    //menu button for close instant
+    JMenu mc = new JMenu("Close");
 
-    JMenu mc = new JMenu("Close");//menu button for close instant
+    //menu button for close instant
+    JMenu col = new JMenu("ColorText");
 
-    JMenu col = new JMenu("ColorText");//menu button for close instant
+    //menu button for close instant
+    JMenu formatText = new JMenu("formatText");
 
-    JMenu formatText = new JMenu("formatText");//menu button for close instant
-
-    mc.addMouseListener(new ExitAction());//connect event
+    //connect event
+    mc.addMouseListener(new ExitAction());
 
     col.addMouseListener(new ColorStyle());
 
@@ -277,8 +315,8 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
-    mbConsole = new JMenuBar();//create menubar-bottom for cli
+    //create menubar-bottom for cli
+    mbConsole = new JMenuBar();
 
     //create jtextarea with a1 a2 a3
     t2 = new JTextPane();
@@ -291,7 +329,8 @@ class Editor extends JFrame implements ActionListener  {
 
     t2.setPreferredSize(new Dimension(380,200));
 
-    t2.addKeyListener(new CmrPrompter());//connect keyevent
+    //connect keyevent
+    t2.addKeyListener(new CmrPrompter());
 
 
 
@@ -385,7 +424,8 @@ class Editor extends JFrame implements ActionListener  {
 
     mbSearcher.add(t3);
 
-    t3.addKeyListener(new SearchPrompter());//connect keyevent
+    //connect keyevent
+    t3.addKeyListener(new SearchPrompter());
 
 
 
@@ -401,7 +441,8 @@ class Editor extends JFrame implements ActionListener  {
 
     mbJumper.add(t5);
 
-    t5.addKeyListener(new jumpPrompter());//connect keyevent
+    //connect keyevent
+    t5.addKeyListener(new jumpPrompter());
 
 
 
@@ -438,10 +479,11 @@ class Editor extends JFrame implements ActionListener  {
     tConsoleTextError= new Color(255,101,100);
     //COLORENDINIT
 
+    //create panel
+    JPanel panel = new JPanel();
 
-    JPanel panel = new JPanel();//create panel
-
-    panel.setLayout(new BorderLayout());//create template for complians
+    //create template for complians
+    panel.setLayout(new BorderLayout());
 
 
     panel1 = new JPanel();
@@ -455,13 +497,17 @@ class Editor extends JFrame implements ActionListener  {
     //left because numbers
     panel1.add(mbSearcher, BorderLayout.NORTH);
 
-    panel2.add(mbJumper, BorderLayout.NORTH);//left because numbers
+    //left because numbers
+    panel2.add(mbJumper, BorderLayout.NORTH);
 
-    panel1.add(mbInfoBar, BorderLayout.SOUTH);//left because numbers
+    //left because numbers
+    panel1.add(mbInfoBar, BorderLayout.SOUTH);
 
-    panel.add(t1, BorderLayout.WEST);//left because numbers
+    //left because numbers
+    panel.add(t1, BorderLayout.WEST);
 
-    panel.add(t, BorderLayout.CENTER);//right extend to center
+    //right extend to center
+    panel.add(t, BorderLayout.CENTER);
 
     panelScrollText = new JScrollPane(panel);
 
@@ -475,27 +521,31 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
+    //connect all panel to frame
+    f.add(panel2);
 
-    f.add(panel2);//connect all panel to frame
-
-
-    f.add(mb,BorderLayout.NORTH);//menubar to up
+    //menubar to up
+    f.add(mb,BorderLayout.NORTH);
 
     f.add(mbViewer,BorderLayout.WEST);
 
-    f.add(mbConsole,BorderLayout.SOUTH);//set scroll to cli and set bottom position
+    //set scroll to cli and set bottom position
+    f.add(mbConsole,BorderLayout.SOUTH);
+
+    //set size wxh
+    f.setSize(1200, 900);
+
+    //set center position
+    centreWindow(f);
 
 
-    f.setSize(1200, 900);//set size wxh
+    f.setVisible(true);
 
-    centreWindow(f);//set center position
+    //fix some situation with current pos and doc
+    t.requestFocus();
 
-
-    f.setVisible(true);//show()
-
-    t.requestFocus();//fix some situation with current pos and doc
-
-    t.setCaretPosition(t.getText().length());//fix some situation with cursor
+    //fix some situation with cursor
+    t.setCaretPosition(t.getText().length());
 
     t.setCaretColor(Color.WHITE);
 
@@ -507,8 +557,8 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-  // If a button is pressed
-  public void actionPerformed(ActionEvent e) {//actions for items
+  // If a button is pressed//actions for items
+  public void actionPerformed(ActionEvent e) {
 
     String s = e.getActionCommand();
 
@@ -710,12 +760,26 @@ class Editor extends JFrame implements ActionListener  {
         // Set the text
         t.setText(sl);
 
-        if(ExtFile.equals("java")){ ExtFile=langSupport[2]; cmrColorTexte(); }
+        if(ExtFile.equals("java")){
 
-        else if(ExtFile.equals("cpp")){ ExtFile=langSupport[1];cmrColorTexte(); }
+          ExtFile=langSupport[2];
 
-        else if(ExtFile.equals("c")){ ExtFile=langSupport[0]; cmrColorTexte(); }
+          cmrColorTexte();
+        }
+        else if(ExtFile.equals("cpp")){
 
+          ExtFile=langSupport[1];
+
+          cmrColorTexte();
+
+        }
+        else if(ExtFile.equals("c")){
+
+          ExtFile=langSupport[0];
+
+          cmrColorTexte();
+
+        }
 
         System.gc();
 
@@ -2569,7 +2633,7 @@ class Editor extends JFrame implements ActionListener  {
   //set center Window
   public static void centreWindow(Window frame) {
 
-    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();//get size
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 
     int x = (int) ((dimension.getWidth() - frame.getWidth()) * 0.5);
 
@@ -2690,7 +2754,8 @@ class Editor extends JFrame implements ActionListener  {
 
         int sz1 = parts2.length;
 
-        commander=parts2[sz1-1];//set command token
+        //set command token
+        commander=parts2[sz1-1];
 
         String ttttt=new String();
 
@@ -2742,7 +2807,8 @@ class Editor extends JFrame implements ActionListener  {
           }
           try {
 
-            Process pR = Runtime.getRuntime().exec(commander);//call program
+            //call program
+            Process pR = Runtime.getRuntime().exec(commander);
 
 
             int exitCode = pR.waitFor();
@@ -2757,7 +2823,8 @@ class Editor extends JFrame implements ActionListener  {
 
             if(exitCode==0||exitCode==2) {
 
-              while((s=cmdLineOut.readLine())!=null){//read line by line
+              //read line by line
+              while((s=cmdLineOut.readLine())!=null){
 
                 appendToPane(t2,"\n"+s,tTextWCF);
 
@@ -2767,7 +2834,8 @@ class Editor extends JFrame implements ActionListener  {
 
             if(exitCode!=0) {
 
-              while((s=cmdLineErr.readLine())!=null){//read line by line
+              //read line by line
+              while((s=cmdLineErr.readLine())!=null){
 
                 appendToPane(t2,"\n"+s,tConsoleTextError);
 
@@ -2798,8 +2866,8 @@ class Editor extends JFrame implements ActionListener  {
         appendToPane(t2,"\n"+" % ",tTextWCF);
 
 
-
-        t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));//set cursor after prompt
+        //set cursor after prompt
+        t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));
 
         System.gc();
 
@@ -2906,7 +2974,8 @@ class Editor extends JFrame implements ActionListener  {
 
       commander1="ls "+stringDir+"\n";
 
-      Process pR = Runtime.getRuntime().exec(commander1);//call program
+      //call program
+      Process pR = Runtime.getRuntime().exec(commander1);
 
       int exitCode = pR.waitFor();
 
@@ -2920,7 +2989,8 @@ class Editor extends JFrame implements ActionListener  {
 
       if(exitCode==0||exitCode==2) {
 
-        while((s=cmdLineOut.readLine())!=null) {//read line by line
+        //read line by line
+        while((s=cmdLineOut.readLine())!=null) {
 
           appendToPane(Pather,"\n"+s,tTextWCF);
 
@@ -2930,7 +3000,8 @@ class Editor extends JFrame implements ActionListener  {
 
       if(exitCode!=0) {
 
-        while((s=cmdLineErr.readLine())!=null) {//read line by line
+        //read line by line
+        while((s=cmdLineErr.readLine())!=null) {
 
           appendToPane(Pather,"\n"+s,tConsoleTextError);
 
@@ -2961,7 +3032,8 @@ class Editor extends JFrame implements ActionListener  {
   // Main class
   public static void main(String[] args) {
 
-    Editor e = new Editor();//jump to editor
+    //jump to editor
+    Editor e = new Editor();
 
   }
 
