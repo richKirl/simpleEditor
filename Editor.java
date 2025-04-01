@@ -1725,9 +1725,6 @@ class Editor extends JFrame implements ActionListener  {
     aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
 
 
-    int len = tp.getDocument().getLength();
-
-    tp.setCaretPosition(len);
 
     tp.setCharacterAttributes(aset,false);
 
@@ -1817,9 +1814,9 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        cmrCommenter();
-
-        cmrColorTexte();
+        //cmrCommenter();
+        cmrCommenterLineTemp();
+        //cmrColorTexte();
 
       }
       if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
@@ -1829,7 +1826,8 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        cmrDeleterLine();cmrColorTexte();
+        //cmrDeleterLine();cmrColorTexte();
+        cmrDeleterLineTemp();
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_TAB){
@@ -2504,89 +2502,6 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-  public void cmrCommenter() {
-
-    int currentPosC = t.getCaretPosition();
-
-    Highlighter.Highlight[] h = t.getHighlighter().getHighlights();
-
-    int hi=-1;
-
-    int hl=-2;
-
-    for(int i = 0; i < h.length; i++) {
-
-      hi=h[i].getStartOffset();
-
-      hl=h[i].getEndOffset();
-
-    }
-
-    if(hi==-1&&hl==-2){}
-
-    else {
-
-      int currentPos = hi;
-
-      String s1 = t.getText();
-
-      int countLI=1;
-
-      String s2 = s1.substring(hi,hl);
-
-      String tt2[] = s2.split("\n");
-
-      countLI = tt2.length-1;
-
-      String tt[] = s1.split("\n");
-
-      String ttt = new String();
-
-      t.setText("");
-
-      int tpos=0;
-
-      int tcols=1;
-
-      int first=0;
-
-      for(String r:tt) {
-
-        tpos+=r.length()+1;
-
-        if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {
-
-          if(countLI==0)first=1;
-
-          ttt+="//"+r+"\n";
-
-          countLI--;
-
-        }
-
-        else {
-
-          ttt+=r;
-
-          ttt+="\n";
-
-          tcols++;
-
-        }
-
-      }
-
-      t.setText(ttt);
-
-      t.setCaretPosition(currentPosC);
-
-      System.gc();
-
-    }
-
-  }
-
-
   public void cmrBraces() {
 
     int currentPosC = t.getCaretPosition();
@@ -2630,47 +2545,42 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-  public void cmrDeleterLine() {
+  public void cmrCommenterLineTemp() {
 
-    int currentPos = t.getCaretPosition();
+    int getStart=t.getSelectionStart();
 
-    String s1 = t.getText();
+    int getEnd=t.getSelectionEnd();
 
-    String tt[] = s1.split("\n");
+    int currentPos = t.getText().lastIndexOf("\n",t.getCaretPosition())+1;
 
-    String ttt = new String();
+    if(getStart==getEnd) {
 
-    t.setText("");
+      replaceToPane(t,"//"+t.getText().substring(t.getText().lastIndexOf("\n",t.getCaretPosition())+1,t.getText().indexOf("\n",t.getCaretPosition())),tGreen,t.getText().lastIndexOf("\n",t.getCaretPosition())+1,t.getText().indexOf("\n",t.getCaretPosition()));
 
-    int tpos=0;
+    }
+    else {
 
-    int tcols=1;
+      String tttt=(t.getText().substring(getStart,getEnd)).replaceAll("\n","\n//");
 
-    int first=0;
+      replaceToPane(t,"",tGreen,getStart,getEnd);
 
-    for(String r:tt) {
+      appendToPaneCurrPos(t,"//"+tttt,tGreen,getStart);
 
-      tpos+=r.length()+1;
 
-      if( ((r.indexOf(0)+tpos) > currentPos) && first==0 ) {
-
-        first = 1;
-
-      }
-
-      else {
-
-        ttt+=r;
-
-        ttt+="\n";
-
-        tcols++;
-
-      }
 
     }
 
-    t.setText(ttt);
+    t.setCaretPosition(currentPos);
+
+    System.gc();
+
+  }
+
+  public void cmrDeleterLineTemp() {
+
+    int currentPos = t.getText().lastIndexOf("\n",t.getCaretPosition())+1;
+
+    replaceToPane(t,"",tTextWCF,t.getText().lastIndexOf("\n",t.getCaretPosition())+1,t.getText().indexOf("\n",t.getCaretPosition())+1);
 
     t.setCaretPosition(currentPos);
 
