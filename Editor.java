@@ -2720,7 +2720,7 @@ class Editor extends JFrame implements ActionListener  {
           t2.setText("");
 
         }
-        else if(commander.equals(" ")){appendToPane(t2,"\n % ",tTextWCF);}
+        else if(commander.equals(" ")||commander.equals("")){appendToPane(t2,"\n % ",tTextWCF);}
         else {
 
           if(commander.contains("*")) {
@@ -2759,8 +2759,9 @@ class Editor extends JFrame implements ActionListener  {
 
             System.gc();
 
+
           }
-          if(!commander.equals(" ")) {
+          if(!commander.equals(" ")||!commander.equals("")){
             try {
 
               //call program
@@ -2813,17 +2814,17 @@ class Editor extends JFrame implements ActionListener  {
 
             }
 
+            HListCommands.add(commander);
+
+            commander= "";
+
+            appendToPane(t2,"\n % ",tTextWCF);
+
           }
-
-          HListCommands.add(commander);
-
-          commander= "";
-
-          appendToPane(t2,"\n % ",tTextWCF);
 
         }
 
-        //        replaceToPane(t2,"\n % ",tTextWCF,0,t2.getText().length());
+        //replaceToPane(t2,"\n % ",tTextWCF,0,t2.getText().length());
         //set cursor after prompt
         //t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));
 
