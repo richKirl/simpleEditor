@@ -1340,7 +1340,7 @@ class Editor extends JFrame implements ActionListener  {
 
         if(current.equals("import")){                                  appendToPane(t,current,tBlue);}
 
-        else if(current.equals("return"))                              appendToPane(t,current,tMagenta);
+        else if(current.equals("return")){                             appendToPane(t,current,tMagenta);}
 
         else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
 
@@ -1359,6 +1359,8 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("protected")){                          appendToPane(t,current,tBlue);}
 
         else if(current.equals("throws")){                             appendToPane(t,current,tBlue);}
+
+        else if(current.equals("final")){                             appendToPane(t,current,tBlue);}
 
         else if(current.equals("public")){                             appendToPane(t,current,tBlue);}
 
@@ -1814,9 +1816,12 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        //cmrCommenter();
         cmrCommenterLineTemp();
-        //cmrColorTexte();
+
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_R && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+
+        cmrSelectLineTemp();
 
       }
       if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
@@ -1826,7 +1831,6 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        //cmrDeleterLine();cmrColorTexte();
         cmrDeleterLineTemp();
 
       }
@@ -2576,6 +2580,23 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  public void cmrSelectLineTemp() {
+
+    int spos=t.getText().lastIndexOf("\n",t.getCaretPosition())+1;
+
+    int epos=t.getText().indexOf("\n",t.getCaretPosition());
+
+
+    t.setSelectionStart(spos);
+
+    t.setSelectionEnd(epos);
+
+    t.select(spos,epos);
+
+    System.gc();
+
+  }
+
   public void cmrDeleterLineTemp() {
 
     int currentPos = t.getText().lastIndexOf("\n",t.getCaretPosition())+1;
@@ -2797,7 +2818,7 @@ class Editor extends JFrame implements ActionListener  {
 
         commander= "";
 
-        appendToPane(t2,"\n"+" % ",tTextWCF);
+        appendToPane(t2,"\n % ",tTextWCF);
 
 
         //set cursor after prompt
