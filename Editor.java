@@ -1360,7 +1360,7 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("throws")){                             appendToPane(t,current,tBlue);}
 
-        else if(current.equals("final")){                             appendToPane(t,current,tBlue);}
+        else if(current.equals("final")){                              appendToPane(t,current,tBlue);}
 
         else if(current.equals("public")){                             appendToPane(t,current,tBlue);}
 
@@ -2695,7 +2695,7 @@ class Editor extends JFrame implements ActionListener  {
     public void keyPressed(KeyEvent e) {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-
+        e.consume();
         //get token from doc https://godbolt.org/z/9e5W3zf81
         String s1 = t2.getText();
 
@@ -2719,6 +2719,7 @@ class Editor extends JFrame implements ActionListener  {
           t2.setText("");
 
         }
+        else if(commander.equals(" ")){appendToPane(t2,"\n % ",tTextWCF);}
         else {
 
           if(commander.contains("*")) {
@@ -2760,69 +2761,71 @@ class Editor extends JFrame implements ActionListener  {
             System.gc();
 
           }
-          try {
+          if(!commander.equals(" ")) {
+            try {
 
-            //call program
-            Process pR = Runtime.getRuntime().exec(commander);
+              //call program
+              Process pR = Runtime.getRuntime().exec(commander);
 
 
-            int exitCode = pR.waitFor();
+              int exitCode = pR.waitFor();
 
-            PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
+              PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
 
-            BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
+              BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
 
-            BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
+              BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
 
-            String s = null;
+              String s = null;
 
-            if(exitCode==0||exitCode==2) {
+              if(exitCode==0||exitCode==2) {
 
-              //read line by line
-              while((s=cmdLineOut.readLine())!=null){
+                //read line by line
+                while((s=cmdLineOut.readLine())!=null){
 
-                appendToPane(t2,"\n"+s,tTextWCF);
+                  appendToPane(t2,"\n"+s,tTextWCF);
 
-              }
-
-            }
-
-            if(exitCode!=0) {
-
-              //read line by line
-              while((s=cmdLineErr.readLine())!=null){
-
-                appendToPane(t2,"\n"+s,tConsoleTextError);
+                }
 
               }
 
+              if(exitCode!=0) {
+
+                //read line by line
+                while((s=cmdLineErr.readLine())!=null){
+
+                  appendToPane(t2,"\n"+s,tConsoleTextError);
+
+                }
+
+              }
+
+              pR.destroy();
+
             }
+            catch (IOException e1) {
 
-            pR.destroy();
+              e1.printStackTrace();
 
+            }
+            catch (InterruptedException e1) {
+
+              e1.printStackTrace();
+
+            }
           }
-          catch (IOException e1) {
+          HListCommands.add(commander);
 
-            e1.printStackTrace();
+          commander= "";
 
-          }
-          catch (InterruptedException e1) {
-
-            e1.printStackTrace();
-
-          }
-
+          appendToPane(t2,"\n % ",tTextWCF);
         }
 
-        HListCommands.add(commander);
-
-        commander= "";
-
-        appendToPane(t2,"\n % ",tTextWCF);
 
 
+        //        replaceToPane(t2,"\n % ",tTextWCF,0,t2.getText().length());
         //set cursor after prompt
-        t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));
+        //t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));
 
         System.gc();
 
