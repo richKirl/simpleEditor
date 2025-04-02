@@ -2695,6 +2695,7 @@ class Editor extends JFrame implements ActionListener  {
     public void keyPressed(KeyEvent e) {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+
         e.consume();
         //get token from doc https://godbolt.org/z/9e5W3zf81
         String s1 = t2.getText();
@@ -2756,8 +2757,6 @@ class Editor extends JFrame implements ActionListener  {
 
             commander+=ttttt;
 
-
-
             System.gc();
 
           }
@@ -2814,14 +2813,14 @@ class Editor extends JFrame implements ActionListener  {
 
             }
           }
+
           HListCommands.add(commander);
 
           commander= "";
 
           appendToPane(t2,"\n % ",tTextWCF);
+
         }
-
-
 
         //        replaceToPane(t2,"\n % ",tTextWCF,0,t2.getText().length());
         //set cursor after prompt
