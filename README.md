@@ -30,6 +30,8 @@ ctrl+w comment;
 
 ctrl+d delete curr string
 
+ctrl+r select cur line
+
 format on panel //{without "//}" "= {"};
 
 shift+9 with focus on doc with select string for ()
