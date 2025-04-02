@@ -2812,6 +2812,7 @@ class Editor extends JFrame implements ActionListener  {
               e1.printStackTrace();
 
             }
+
           }
 
           HListCommands.add(commander);
