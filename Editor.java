@@ -156,12 +156,12 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-  private int FlagForComment=0;
+  private int FlagForComment = 0;
 
 
 
 
-  private int FlagBraces=0;
+  private int FlagBraces = 0;
 
 
 
@@ -741,6 +741,22 @@ class Editor extends JFrame implements ActionListener  {
         Path=tt;
 
         viewDir(Path);
+
+        //FileExt;
+
+        int posFile=Pather.getText().lastIndexOf(FileExt+"\n");
+
+        int spos=Pather.getText().lastIndexOf("\n",posFile);
+
+        int epos=Pather.getText().indexOf("\n",posFile);
+
+
+        Pather.setSelectionStart(spos);
+
+        Pather.setSelectionEnd(epos);
+
+        //Pather.select(spos,epos);
+        replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
 
         // Initialize sl
         sl = br.readLine();
@@ -1551,8 +1567,11 @@ class Editor extends JFrame implements ActionListener  {
         next = it.hasNext() ? it.next() : null;
 
 
-        if(current.equals("{")){countCCCC++;}
+        if(current.equals("{")) {
 
+          countCCCC++;
+
+        }
         else if(current.equals("{")&&next.equals("}")) {
 
           previous = current;
@@ -1602,7 +1621,6 @@ class Editor extends JFrame implements ActionListener  {
         }
         else if(current.equals("\"")&&next.equals("}")) {
 
-
           previous = current;
 
           current = next;
@@ -1616,7 +1634,11 @@ class Editor extends JFrame implements ActionListener  {
           next = it.hasNext() ? it.next() : null;
 
         }
-        else if(current.equals("}")){countCCCC-=1;}
+        else if(current.equals("}")) {
+
+          countCCCC-=1;
+
+        }
 
       }
 
@@ -1695,7 +1717,6 @@ class Editor extends JFrame implements ActionListener  {
 
 
   private void appendToPaneTabs(JTextPane tp, String msg, Color c) {
-
 
     StyleContext sc = StyleContext.getDefaultStyleContext();
 
@@ -1934,7 +1955,11 @@ class Editor extends JFrame implements ActionListener  {
 
       t4.setText(t.getText().toString().length()+" chars"+" "+(t.getText().split("\n").length)+" lines"+"   File: "+FileExt+" Language: "+ExtFile);
 
-      if(CountFORFREE==30){CountFORFREE=0;System.gc();}
+      if(CountFORFREE==30) {
+
+        CountFORFREE=0;System.gc();
+
+      }
 
       CountFORFREE++;
 
@@ -2457,7 +2482,11 @@ class Editor extends JFrame implements ActionListener  {
       VisualConsole=0;
 
     }
-    else { mbConsole.setVisible(true); }
+    else {
+
+      mbConsole.setVisible(true);
+
+    }
 
   }
 
@@ -2472,7 +2501,11 @@ class Editor extends JFrame implements ActionListener  {
       VisualViewer=0;
 
     }
-    else { mbViewer.setVisible(true); }
+    else {
+
+      mbViewer.setVisible(true);
+
+    }
 
   }
 
@@ -2720,7 +2753,11 @@ class Editor extends JFrame implements ActionListener  {
           t2.setText("");
 
         }
-        else if(commander.equals(" ")||commander.equals("")){appendToPane(t2,"\n % ",tTextWCF);}
+        else if(commander.equals(" ")||commander.equals("")){
+
+          appendToPane(t2,"\n % ",tTextWCF);
+
+        }
         else {
 
           if(commander.contains("*")) {
@@ -2845,12 +2882,14 @@ class Editor extends JFrame implements ActionListener  {
 
           if(HListCommands.size()==1)CurrHListCom=0;
 
+          else if(HListCommands.size()==0){}
+
           else CurrHListCom=CurrHListCom=HListCommands.size()-1;
 
         }
+        if(HListCommands.size()>0) commander=HListCommands.get(CurrHListCom);
 
-        commander=HListCommands.get(CurrHListCom);
-
+        else commander="";
         //replaceSelection(String content)from doc
         //Replaces the currently selected content with new content represented by the given string.
         //appendToPane(t2,"\n % "+commander,tTextWCF);
