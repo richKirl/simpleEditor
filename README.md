@@ -1,7 +1,8 @@
 # simpleEditor
 simpleEditor
 
-![image](https://github.com/user-attachments/assets/6d4298d1-7265-49f0-b612-571a61f7d498)
+![image](https://github.com/user-attachments/assets/fe3aeae1-9be0-4902-b2ab-bedc3efb391d)
+
 
 
 
