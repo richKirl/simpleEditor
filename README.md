@@ -62,7 +62,7 @@ alt+q to minicli/to return ;
 
 alt+up/down/left/right "withFocus-caret on File-space" up/down change Height minicli, "withFocus-caret on File-space" left/right change Width viewerFile;
 
-(TODO)alt+w to viewerFile/to return(TODO)
+alt+w to viewerFile/to return
 
 # minicli space
 
