@@ -88,6 +88,8 @@ class Editor extends JFrame implements ActionListener  {
   //buffer for pathViewer
   private JTextPane Pather;
 
+  private int PatherVisualFlag=1;
+
   //bufferViewerDirectory
   private CmrViewer testls;
 
@@ -170,6 +172,13 @@ class Editor extends JFrame implements ActionListener  {
 
   int CurrHListCom=0;
 
+
+
+  private List<String> HListDir;
+
+  int posFileS;
+
+  int posFileE;
 
   // Constructor
   public Editor() {
@@ -744,16 +753,20 @@ class Editor extends JFrame implements ActionListener  {
 
         //FileExt;
 
-        int posFile=Pather.getText().lastIndexOf(FileExt+"\n");
+        posFileS=Pather.getText().lastIndexOf(FileExt+"\n");
 
-        int spos=Pather.getText().lastIndexOf("\n",posFile);
+        int spos =Pather.getText().lastIndexOf("\n",posFileS);
 
-        int epos=Pather.getText().indexOf("\n",posFile);
+        int epos =Pather.getText().indexOf("\n",posFileS);
 
 
         Pather.setSelectionStart(spos);
 
         Pather.setSelectionEnd(epos);
+
+        posFileS=spos;
+
+        posFileE=epos;
 
         //Pather.select(spos,epos);
         replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
@@ -1916,11 +1929,15 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_W &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
 
-        CaretPosSave=t.getCaretPosition();
+        if(PatherVisualFlag==1){
 
-        Pather.requestFocus();
+          CaretPosSave=t.getCaretPosition();
 
-        Pather.setCaretPosition(Pather.getText().length());
+          Pather.requestFocus();
+
+          Pather.setCaretPosition(Pather.getText().length());
+
+        }
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_F && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
@@ -2513,10 +2530,14 @@ class Editor extends JFrame implements ActionListener  {
 
       VisualViewer=0;
 
+      PatherVisualFlag=0;
+
     }
     else {
 
       mbViewer.setVisible(true);
+
+      PatherVisualFlag=1;
 
     }
 
@@ -2820,6 +2841,7 @@ class Editor extends JFrame implements ActionListener  {
 
           }
           if(!commander.equals(" ")||!commander.equals("")){
+
             try {
 
               //call program
@@ -2891,7 +2913,6 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
 
-
         t.requestFocus();t.setCaretPosition(CaretPosSave);
 
       }
@@ -2946,10 +2967,61 @@ class Editor extends JFrame implements ActionListener  {
 
         System.out.println("ctrl+down on VIEWERCMR");
 
+        Pather.setSelectionStart(posFileS);
+
+        Pather.setSelectionEnd(posFileE);
+
+
+
+        replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tTextWCF,posFileS,posFileE);
+
+
+        posFileE+=2;
+
+        posFileS=Pather.getText().lastIndexOf("\n",posFileE);
+
+        posFileE= Pather.getText().indexOf("\n",posFileE);
+
+
+        Pather.setSelectionStart(posFileS);
+
+        Pather.setSelectionEnd(posFileE);
+
+
+
+        replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tGreen,posFileS,posFileE);
+
+
+
       }
       else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         System.out.println("ctrl+up on VIEWERCMR");
+
+        Pather.setSelectionStart(posFileS);
+
+        Pather.setSelectionEnd(posFileE);
+
+
+
+        replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tTextWCF,posFileS,posFileE);
+
+
+        posFileS-=3;
+
+        posFileS=Pather.getText().lastIndexOf("\n",posFileS);
+
+        posFileE= Pather.getText().lastIndexOf("\n",posFileE);
+
+
+        Pather.setSelectionStart(posFileS);
+
+        Pather.setSelectionEnd(posFileE);
+
+
+
+        replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tGreen,posFileS,posFileE);
+
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
