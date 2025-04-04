@@ -174,8 +174,6 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-  private List<String> HListDir;
-
   int posFileS;
 
   int posFileE;
@@ -978,6 +976,8 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
 
+        else if(current.equals("bool")){                               appendToPane(t,current,tBlue);}
+
         else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
 
         else if(current.equals("wchar")){                              appendToPane(t,current,tBlue);}
@@ -1083,6 +1083,8 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
 
         else if(current.equals("}")){                                  appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("}")&&next.equals(";")){                appendToPane(t,current,tMagenta);}
 
         else if(current.equals("main")){                               appendToPane(t,current,tBlue);}
 
@@ -1197,6 +1199,8 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
 
+        else if(current.equals("bool")){                               appendToPane(t,current,tBlue);}
+
         else if(current.equals("wchar")){                              appendToPane(t,current,tBlue);}
 
         else if(current.equals("double")){                             appendToPane(t,current,tBlue);}
@@ -1216,8 +1220,6 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("int16_t")){                            appendToPane(t,current,tBlue);}
 
         else if(current.equals("int32_t")){                            appendToPane(t,current,tBlue);}
-
-        else if(current.equals("class")){                              appendToPane(t,current,tBlue);}
 
         else if(current.equals("struct")){                             appendToPane(t,current,tBlue);}
 
@@ -1569,10 +1571,11 @@ class Editor extends JFrame implements ActionListener  {
       r=r.replaceFirst("\\s*$", "");
 
       if(r.length()==1&&r.contains("}")){countCCCC--;}
-
+      else if(r.length()==2&&r.contains("};")){countCCCC--;}
       for(int i=0;i<countCCCC;i++){if(r.equals("")){}else{ttt+="  ";}}
 
       if(r.length()==1&&r.contains("}")){countCCCC++;}
+      else if(r.length()==2&&r.contains("};")){countCCCC++;}
 
       ttt+=r;ttt+="\n";
 
@@ -1660,6 +1663,23 @@ class Editor extends JFrame implements ActionListener  {
           next = it.hasNext() ? it.next() : null;
 
         }
+        //        else if(current.equals("}")&&next.equals(";")){
+          //
+          //          countCCCC-=1;
+          //
+          //          previous = current;
+          //
+          //          current = next;
+          //
+          //          next = it.hasNext() ? it.next() : null;
+          //
+          //          previous = current;
+          //
+          //          current = next;
+          //
+          //          next = it.hasNext() ? it.next() : null;
+          //
+          //        }
         else if(current.equals("}")) {
 
           countCCCC-=1;
