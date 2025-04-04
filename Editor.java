@@ -781,6 +781,7 @@ class Editor extends JFrame implements ActionListener  {
           ExtFile=langSupport[2];
 
           cmrColorTexte();
+
         }
         else if(ExtFile.equals("cpp")){
 
@@ -906,7 +907,7 @@ class Editor extends JFrame implements ActionListener  {
 
     int currPosC=t.getCaretPosition();
 
-    if(ExtFile.equals("cpp")) {
+    if(ExtFile.equals("C++")) {
 
       String s1 = t.getText();
 
@@ -936,11 +937,31 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("<")){                                  appendToPane(t,current,tBody);}
 
+        else if(current.equals("<")&&next.equals("<")){
+
+          appendToPane(t,current,tBody);
+
+          appendToPane(t,next,tBody);
+
+          previous = current;
+
+          current = next;
+
+          next = it.hasNext() ? it.next() : null;
+
+          previous = current;
+
+          current = next;
+
+          next = it.hasNext() ? it.next() : null;
+
+        }
+
         else if(previous.equals("<")&&current.equals("std")==false){   appendToPane(t,current,tBody);}
 
         else if(current.equals(">")){                                  appendToPane(t,current,tBody);}
 
-        else if(current.equals("return"))                              appendToPane(t,current,tMagenta);
+        else if(current.equals("return")){                             appendToPane(t,current,tMagenta);}
 
         else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
 
@@ -1008,218 +1029,13 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
 
+        else if(current.equals("switch")){                             appendToPane(t,current,tMagenta);}
+
         else if(current.equals("try")){                                appendToPane(t,current,tMagenta);}
 
         else if(current.equals("catch")){                              appendToPane(t,current,tMagenta);}
 
         else if(previous.equals(":")&&!current.equals(":")){           appendToPane(t,current,tBlue);}
-
-        else if(current.equals("/")&&next.equals("/")){
-
-          appendToPane(t,current,tGreen);
-
-          appendToPane(t,next,tGreen);
-
-          for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
-
-            previous = current;
-
-            current = next;
-
-            next = it.hasNext() ? it.next() : null;
-
-            if(next.equals("\n")){ appendToPane(t,current,tGreen);break; }
-
-            else appendToPane(t,current,tGreen);
-
-          }
-
-        }
-
-        else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
-
-        else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
-
-        else if(current.equals("[")){                                  appendToPane(t,current,tBlue);}
-
-        else if(current.equals("]")){                                  appendToPane(t,current,tBlue);}
-
-        else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("}")){                                  appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("main")){                               appendToPane(t,current,tBlue);}
-
-        else if(current.equals("\"")){
-
-          if(current.equals("\"")&&next.equals("\"")){
-
-            appendToPane(t,current,tBody);
-
-            previous = current;
-
-            current = next;
-
-            next = it.hasNext() ? it.next() : null;
-
-            appendToPane(t,current,tBody);
-
-          }
-          else {
-
-            appendToPane(t,current,tBody);
-
-            appendToPane(t,next,tBody);
-
-            for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
-
-              previous = current;
-
-              current = next;
-
-              next = it.hasNext() ? it.next() : null;
-
-              if(current.equals("\"")){
-
-                if(next.equals("\"")){
-
-                  appendToPane(t,current,tBody);
-
-                  previous = current;
-
-                  current = next;
-
-                  next = it.hasNext() ? it.next() : null;
-
-                  appendToPane(t,current,tBody);
-
-                }
-                else {
-
-                  appendToPane(t,current,tBody);
-
-                }
-                break;
-
-              }
-
-              else appendToPane(t,current,tBody);
-
-            }
-
-          }
-
-        }
-
-        else appendToPane(t,current,tTextWCF);
-
-
-        // Do something using 'current', 'previous' and 'next'.
-        // NB: 'previous' and/or 'next' are null when 'current' is
-        // the first and/or last element respectively
-      }
-
-      list.clear();
-
-    }
-
-    else if(ExtFile.equals("c")) {
-
-      String s1 = t.getText();
-
-      //(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
-      t.setText("");
-
-      //"((?= )|(?=\t)|(?<=\n))"(?=\\w)
-      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
-
-      List<String> list = new ArrayList<String>();
-
-      for(String r: parts)list.add(r);
-
-      final Iterator<String> it = list.iterator();
-
-      for(String next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
-
-        String previous = current;
-
-        current = next;
-
-        next = it.hasNext() ? it.next() : null;
-
-        if(current.equals("#")&&next.equals("include")){               appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("include")&&previous.equals("#")){      appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("<")){                                  appendToPane(t,current,tBody);}
-
-        else if(previous.equals("<")&&current.equals("std")==false){   appendToPane(t,current,tBody);}
-
-        else if(current.equals(">")){                                  appendToPane(t,current,tBody);}
-
-        else if(current.equals("return"))                              appendToPane(t,current,tMagenta);
-
-        else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
-
-        else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
-
-        else if(current.equals("wchar")){                              appendToPane(t,current,tBlue);}
-
-        else if(current.equals("double")){                             appendToPane(t,current,tBlue);}
-
-        else if(current.equals("unsigned")){                           appendToPane(t,current,tBlue);}
-
-        else if(current.equals("long")){                               appendToPane(t,current,tBlue);}
-
-        else if(current.equals("uint8_t")){                            appendToPane(t,current,tBlue);}
-
-        else if(current.equals("uint16_t")){                           appendToPane(t,current,tBlue);}
-
-        else if(current.equals("uint32_t")){                           appendToPane(t,current,tBlue);}
-
-        else if(current.equals("int8_t")){                             appendToPane(t,current,tBlue);}
-
-        else if(current.equals("int16_t")){                            appendToPane(t,current,tBlue);}
-
-        else if(current.equals("int32_t")){                            appendToPane(t,current,tBlue);}
-
-        else if(current.equals("class")){                              appendToPane(t,current,tBlue);}
-
-        else if(current.equals("struct")){                             appendToPane(t,current,tBlue);}
-
-        else if(current.equals("union")){                              appendToPane(t,current,tBlue);}
-
-        else if(current.equals("using")){                              appendToPane(t,current,tBlue);}
-
-        else if(current.equals("import")){                             appendToPane(t,current,tBlue);}
-
-        else if(current.equals("static")){                             appendToPane(t,current,tBlue);}
-
-        else if(current.equals("constexpr")){                          appendToPane(t,current,tBlue);}
-
-        else if(current.equals("const")){                              appendToPane(t,current,tBlue);}
-
-        else if(current.equals("protected")){                          appendToPane(t,current,tBlue);}
-
-        else if(current.equals("public")){                             appendToPane(t,current,tBlue);}
-
-        else if(current.equals("private")){                            appendToPane(t,current,tBlue);}
-
-        else if(current.equals("void")){                               appendToPane(t,current,tBlue);}
-
-        else if(current.equals("do")){                                 appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("for")){                                appendToPane(t,current,tBlue);}
-
-        else if(current.equals("while")){                              appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("if")){                                 appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("try")){                                appendToPane(t,current,tMagenta);}
-
-        else if(current.equals("catch")){                              appendToPane(t,current,tMagenta);}
 
         else if(current.equals("/")&&next.equals("/")){
 
@@ -1286,7 +1102,202 @@ class Editor extends JFrame implements ActionListener  {
 
               next = it.hasNext() ? it.next() : null;
 
-              if(current.equals("\"")){
+              if(current.equals("\"")) {
+
+                if(next.equals("\"")) {
+
+                  appendToPane(t,current,tBody);
+
+                  previous = current;
+
+                  current = next;
+
+                  next = it.hasNext() ? it.next() : null;
+
+                  appendToPane(t,current,tBody);
+
+                }
+                else {
+
+                  appendToPane(t,current,tBody);
+
+                }
+
+                break;
+
+              }
+              else appendToPane(t,current,tBody);
+
+            }
+
+          }
+
+        }
+
+        else appendToPane(t,current,tTextWCF);
+
+
+        // Do something using 'current', 'previous' and 'next'.
+        // NB: 'previous' and/or 'next' are null when 'current' is
+        // the first and/or last element respectively
+      }
+
+      list.clear();
+
+    }
+
+    else if(ExtFile.equals("C")) {
+
+      String s1 = t.getText();
+
+      //(?<=\s)(?=\S)|(?<=\S)(?=\s)|(?<=\w)(?=\W)|(?<=\W)(?=\w)
+      t.setText("");
+
+      //"((?= )|(?=\t)|(?<=\n))"(?=\\w)
+      String parts[] = s1.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
+
+      List<String> list = new ArrayList<String>();
+
+      for(String r: parts)list.add(r);
+
+      final Iterator<String> it = list.iterator();
+
+      for(String next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+        String previous = current;
+
+        current = next;
+
+        next = it.hasNext() ? it.next() : null;
+
+        if(current.equals("#")&&next.equals("include")){               appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("include")&&previous.equals("#")){      appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("<")){                                  appendToPane(t,current,tBody);}
+
+        else if(current.equals(">")){                                  appendToPane(t,current,tBody);}
+
+        else if(current.equals("return"))                              appendToPane(t,current,tMagenta);
+
+        else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
+
+        else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
+
+        else if(current.equals("wchar")){                              appendToPane(t,current,tBlue);}
+
+        else if(current.equals("double")){                             appendToPane(t,current,tBlue);}
+
+        else if(current.equals("unsigned")){                           appendToPane(t,current,tBlue);}
+
+        else if(current.equals("long")){                               appendToPane(t,current,tBlue);}
+
+        else if(current.equals("uint8_t")){                            appendToPane(t,current,tBlue);}
+
+        else if(current.equals("uint16_t")){                           appendToPane(t,current,tBlue);}
+
+        else if(current.equals("uint32_t")){                           appendToPane(t,current,tBlue);}
+
+        else if(current.equals("int8_t")){                             appendToPane(t,current,tBlue);}
+
+        else if(current.equals("int16_t")){                            appendToPane(t,current,tBlue);}
+
+        else if(current.equals("int32_t")){                            appendToPane(t,current,tBlue);}
+
+        else if(current.equals("class")){                              appendToPane(t,current,tBlue);}
+
+        else if(current.equals("struct")){                             appendToPane(t,current,tBlue);}
+
+        else if(current.equals("union")){                              appendToPane(t,current,tBlue);}
+
+        else if(current.equals("import")){                             appendToPane(t,current,tBlue);}
+
+        else if(current.equals("static")){                             appendToPane(t,current,tBlue);}
+
+        else if(current.equals("constexpr")){                          appendToPane(t,current,tBlue);}
+
+        else if(current.equals("const")){                              appendToPane(t,current,tBlue);}
+
+        else if(current.equals("void")){                               appendToPane(t,current,tBlue);}
+
+        else if(current.equals("do")){                                 appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("for")){                                appendToPane(t,current,tBlue);}
+
+        else if(current.equals("while")){                              appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("if")){                                 appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("switch")){                             appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("/")&&next.equals("/")){
+
+          appendToPane(t,current,tGreen);
+
+          appendToPane(t,next,tGreen);
+
+          for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            if(next.equals("\n")){ appendToPane(t,current,tGreen); break; }
+
+            else appendToPane(t,current,tGreen);
+
+          }
+
+        }
+
+        else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
+
+        else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
+
+        else if(current.equals("[")){                                  appendToPane(t,current,tBlue);}
+
+        else if(current.equals("]")){                                  appendToPane(t,current,tBlue);}
+
+        else if(current.equals("{")){                                  appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("}")){                                  appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("main")){                               appendToPane(t,current,tBlue);}
+
+        else if(current.equals("\"")){
+
+          if(current.equals("\"")&&next.equals("\"")){
+
+            appendToPane(t,current,tBody);
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            appendToPane(t,current,tBody);
+
+          }
+          else {
+
+            appendToPane(t,current,tBody);
+
+            appendToPane(t,next,tBody);
+
+            for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+              previous = current;
+
+              current = next;
+
+              next = it.hasNext() ? it.next() : null;
+
+              if(current.equals("\"")) {
 
                 if(next.equals("\"")) {
 
@@ -1399,6 +1410,8 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("if")){                                 appendToPane(t,current,tMagenta);}
 
         else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("switch")){                               appendToPane(t,current,tMagenta);}
 
         else if(current.equals("try")){                                appendToPane(t,current,tMagenta);}
 
@@ -2520,7 +2533,11 @@ class Editor extends JFrame implements ActionListener  {
       VisualSearcher=0;
 
     }
-    else { mbSearcher.setVisible(true); }
+    else {
+
+      mbSearcher.setVisible(true);
+
+    }
 
   }
 
@@ -2535,7 +2552,11 @@ class Editor extends JFrame implements ActionListener  {
       VisualJumper=0;
 
     }
-    else { mbJumper.setVisible(true); }
+    else { 
+
+      mbJumper.setVisible(true); 
+
+    }
 
   }
 
@@ -2890,6 +2911,7 @@ class Editor extends JFrame implements ActionListener  {
         if(HListCommands.size()>0) commander=HListCommands.get(CurrHListCom);
 
         else commander="";
+
         //replaceSelection(String content)from doc
         //Replaces the currently selected content with new content represented by the given string.
         //appendToPane(t2,"\n % "+commander,tTextWCF);
