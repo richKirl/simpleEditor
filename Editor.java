@@ -1411,7 +1411,7 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
 
-        else if(current.equals("switch")){                               appendToPane(t,current,tMagenta);}
+        else if(current.equals("switch")){                             appendToPane(t,current,tMagenta);}
 
         else if(current.equals("try")){                                appendToPane(t,current,tMagenta);}
 
@@ -2552,9 +2552,9 @@ class Editor extends JFrame implements ActionListener  {
       VisualJumper=0;
 
     }
-    else { 
+    else {
 
-      mbJumper.setVisible(true); 
+      mbJumper.setVisible(true);
 
     }
 
