@@ -65,6 +65,14 @@ alt+up/down/left/right "withFocus-caret on File-space" up/down change Height min
 
 alt+w to viewerFile/to return
 
+# viewerFile 
+
+ctrl+down selectColorStatus file to down 
+
+(TEST)ctrl+up(TEST) selectColorStatus file to up
+
+enter openFile from selectColorStatus file
+
 # minicli space
 
 up minicli history-ring
