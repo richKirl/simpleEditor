@@ -69,9 +69,9 @@ alt+w to viewerFile/to return
 
 ctrl+down selectColorStatus file to down 
 
-(TEST)ctrl+up(TEST) selectColorStatus file to up
+ctrl+up selectColorStatus file to up
 
-(TODO)enter openFile from selectColorStatus file(TODO)
+()enter openFile from selectColorStatus file()
 
 # minicli space
 
