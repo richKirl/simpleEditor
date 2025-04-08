@@ -2965,6 +2965,128 @@ class Editor extends JFrame implements ActionListener  {
 
         e.consume();
 
+        t.setText("");
+
+        t1.setText("");
+
+        LineNN=0;
+
+        try {
+
+          // String
+          String s1 = "", sl = "",sf = "";
+
+          // File reader
+          FileReader fr = new FileReader(Path+(Pather.getText().substring(posFileS+1,posFileE)));
+
+          // Buffered reader
+          BufferedReader br = new BufferedReader(fr);
+
+          //FilePathw=fi.toString();
+
+          //String partsDirs[] = FilePathw.split("/");
+
+          //int sz1 = partsDirs.length;
+
+          FileExt = Pather.getText().substring(posFileS+1,posFileE);
+
+          String partsDim[] = FileExt.split("\\W");
+
+          int sz2 = partsDim.length;
+
+          ExtFile = partsDim[sz2-1];
+
+
+//
+//          String tt=new String();
+//
+//          for(int i=1;i<partsDirs.length-1;i++) {
+//
+//            tt+="/"+partsDirs[i];
+//
+//          }
+//
+//          tt+="/";
+
+          Path=Path;
+
+          viewDir(Path);
+
+          //FileExt;
+
+          posFileS=Pather.getText().lastIndexOf(FileExt+"\n");
+
+          int spos =Pather.getText().lastIndexOf("\n",posFileS);
+
+          int epos =Pather.getText().indexOf("\n",posFileS);
+
+
+          Pather.setSelectionStart(spos);
+
+          Pather.setSelectionEnd(epos);
+
+          posFileS=spos;
+
+          posFileE=epos;
+
+          //Pather.select(spos,epos);
+          replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
+
+          System.out.println(spos+" "+epos);
+
+          // Initialize sl
+          sl = br.readLine();
+
+          // Take the input from the file
+          while ((s1 = br.readLine()) != null) {
+
+            sl = sl + "\n" + s1;
+
+            //set linenumbers while if line
+            LineNN+=1;
+
+            appendToPane(t1,""+LineNN+"\n",tTextWCF);
+
+          }
+            //set linenumbers while if line
+            LineNN+=1;
+
+            appendToPane(t1,""+LineNN+"\n",tTextWCF);
+          // Set the text
+          t.setText(sl);
+
+          if(ExtFile.equals("java")){
+
+            ExtFile=langSupport[2];
+
+            cmrColorTexte();
+
+          }
+          else if(ExtFile.equals("cpp")){
+
+            ExtFile=langSupport[1];
+
+            cmrColorTexte();
+
+          }
+          else if(ExtFile.equals("c")){
+
+            ExtFile=langSupport[0];
+
+            cmrColorTexte();
+
+          }
+
+          System.gc();
+
+        }
+        catch (Exception evt) {
+
+          JOptionPane.showMessageDialog(f, evt.getMessage());
+
+        }
+
+
       }
       else if(e.getKeyCode() == KeyEvent.VK_DOWN && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
@@ -2996,7 +3118,7 @@ class Editor extends JFrame implements ActionListener  {
         Pather.setCaretPosition(posFileS+1);
 
 
-        System.out.println(posFileS+" "+posFileE);
+//        System.out.println(posFileS+" "+posFileE);
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
@@ -3028,7 +3150,7 @@ class Editor extends JFrame implements ActionListener  {
 
         Pather.setCaretPosition(posFileS+1);
 
-        System.out.println(posFileS+" "+posFileE);
+//        System.out.println(posFileS+" "+posFileE);
 
 
       }
