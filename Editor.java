@@ -769,6 +769,8 @@ class Editor extends JFrame implements ActionListener  {
         //Pather.select(spos,epos);
         replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
 
+        System.out.println(spos+" "+epos);
+
         // Initialize sl
         sl = br.readLine();
 
@@ -833,7 +835,7 @@ class Editor extends JFrame implements ActionListener  {
 
     if(tempS!=null){
 
-      SaveFunction();
+      //SaveFunction();
 
       Pather.setText("");
 
@@ -1390,6 +1392,8 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("double")){                             appendToPane(t,current,tBlue);}
 
+        else if(current.equals("boolean")){                             appendToPane(t,current,tBlue);}
+
         else if(current.equals("unsigned")){                           appendToPane(t,current,tBlue);}
 
         else if(current.equals("long")){                               appendToPane(t,current,tBlue);}
@@ -1663,23 +1667,6 @@ class Editor extends JFrame implements ActionListener  {
           next = it.hasNext() ? it.next() : null;
 
         }
-        //        else if(current.equals("}")&&next.equals(";")){
-          //
-          //          countCCCC-=1;
-          //
-          //          previous = current;
-          //
-          //          current = next;
-          //
-          //          next = it.hasNext() ? it.next() : null;
-          //
-          //          previous = current;
-          //
-          //          current = next;
-          //
-          //          next = it.hasNext() ? it.next() : null;
-          //
-          //        }
         else if(current.equals("}")) {
 
           countCCCC-=1;
@@ -1811,7 +1798,7 @@ class Editor extends JFrame implements ActionListener  {
 
     int len = tp.getDocument().getLength();
 
-    tp.setCaretPosition(len);
+    tp.setCaretPosition(start);
 
     tp.setSelectionStart(start);
 
@@ -2724,11 +2711,17 @@ class Editor extends JFrame implements ActionListener  {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        String jLine = getFromPane(t3,t3.getText().indexOf(" ",0)+1,t3.getText().length());
+        e.consume();
+
+        String jLine = getFromPane(t3,t3.getText().indexOf(" ",8)+1,t3.getText().length());
 
         String parts3[] = t.getText().split("\n");
 
         t.requestFocus();
+
+        t3.setText("");
+
+        t3.setText("SearchL: ");
 
         int tpos=0;
 
@@ -2754,9 +2747,16 @@ class Editor extends JFrame implements ActionListener  {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        int jLine = Integer.parseInt(getFromPane(t5,t5.getText().indexOf(" ",0)+1,t5.getText().length()));
+        e.consume();
+
+        int jLine = Integer.parseInt(getFromPane(t5,t5.getText().indexOf(" ",8)+1,t5.getText().length()));
 
         t.requestFocus();
+
+        t5.setText("");
+
+        t5.setText("SearchJ: ");
+
 
         String parts3[] = t.getText().split("\n");
 
@@ -2792,21 +2792,8 @@ class Editor extends JFrame implements ActionListener  {
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
         e.consume();
-        //get token from doc https://godbolt.org/z/9e5W3zf81
-        String s1 = t2.getText();
 
-        String parts[] = s1.split("\n");
-
-        int sz = parts.length;
-
-        String part1 = parts[sz-1];
-
-        String parts2[] = part1.split("% ");
-
-        int sz1 = parts2.length;
-
-        //set command token
-        commander=parts2[sz1-1];
+        commander = t2.getText().substring(t2.getText().lastIndexOf("% ")+2,t2.getText().length());
 
         String ttttt=new String();
 
@@ -2826,6 +2813,10 @@ class Editor extends JFrame implements ActionListener  {
 
             String Temparts[] = commander.split(" ");
 
+            File dir=new File(".");
+
+            File[] files1 = dir.listFiles();
+
             for(String r:Temparts) {
 
               if(r.contains("*")) {
@@ -2834,9 +2825,9 @@ class Editor extends JFrame implements ActionListener  {
 
                 trTemp = r.replaceAll("\\W","");
 
-                File dir=new File(".");
 
-                File[] files1 = dir.listFiles();
+
+
 
                 for(File ffff:files1) {
 
@@ -2924,10 +2915,6 @@ class Editor extends JFrame implements ActionListener  {
 
         }
 
-        //replaceToPane(t2,"\n % ",tTextWCF,0,t2.getText().length());
-        //set cursor after prompt
-        //t2.setText(t2.getText().substring(0,t2.getText().lastIndexOf("\r\n")));
-
         System.gc();
 
       }
@@ -2953,10 +2940,6 @@ class Editor extends JFrame implements ActionListener  {
 
         else commander="";
 
-        //replaceSelection(String content)from doc
-        //Replaces the currently selected content with new content represented by the given string.
-        //appendToPane(t2,"\n % "+commander,tTextWCF);
-
         replaceToPane(t2,"\n % "+commander,tTextWCF,t2.getText().lastIndexOf("\n %"),t2.getText().length());
 
         commander="";
@@ -2980,12 +2963,11 @@ class Editor extends JFrame implements ActionListener  {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-        System.out.println("Enter on VIEWERCMR");
+        e.consume();
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_DOWN && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        System.out.println("ctrl+down on VIEWERCMR");
 
         Pather.setSelectionStart(posFileS);
 
@@ -3011,12 +2993,14 @@ class Editor extends JFrame implements ActionListener  {
 
         replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tGreen,posFileS,posFileE);
 
+        Pather.setCaretPosition(posFileS+1);
 
+
+        System.out.println(posFileS+" "+posFileE);
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        System.out.println("ctrl+up on VIEWERCMR");
 
         Pather.setSelectionStart(posFileS);
 
@@ -3027,11 +3011,11 @@ class Editor extends JFrame implements ActionListener  {
         replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tTextWCF,posFileS,posFileE);
 
 
-        posFileS-=3;
 
-        posFileS=Pather.getText().lastIndexOf("\n",posFileS);
+        posFileE= Pather.getText().indexOf("\n",posFileS-2);
 
-        posFileE= Pather.getText().lastIndexOf("\n",posFileE);
+        posFileS=Pather.getText().lastIndexOf("\n",posFileS-2);
+
 
 
         Pather.setSelectionStart(posFileS);
@@ -3042,11 +3026,13 @@ class Editor extends JFrame implements ActionListener  {
 
         replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tGreen,posFileS,posFileE);
 
+        Pather.setCaretPosition(posFileS+1);
+
+        System.out.println(posFileS+" "+posFileE);
+
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
-
-        System.out.println("alt+w on VIEWERCMR");
 
         t.requestFocus();t.setCaretPosition(CaretPosSave);
 
