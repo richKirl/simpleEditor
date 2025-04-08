@@ -71,7 +71,7 @@ ctrl+down selectColorStatus file to down
 
 ctrl+up selectColorStatus file to up
 
-()enter openFile from selectColorStatus file()
+Enter openFile from selectColorStatus file
 
 # minicli space
 
