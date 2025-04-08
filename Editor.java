@@ -769,7 +769,7 @@ class Editor extends JFrame implements ActionListener  {
         //Pather.select(spos,epos);
         replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
 
-        System.out.println(spos+" "+epos);
+        //System.out.println(spos+" "+epos);
 
         // Initialize sl
         sl = br.readLine();
@@ -2982,11 +2982,9 @@ class Editor extends JFrame implements ActionListener  {
           // Buffered reader
           BufferedReader br = new BufferedReader(fr);
 
-          //FilePathw=fi.toString();
+          FilePathw=Path+(Pather.getText().substring(posFileS+1,posFileE));
 
-          //String partsDirs[] = FilePathw.split("/");
 
-          //int sz1 = partsDirs.length;
 
           FileExt = Pather.getText().substring(posFileS+1,posFileE);
 
@@ -2996,17 +2994,6 @@ class Editor extends JFrame implements ActionListener  {
 
           ExtFile = partsDim[sz2-1];
 
-
-//
-//          String tt=new String();
-//
-//          for(int i=1;i<partsDirs.length-1;i++) {
-//
-//            tt+="/"+partsDirs[i];
-//
-//          }
-//
-//          tt+="/";
 
           Path=Path;
 
@@ -3032,7 +3019,7 @@ class Editor extends JFrame implements ActionListener  {
           //Pather.select(spos,epos);
           replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
 
-          System.out.println(spos+" "+epos);
+
 
           // Initialize sl
           sl = br.readLine();
@@ -3048,10 +3035,10 @@ class Editor extends JFrame implements ActionListener  {
             appendToPane(t1,""+LineNN+"\n",tTextWCF);
 
           }
-            //set linenumbers while if line
-            LineNN+=1;
+          //set linenumbers while if line
+          LineNN+=1;
 
-            appendToPane(t1,""+LineNN+"\n",tTextWCF);
+          appendToPane(t1,""+LineNN+"\n",tTextWCF);
           // Set the text
           t.setText(sl);
 
@@ -3118,7 +3105,6 @@ class Editor extends JFrame implements ActionListener  {
         Pather.setCaretPosition(posFileS+1);
 
 
-//        System.out.println(posFileS+" "+posFileE);
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
@@ -3150,7 +3136,6 @@ class Editor extends JFrame implements ActionListener  {
 
         Pather.setCaretPosition(posFileS+1);
 
-//        System.out.println(posFileS+" "+posFileE);
 
 
       }
