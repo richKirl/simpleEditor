@@ -36,7 +36,7 @@ ctrl+r select cur line
 
 format on panel //{without "//}" "= {"};
 
-shift+9 with focus on doc with select string for ()
+shift+9 () with focus on doc with select substring/string
 
 
 
