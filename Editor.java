@@ -29,7 +29,6 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.awt.event.ActionListener;
 
-
 class Editor extends JFrame implements ActionListener  {
 
   // Text component//code
@@ -907,6 +906,8 @@ class Editor extends JFrame implements ActionListener  {
   public void pasteFunction() {
 
     t.paste();
+
+    //System.out.println(t.getText().split("/n").length);
 
   }
 
@@ -1904,6 +1905,31 @@ class Editor extends JFrame implements ActionListener  {
         cmrDeleterLineTemp();
 
       }
+      else if(e.getKeyCode() == KeyEvent.VK_V &&  (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+
+        e.consume();
+
+        int tempPrevNLines=0;
+
+        tempPrevNLines = LineNN;
+
+        t.paste();
+
+        int tempCurrNLines=0;
+
+        tempCurrNLines = t.getText().split("\n").length-tempPrevNLines;
+
+        for(int i=0;i<tempCurrNLines;i++) {
+
+          LineNN+=1;
+
+          appendToPane(t1,""+LineNN+"\n",tTextWCF);
+
+
+        }
+
+
+      }
       else if(e.getKeyCode() == KeyEvent.VK_TAB){
 
         e.consume();
@@ -2840,8 +2866,6 @@ class Editor extends JFrame implements ActionListener  {
                 String trTemp=new String();
 
                 trTemp = r.replaceAll("\\W","");
-
-
 
 
 
