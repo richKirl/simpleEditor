@@ -1090,7 +1090,26 @@ class Editor extends JFrame implements ActionListener  {
           }
 
         }
+        else if(current.equals("/")&&next.equals("*")){
 
+          appendToPane(t,current,tGreen);
+
+          appendToPane(t,next,tGreen);
+
+          for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            if(current.equals("*")&&next.equals("/")){ appendToPane(t,current,tGreen); appendToPane(t,next,tGreen);previous = current;current = next;next = it.hasNext() ? it.next() : null; break; }
+            else appendToPane(t,current,tGreen);
+
+          } 
+
+        }
         else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
 
         else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
@@ -1287,7 +1306,26 @@ class Editor extends JFrame implements ActionListener  {
           }
 
         }
+        else if(current.equals("/")&&next.equals("*")){
 
+          appendToPane(t,current,tGreen);
+
+          appendToPane(t,next,tGreen);
+
+          for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            if(current.equals("*")&&next.equals("/")){ appendToPane(t,current,tGreen); appendToPane(t,next,tGreen);previous = current;current = next;next = it.hasNext() ? it.next() : null; break; }
+            else appendToPane(t,current,tGreen);
+
+          } 
+
+        }
         else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
 
         else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
@@ -1478,7 +1516,26 @@ class Editor extends JFrame implements ActionListener  {
           }
 
         }
+        else if(current.equals("/")&&next.equals("*")){
 
+          appendToPane(t,current,tGreen);
+
+          appendToPane(t,next,tGreen);
+
+          for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
+
+            previous = current;
+
+            current = next;
+
+            next = it.hasNext() ? it.next() : null;
+
+            if(current.equals("*")&&next.equals("/")){ appendToPane(t,current,tGreen); appendToPane(t,next,tGreen);previous = current;current = next;next = it.hasNext() ? it.next() : null; break; }
+            else appendToPane(t,current,tGreen);
+
+          } 
+
+        }
 
         else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
 
