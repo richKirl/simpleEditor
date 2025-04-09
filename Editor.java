@@ -2486,6 +2486,29 @@ class Editor extends JFrame implements ActionListener  {
       t.setCaretPosition(CaretPosSave+1);
 
     }
+    else if(e.getKeyCode() == KeyEvent.VK_INSERT) {
+
+      e.consume();
+
+      int tempPrevNLines=0;
+
+      tempPrevNLines = LineNN;
+
+      t.paste();
+
+      int tempCurrNLines=0;
+
+      tempCurrNLines = t.getText().split("\n").length-tempPrevNLines;
+
+      for(int i=0;i<tempCurrNLines;i++) {
+
+        LineNN+=1;
+
+        appendToPane(t1,""+LineNN+"\n",tTextWCF);
+
+      }
+
+    }
 
   }
 
