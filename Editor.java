@@ -2467,7 +2467,7 @@ class Editor extends JFrame implements ActionListener  {
       t.setCaretPosition(CaretPosSave+1);
 
     }
-    else if(e.getKeyCode() == KeyEvent.VK_CLOSE_SPACE) {
+    else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 
       CaretPosSave=t.getCaretPosition();
 
