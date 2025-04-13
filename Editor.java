@@ -193,6 +193,39 @@ class Editor extends JFrame implements ActionListener  {
 
   int posFileE;
 
+
+
+  private List<kvList> itt;
+
+  private int NumberOfl=0;
+
+  public class kvList {
+
+    private int k,v;
+
+    public kvList(int ka,int ve) {
+
+      k=ka;
+
+      v=ve;
+
+    }
+    int getKa() {
+
+      return k;
+
+    }
+    int getVe() {
+
+      return v;
+
+    }
+
+  }
+
+
+
+
   // Constructor
   public Editor() {
 
@@ -742,11 +775,7 @@ class Editor extends JFrame implements ActionListener  {
 
         FileExt = partsDirs[sz1-1];
 
-        String partsDim[] = FileExt.split("\\W");
-
-        int sz2 = partsDim.length;
-
-        ExtFile = partsDim[sz2-1];
+        ExtFile = FileExt.substring(FileExt.indexOf(".")+1,FileExt.length());
 
 
 
@@ -1107,7 +1136,7 @@ class Editor extends JFrame implements ActionListener  {
             if(current.equals("*")&&next.equals("/")){ appendToPane(t,current,tGreen); appendToPane(t,next,tGreen);previous = current;current = next;next = it.hasNext() ? it.next() : null; break; }
             else appendToPane(t,current,tGreen);
 
-          } 
+          }
 
         }
         else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
@@ -1323,7 +1352,7 @@ class Editor extends JFrame implements ActionListener  {
             if(current.equals("*")&&next.equals("/")){ appendToPane(t,current,tGreen); appendToPane(t,next,tGreen);previous = current;current = next;next = it.hasNext() ? it.next() : null; break; }
             else appendToPane(t,current,tGreen);
 
-          } 
+          }
 
         }
         else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
@@ -1533,7 +1562,7 @@ class Editor extends JFrame implements ActionListener  {
             if(current.equals("*")&&next.equals("/")){ appendToPane(t,current,tGreen); appendToPane(t,next,tGreen);previous = current;current = next;next = it.hasNext() ? it.next() : null; break; }
             else appendToPane(t,current,tGreen);
 
-          } 
+          }
 
         }
 
@@ -1952,11 +1981,12 @@ class Editor extends JFrame implements ActionListener  {
         cmrSelectLineTemp();
 
       }
-      if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
+      else if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
 
         checkShiftKeys(e);
 
       }
+
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         cmrDeleterLineTemp();
@@ -1987,7 +2017,7 @@ class Editor extends JFrame implements ActionListener  {
 
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_TAB){
+      else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 
         e.consume();
 
@@ -2009,22 +2039,22 @@ class Editor extends JFrame implements ActionListener  {
         sizeConsoleUPH();
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_DOWN &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_DOWN &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
         sizeConsoleDownH();
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_RIGHT &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_RIGHT &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
         sizeViewerRightW();
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_LEFT &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_LEFT &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
         sizeViewerLeftW();
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
         CaretPosSave=t.getCaretPosition();
 
@@ -2033,7 +2063,7 @@ class Editor extends JFrame implements ActionListener  {
         t2.setCaretPosition(t2.getText().length());
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_W &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_W &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
         if(PatherVisualFlag==1){
 
@@ -2046,12 +2076,12 @@ class Editor extends JFrame implements ActionListener  {
         }
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_F && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_F && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         toggleSearcher();
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_DOWN && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_DOWN && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         if(StartTempSearch==tempSearch.size())StartTempSearch=0;
 
@@ -2062,7 +2092,7 @@ class Editor extends JFrame implements ActionListener  {
         t.setCaretPosition(tempSearch.get(StartTempSearch));
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_Q && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_Q && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         tempSearch.clear();
 
@@ -2071,7 +2101,7 @@ class Editor extends JFrame implements ActionListener  {
         System.gc();
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_UP && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         if(StartTempSearch==0)StartTempSearch=tempSearch.size();
 
@@ -2083,12 +2113,16 @@ class Editor extends JFrame implements ActionListener  {
 
 
       }
-      else if(e.getKeyCode() == KeyEvent.VK_J && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))){
+      else if(e.getKeyCode() == KeyEvent.VK_J && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         toggleJumper();
 
       }
+      else if(!(e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))&&!(e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))&&!(e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
 
+        checkKeys(e);
+
+      }
       t4.setText(t.getText().toString().length()+" chars"+" "+(t.getText().split("\n").length)+" lines"+"   File: "+FileExt+" Language: "+ExtFile);
 
       if(CountFORFREE==30) {
@@ -2113,6 +2147,324 @@ class Editor extends JFrame implements ActionListener  {
         }
 
       }
+      else {
+
+        e.consume();
+
+
+
+      }
+
+    }
+
+  }
+
+  public void checkKeys(KeyEvent e) {
+
+    if(e.getKeyCode() == KeyEvent.VK_Q) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"q",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_W) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"w",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_E) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"e",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_R) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"r",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_T) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"t",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_Y) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"y",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_U) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"u",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_I) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"i",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_O) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"o",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_P) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"p",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_A) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"a",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_S) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"s",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_D) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"d",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_F) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"f",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_G) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"g",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_H) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"h",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_J) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"j",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_K) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"k",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_L) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"l",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_Z) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"z",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_X) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"x",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_C) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"c",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_V) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"v",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_B) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"b",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_N) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"n",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_M) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"m",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_COMMA) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,",",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_PERIOD) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,".",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_SLASH) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"/",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_SEMICOLON) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,";",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_QUOTE) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"'",tBody,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"\\",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"[",tBlue,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"]",tBlue,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
 
     }
 
