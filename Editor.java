@@ -1981,6 +1981,16 @@ class Editor extends JFrame implements ActionListener  {
         cmrSelectLineTemp();
 
       }
+      else if(e.getKeyCode() == KeyEvent.VK_Z && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+
+        System.out.println("ctrl+z");
+
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_E && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
+
+        System.out.println("ctrl+e");
+
+      }
       else if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
 
         checkShiftKeys(e);
