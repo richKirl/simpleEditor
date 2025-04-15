@@ -3311,7 +3311,11 @@ class Editor extends JFrame implements ActionListener  {
           appendToPane(t2,"\n % ",tTextWCF);
 
         }
-  
+        else if(commander.contains("cd")){
+
+          
+
+        }
         else {
 
           if(commander.contains("*")) {
@@ -3358,7 +3362,7 @@ class Editor extends JFrame implements ActionListener  {
 
             try {
 
-              String[] cmd = { "/bin/sh", "-c", commander+";" };
+              String[] cmd = { "/bin/sh", "-c", "cd "+Path+";"+commander+";" };
 
               //call program
               Process pR = Runtime.getRuntime().exec(cmd);
