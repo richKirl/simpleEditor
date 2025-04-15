@@ -28,7 +28,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.awt.event.ActionListener;
-
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
 class Editor extends JFrame implements ActionListener  {
 
   // Text component//code
@@ -2024,7 +2027,15 @@ class Editor extends JFrame implements ActionListener  {
 
         tempPrevNLines = LineNN;
 
+        CaretPosSave=t.getCaretPosition();
+
         t.paste();
+
+        int tempCaretPosSave=t.getCaretPosition();
+
+        System.out.println(tempCaretPosSave-CaretPosSave);
+
+        itt.add(new kvList(CaretPosSave,tempCaretPosSave));
 
         int tempCurrNLines=0;
 
