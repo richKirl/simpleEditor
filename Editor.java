@@ -2486,6 +2486,15 @@ class Editor extends JFrame implements ActionListener  {
       t.setCaretPosition(CaretPosSave+1);
 
     }
+    else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t," ",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
 
   }
 
@@ -3294,6 +3303,8 @@ class Editor extends JFrame implements ActionListener  {
 
           t2.setText("");
 
+          appendToPane(t2,"\n % ",tTextWCF);
+
         }
         else if(commander.equals(" ")||commander.equals("")){
 
@@ -3346,8 +3357,10 @@ class Editor extends JFrame implements ActionListener  {
 
             try {
 
+              String[] cmd = { "/bin/sh", "-c", commander+";" };
+
               //call program
-              Process pR = Runtime.getRuntime().exec(commander);
+              Process pR = Runtime.getRuntime().exec(cmd);
 
 
               int exitCode = pR.waitFor();
