@@ -28,10 +28,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.awt.event.ActionListener;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.HeadlessException;
-import java.awt.Toolkit;
+
 class Editor extends JFrame implements ActionListener  {
 
   // Text component//code
@@ -1990,17 +1987,17 @@ class Editor extends JFrame implements ActionListener  {
 
         System.out.println("ctrl+z");
 
-        itt.remove(itt.size()-1);
+        //        itt.remove(itt.size()-1);
 
-        int tempItt=itt.size()-1;
+        //        int tempItt=itt.size()-1;
 
         //replaceToPane(JTextPane tp, String msg, Color c,int start,int end)
 
-        CaretPosSave=t.getCaretPosition();
+        //        CaretPosSave=t.getCaretPosition();
 
-        replaceToPane(t,"",tTextWCF,itt.get(tempItt).getKa(),itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
+        //        replaceToPane(t,"",tTextWCF,itt.get(tempItt).getKa(),itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
 
-        t.setCaretPosition(itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
+        //t.setCaretPosition(itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_E && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
@@ -2027,15 +2024,15 @@ class Editor extends JFrame implements ActionListener  {
 
         tempPrevNLines = LineNN;
 
-        CaretPosSave=t.getCaretPosition();
+        //CaretPosSave=t.getCaretPosition();
 
         t.paste();
 
-        int tempCaretPosSave=t.getCaretPosition();
+        //int tempCaretPosSave=t.getCaretPosition();
 
-        System.out.println(tempCaretPosSave-CaretPosSave);
+        //System.out.println(tempCaretPosSave-CaretPosSave);
 
-        itt.add(new kvList(CaretPosSave,tempCaretPosSave));
+        //itt.add(new kvList(CaretPosSave,tempCaretPosSave));
 
         int tempCurrNLines=0;
 
@@ -2200,7 +2197,7 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
-      itt.add(new kvList(CaretPosSave,1));
+      //      itt.add(new kvList(CaretPosSave,1));
 
       appendToPaneCurrPos(t,"q",tTextWCF,CaretPosSave);
 
