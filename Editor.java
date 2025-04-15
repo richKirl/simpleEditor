@@ -2490,9 +2490,9 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
-      appendToPaneCurrPos(t," ",tTextWCF,CaretPosSave);
+      appendToPaneCurrPos(t,"",tTextWCF,CaretPosSave);
 
-      t.setCaretPosition(CaretPosSave+1);
+      t.setCaretPosition(CaretPosSave);
 
     }
 
@@ -3311,6 +3311,7 @@ class Editor extends JFrame implements ActionListener  {
           appendToPane(t2,"\n % ",tTextWCF);
 
         }
+  
         else {
 
           if(commander.contains("*")) {
