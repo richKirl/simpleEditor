@@ -244,6 +244,8 @@ class Editor extends JFrame implements ActionListener  {
 
     HListCommands = new ArrayList<String>();
 
+    itt = new ArrayList<kvList>();
+
     try {
 
       // Set metal look and feel
@@ -1985,6 +1987,18 @@ class Editor extends JFrame implements ActionListener  {
 
         System.out.println("ctrl+z");
 
+        itt.remove(itt.size()-1);
+
+        int tempItt=itt.size()-1;
+
+        //replaceToPane(JTextPane tp, String msg, Color c,int start,int end)
+
+        CaretPosSave=t.getCaretPosition();
+
+        replaceToPane(t,"",tTextWCF,itt.get(tempItt).getKa(),itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
+
+        t.setCaretPosition(itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
+
       }
       else if(e.getKeyCode() == KeyEvent.VK_E && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
@@ -2174,6 +2188,8 @@ class Editor extends JFrame implements ActionListener  {
     if(e.getKeyCode() == KeyEvent.VK_Q) {
 
       CaretPosSave=t.getCaretPosition();
+
+      itt.add(new kvList(CaretPosSave,1));
 
       appendToPaneCurrPos(t,"q",tTextWCF,CaretPosSave);
 
@@ -3313,7 +3329,7 @@ class Editor extends JFrame implements ActionListener  {
         }
         else if(commander.contains("cd")){
 
-          
+
 
         }
         else {
