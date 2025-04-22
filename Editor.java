@@ -246,7 +246,7 @@ class Editor extends JFrame implements ActionListener  {
 
     itt = new ArrayList<kvList>();
 
-//    HashSet<String> autocomplete = new HashSet<String>();
+    //    HashSet<String> autocomplete = new HashSet<String>();
 
     try {
 
