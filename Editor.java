@@ -223,7 +223,7 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-
+  //HashSet<String> autocomplete;
 
 
   // Constructor
@@ -245,6 +245,8 @@ class Editor extends JFrame implements ActionListener  {
     HListCommands = new ArrayList<String>();
 
     itt = new ArrayList<kvList>();
+
+//    HashSet<String> autocomplete = new HashSet<String>();
 
     try {
 
@@ -693,7 +695,6 @@ class Editor extends JFrame implements ActionListener  {
         JOptionPane.showMessageDialog(f, evt.getMessage());
 
       }
-
 
     }
     else if(FilePathw==null) {
@@ -2497,6 +2498,240 @@ class Editor extends JFrame implements ActionListener  {
       CaretPosSave=t.getCaretPosition();
 
       appendToPaneCurrPos(t,"]",tBlue,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_1) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"1",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_2) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"2",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_3) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"3",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_4) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"4",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_5) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"5",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_6) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"6",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_7) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"7",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_8) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"8",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_9) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"9",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_0) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"0",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_MINUS) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"-",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"=",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD0) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"0",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"1",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD2) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"2",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD3) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"3",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"4",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD5) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"5",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"6",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"7",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"8",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"9",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_MULTIPLY) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"*",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_DIVIDE) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"/",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_ADD) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"+",tTextWCF,CaretPosSave);
+
+      t.setCaretPosition(CaretPosSave+1);
+
+    }
+    else if(e.getKeyCode() == KeyEvent.VK_SUBTRACT) {
+
+      CaretPosSave=t.getCaretPosition();
+
+      appendToPaneCurrPos(t,"-",tTextWCF,CaretPosSave);
 
       t.setCaretPosition(CaretPosSave+1);
 
