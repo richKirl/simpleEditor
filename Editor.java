@@ -1085,7 +1085,11 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("do")){                                 appendToPane(t,current,tMagenta);}
 
-        else if(current.equals("for")){                                appendToPane(t,current,tBlue);}
+        else if(current.equals("template")){                           appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("size_t")){                             appendToPane(t,current,tBlue);}
+
+        else if(current.equals("for")){                                appendToPane(t,current,tMagenta);}
 
         else if(current.equals("while")){                              appendToPane(t,current,tMagenta);}
 
@@ -1158,9 +1162,9 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("main")){                               appendToPane(t,current,tBlue);}
 
-        else if(current.equals("\"")){
+        else if(current.equals("\"")||current.equals("\'")){
 
-          if(current.equals("\"")&&next.equals("\"")){
+          if(current.equals("\"")&&next.equals("\"")||current.equals("\'")&&next.equals("\'")){
 
             appendToPane(t,current,tBody);
 
@@ -1187,9 +1191,9 @@ class Editor extends JFrame implements ActionListener  {
 
               next = it.hasNext() ? it.next() : null;
 
-              if(current.equals("\"")) {
+              if(current.equals("\"")||current.equals("\'")) {
 
-                if(next.equals("\"")) {
+                if(next.equals("\"")||next.equals("\'")) {
 
                   appendToPane(t,current,tBody);
 
