@@ -1,6 +1,6 @@
 # simpleEditor
 
-simpleEditor with a static aspect for text (for example: trivial session - we type text and if we need to format it - we press a button, we need to color the text - we press a button)
+simpleEditor (with a static aspect for text (for example: trivial session - we type text and if we need to format it - we press a button, we need to color the text - we press a button))
 
 ![image](https://github.com/user-attachments/assets/2fa1dcd8-7e35-4b85-98ca-f3b9fb6d4349)
 
