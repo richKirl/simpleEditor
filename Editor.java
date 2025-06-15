@@ -18,6 +18,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.awt.event.*;
 import javax.swing.plaf.metal.*;
 import javax.swing.text.*;
@@ -251,11 +253,9 @@ class Editor extends JFrame implements ActionListener  {
     try {
 
       // Set metal look and feel
-      UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-
+      UIManager.setLookAndFeel(new MetalLookAndFeel());
       // Set theme to ocean//set theme read in doc
       MetalLookAndFeel.setCurrentTheme(new OceanTheme());
-
     }
     catch (Exception e) {
     }
@@ -317,8 +317,8 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-    // Create amenu for menu
-    JMenu m2 = new JMenu("Edit");//menu for Edit
+    // Create amenu for menu//menu for Edit
+    JMenu m2 = new JMenu("Edit");
 
     // Create menu items
     JMenuItem mi4 = new JMenuItem("cut");
@@ -741,6 +741,118 @@ class Editor extends JFrame implements ActionListener  {
 
 
     System.gc();
+
+  }
+
+  public void Open(String file) {
+
+    try {
+
+      // String
+      String s1 = "", sl = "";
+
+      // File reader
+      FileReader fr = new FileReader(file);
+
+      // Buffered reader
+      BufferedReader br = new BufferedReader(fr);
+
+      FilePathw=file.toString();
+
+      String partsDirs[] = FilePathw.split("/");
+
+      int sz1 = partsDirs.length;
+
+      FileExt = partsDirs[sz1-1];
+
+      ExtFile = FileExt.substring(FileExt.indexOf(".")+1,FileExt.length());
+
+
+
+      String tt=new String();
+
+      for(int i=1;i<partsDirs.length-1;i++) {
+
+        tt+="/"+partsDirs[i];
+
+      }
+
+      tt+="/";
+
+      Path=tt;
+
+      viewDir(Path);
+
+      //FileExt;
+
+      posFileS=Pather.getText().lastIndexOf(FileExt+"\n");
+
+      int spos =Pather.getText().lastIndexOf("\n",posFileS);
+
+      int epos =Pather.getText().indexOf("\n",posFileS);
+
+
+      Pather.setSelectionStart(spos);
+
+      Pather.setSelectionEnd(epos);
+
+      posFileS=spos;
+
+      posFileE=epos;
+
+      //Pather.select(spos,epos);
+      replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
+
+      //System.out.println(spos+" "+epos);
+
+      // Initialize sl
+      sl = br.readLine();
+
+      // Take the input from the file
+      while ((s1 = br.readLine()) != null) {
+
+        sl = sl + "\n" + s1;
+
+        //set linenumbers while if line
+        LineNN+=1;
+
+        appendToPane(t1,""+LineNN+"\n",tTextWCF);
+
+      }
+
+      // Set the text
+      t.setText(sl);
+
+      if(ExtFile.equals("java")){
+
+        ExtFile=langSupport[2];
+
+        cmrColorTexte();
+
+      }
+      else if(ExtFile.equals("cpp")){
+
+        ExtFile=langSupport[1];
+
+        cmrColorTexte();
+
+      }
+      else if(ExtFile.equals("c")){
+
+        ExtFile=langSupport[0];
+
+        cmrColorTexte();
+
+      }
+
+      System.gc();
+
+    }
+    catch (Exception evt) {
+
+      JOptionPane.showMessageDialog(f, evt.getMessage());
+
+    }
 
   }
 
@@ -3568,6 +3680,8 @@ class Editor extends JFrame implements ActionListener  {
 
           appendToPane(t2,"\n % ",tTextWCF);
 
+          HListCommands.clear();
+
         }
         else if(commander.equals(" ")||commander.equals("")){
 
@@ -3989,8 +4103,44 @@ class Editor extends JFrame implements ActionListener  {
   // Main class
   public static void main(String[] args) {
 
-    //jump to editor
-    Editor e = new Editor();
+    if(args.length == 0){
+
+      //jump to editor
+      Editor e = new Editor();
+
+    }
+    else if(args.length == 1){
+      //
+      String pathString = args[0];
+
+      Path path = Paths.get(pathString);
+
+      System.out.println(path);
+
+      File file1 = new File(pathString);
+
+      if(file1.exists()&&file1.isFile()){
+
+        Editor ed = new Editor();
+
+        ed.Open(file1.getAbsolutePath());
+
+      }
+      else{
+
+        JFrame fr;
+
+        JFrame.setDefaultLookAndFeelDecorated( true );
+
+        fr = new JFrame("editor");
+
+        fr.setVisible(true);
+
+        JOptionPane.showMessageDialog(fr, "file does not exist.");
+
+      }
+
+    }
 
   }
 
