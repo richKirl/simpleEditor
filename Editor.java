@@ -18,8 +18,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.awt.event.*;
 import javax.swing.plaf.metal.*;
 import javax.swing.text.*;
@@ -118,14 +116,14 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
+  //console
   JMenuBar mbConsole;
 
   private int mbConsoleSizeH = 200;
 
   private int VisualConsole = 0;
 
-
+  //fileViewer
   JMenuBar mbViewer;
 
   private int VisualViewer = 0;
@@ -140,17 +138,17 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
+  //search from line
   JMenuBar mbSearcher;
 
   private int VisualSearcher = 0;
 
-
+  //search from number
   JMenuBar mbJumper;
 
   private int VisualJumper = 0;
 
-
+  //infobar chars|lines|namefile|language
   JMenuBar mbInfoBar;
 
   private int VisualInfoBar = 0;
@@ -167,7 +165,7 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
+  //panel
   JPanel panel1;
 
   JScrollPane panelScrollText;
@@ -196,7 +194,7 @@ class Editor extends JFrame implements ActionListener  {
   int posFileE;
 
 
-
+  //in this time not using 
   private List<kvList> itt;
 
   private int NumberOfl=0;
@@ -246,10 +244,11 @@ class Editor extends JFrame implements ActionListener  {
 
     HListCommands = new ArrayList<String>();
 
-    itt = new ArrayList<kvList>();
+    //itt = new ArrayList<kvList>();
 
     //    HashSet<String> autocomplete = new HashSet<String>();
 
+    //set default theme setting(in this time not customisation)
     try {
 
       // Set metal look and feel
@@ -270,8 +269,10 @@ class Editor extends JFrame implements ActionListener  {
 
     t1.setSize(20,300);
 
-    t = new JTextPane();
 
+
+    //document area
+    t = new JTextPane();
 
     t.setFont(new Font("monospaced", Font.PLAIN, 16));
 
@@ -415,7 +416,7 @@ class Editor extends JFrame implements ActionListener  {
     mbConsole.setSize(500,mbConsoleSizeH);
 
 
-
+    //mbviewer area
     mbViewer = new JMenuBar();
 
     Pather = new JTextPane();
@@ -1595,7 +1596,7 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("double")){                             appendToPane(t,current,tBlue);}
 
-        else if(current.equals("boolean")){                             appendToPane(t,current,tBlue);}
+        else if(current.equals("boolean")){                            appendToPane(t,current,tBlue);}
 
         else if(current.equals("unsigned")){                           appendToPane(t,current,tBlue);}
 
@@ -2102,7 +2103,7 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_Z && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        System.out.println("ctrl+z");
+        //System.out.println("ctrl+z");
 
         //        itt.remove(itt.size()-1);
 
@@ -2119,7 +2120,7 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_E && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        System.out.println("ctrl+e");
+        //System.out.println("ctrl+e");
 
       }
       else if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
@@ -3661,6 +3662,7 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  //command provider procesess for mainwindow-editor like toggle cli, and work with history-ring
   //cmd\n - \n emulate enter
   class CmrPrompter extends KeyAdapter {
 
@@ -3687,7 +3689,7 @@ class Editor extends JFrame implements ActionListener  {
 
           appendToPane(t2,"\n % ",tTextWCF);
 
-        }
+        }//thinking
         else if(commander.contains("cd")){
 
 
@@ -3840,7 +3842,7 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-
+  //provider key enter,up,down for coloring choosing string, enter for open file
   //cmd\n - \n emulate enter
   class CmrViewer extends KeyAdapter {
 
@@ -4034,7 +4036,7 @@ class Editor extends JFrame implements ActionListener  {
     }
 
   }
-
+  //provider command process ls for viewer
   public void viewDir(String stringDir) {
 
     Pather.setText("");
@@ -4110,12 +4112,10 @@ class Editor extends JFrame implements ActionListener  {
 
     }
     else if(args.length == 1){
-      //
+
       String pathString = args[0];
 
-      Path path = Paths.get(pathString);
-
-      System.out.println(path);
+      //Path path = Paths.get(pathString);
 
       File file1 = new File(pathString);
 
