@@ -77,4 +77,4 @@ Enter openFile from selectColorStatus file
 
 up minicli history-ring
 
-clear clear-miniclitextspace
+clear clear-miniclitextspace, clear-history-ring
