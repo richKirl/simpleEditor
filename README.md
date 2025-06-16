@@ -2,7 +2,9 @@
 
 simpleEditor (with a static aspect for text (for example: trivial session - we type text and if we need to format it - we press a button, we need to color the text - we press a button)) at this time it seems to be unstable but it works
 
-![image](https://github.com/user-attachments/assets/2fa1dcd8-7e35-4b85-98ca-f3b9fb6d4349)
+
+![Screenshot](https://github.com/user-attachments/assets/9eb51d63-44e4-4a47-8687-1320a6937e09)
+
 
 
 
