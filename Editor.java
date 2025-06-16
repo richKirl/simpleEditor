@@ -115,10 +115,13 @@ class Editor extends JFrame implements ActionListener  {
   //sizetabinspaces
   private static final int TAB_SIZE = 2;
 
-
+  //mini cli
+  JTextPane Acli;
 
   //console
   JMenuBar mbConsole;
+
+
 
   private int mbConsoleSizeH = 200;
 
@@ -2142,20 +2145,76 @@ class Editor extends JFrame implements ActionListener  {
                 }
 
                 } );
+              mbConsole.setVisible(false);
+
+
+
+              // Create a menubar//menubar top
+              JMenuBar mbA = new JMenuBar();
+
+              //menu button for close instant
+              JMenu mcA = new JMenu("Options");
+
+              mbA.add(mcA);
+              
+              //set scroll to cli and set bottom position
+              JMenuBar mbConsole1;
+
+              mbConsole1 = new JMenuBar();
+
+              //create jtextarea with a1 a2 a3
+              Acli = new JTextPane();
+
+              Acli.setLocation(120,0);
+
+              Acli.setSize(380,200);
+
+              Acli.setFont(new Font("monospaced", Font.PLAIN, 16));
+
+              Acli.setPreferredSize(new Dimension(380,200));
+
+              Color c2 = new Color(0,0,0,255);
+
+              Color cf2 = new Color(200,200,200,255);
+
+              Acli.setBackground(c2);
+
+              Acli.setForeground(cf2);
+
+              //connect keyevent
+              Acli.addKeyListener(new CmrPrompterAnalyzer());
+
+              //connect jtextarea-cli to bottom menubar
+              mbConsole1.add(new JScrollPane(Acli));
+
+              mbConsole1.setLocation(0,200);
+
+              mbConsole1.setPreferredSize(new Dimension(500,mbConsoleSizeH));
+
+              mbConsole1.setSize(500,mbConsoleSizeH);
+
+              f1.add(mbA,BorderLayout.NORTH);
+
+              f1.add(mbConsole1,BorderLayout.CENTER);
 
               f1.setVisible(true);
 
+
+
+              Acli.setCaretColor(Color.WHITE);
+
+              appendToPane(Acli,"\n"+" % ",tTextWCF);
+
               ToggleAnalyzer = 1;
               
-              mbConsole.setVisible(false);
-              
+
             }
 
-            } , 5000); // 5000 milliseconds = 1 second
+            }, 5000); // 5000 milliseconds = 1 second
 
         }
 
-        } , 2500); // 2500 milliseconds = 1 second
+        }, 2500); // 2500 milliseconds = 1 second
 
     }
 
@@ -3962,6 +4021,189 @@ class Editor extends JFrame implements ActionListener  {
     }
 
   }
+
+  //command provider procesess for mainwindow-editor like toggle cli, and work with history-ring
+  //cmd\n - \n emulate enter
+  class CmrPrompterAnalyzer extends KeyAdapter {
+
+    public void keyPressed(KeyEvent e) {
+
+      if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+        e.consume();
+
+        commander = Acli.getText().substring(Acli.getText().lastIndexOf("% ")+2,Acli.getText().length());
+
+        String ttttt=new String();
+
+        if(commander.equals("clear")==true){
+
+          Acli.setText("");
+
+          appendToPane(Acli,"\n % ",tTextWCF);
+
+          HListCommands.clear();
+
+        }
+        else if(commander.equals(" ")||commander.equals("")){
+
+          appendToPane(Acli,"\n % ",tTextWCF);
+
+          }//thinking
+        else if(commander.contains("cd")){
+
+
+
+        }
+        else {
+
+          if(commander.contains("*")) {
+
+            String Temparts[] = commander.split(" ");
+
+            File dir=new File(".");
+
+            File[] files1 = dir.listFiles();
+
+            for(String r:Temparts) {
+
+              if(r.contains("*")) {
+
+                String trTemp=new String();
+
+                trTemp = r.replaceAll("\\W","");
+
+
+
+                for(File ffff:files1) {
+
+                  if(ffff.toString().contains(trTemp))
+
+                  ttttt+=ffff.toString()+" ";
+
+                }
+
+              }
+
+              if(!r.contains("*")) ttttt+=r+" ";
+
+            }
+
+            commander="";
+
+            commander+=ttttt;
+
+            System.gc();
+
+
+          }
+          if(!commander.equals(" ")||!commander.equals("")){
+
+            try {
+
+              String[] cmd = { "/bin/sh", "-c", "cd "+Path+";"+commander+";" };
+
+              //call program
+              Process pR = Runtime.getRuntime().exec(cmd);
+
+
+              int exitCode = pR.waitFor();
+
+              PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
+
+              BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
+
+              BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
+
+              String s = null;
+
+              if(exitCode==0||exitCode==2) {
+
+                //read line by line
+                while((s=cmdLineOut.readLine())!=null){
+
+                  appendToPane(Acli,"\n"+s,tTextWCF);
+
+                }
+
+              }
+
+              if(exitCode!=0) {
+
+                //read line by line
+                while((s=cmdLineErr.readLine())!=null){
+
+                  appendToPane(Acli,"\n"+s,tConsoleTextError);
+
+                }
+
+              }
+
+              s=null;
+
+              pR.destroy();
+
+            }
+            catch (IOException e1) {
+
+              e1.printStackTrace();
+
+            }
+            catch (InterruptedException e1) {
+
+              e1.printStackTrace();
+
+            }
+
+            HListCommands.add(commander);
+
+            commander= "";
+
+            appendToPane(Acli,"\n % ",tTextWCF);
+
+          }
+
+        }
+
+        System.gc();
+
+      }
+//      else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+//
+//        t.requestFocus();t.setCaretPosition(CaretPosSave);
+//
+//      }
+      else if(e.getKeyCode() == KeyEvent.VK_UP){
+
+        e.consume();
+
+        if(CurrHListCom<0) {
+
+          if(HListCommands.size()==1)CurrHListCom=0;
+
+          else if(HListCommands.size()==0){}
+
+          else CurrHListCom=CurrHListCom=HListCommands.size()-1;
+
+        }
+        if(HListCommands.size()>0) commander=HListCommands.get(CurrHListCom);
+
+        else commander="";
+
+        replaceToPane(Acli,"\n % "+commander,tTextWCF,Acli.getText().lastIndexOf("\n %"),Acli.getText().length());
+
+        commander="";
+
+        CurrHListCom--;
+
+        System.gc();
+
+      }
+
+    }
+
+  }
+
 
   //provider key enter,up,down for coloring choosing string, enter for open file
   //cmd\n - \n emulate enter
