@@ -137,7 +137,7 @@ class Editor extends JFrame implements ActionListener  {
   private short CountFORFREE = 0;
 
 
-
+  private short ToggleAnalyzer =0;
 
   //search from line
   JMenuBar mbSearcher;
@@ -2073,7 +2073,15 @@ class Editor extends JFrame implements ActionListener  {
 
     public void mouseClicked(MouseEvent mouseEvent) {
 
+      //Hide MainWindow
       f.setVisible(false);
+
+      //Hide minicli
+      mbConsole.setVisible(false);
+
+      //settoggleminicli to zero
+      VisualConsole=0;
+
 
       Timer timer = new Timer();
 
@@ -2116,17 +2124,38 @@ class Editor extends JFrame implements ActionListener  {
 
               f1.setLocation(x, y);
 
-              f1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+              f1.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+              // addListener on Wibndow Close operation
+              f1.addWindowListener(new WindowAdapter() {
+
+                @Override
+                public void windowClosing(WindowEvent e) {
+
+                  //Close
+                  f1.dispose();
+
+                  ToggleAnalyzer = 0;
+
+                  mbConsole.setVisible(true);
+
+                }
+
+                } );
 
               f1.setVisible(true);
 
+              ToggleAnalyzer = 1;
+              
+              mbConsole.setVisible(false);
+              
             }
 
-            }, 5000); // 1000 milliseconds = 1 second
+            } , 5000); // 5000 milliseconds = 1 second
 
         }
 
-        }, 5000); // 1000 milliseconds = 1 second
+        } , 2500); // 2500 milliseconds = 1 second
 
     }
 
