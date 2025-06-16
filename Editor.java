@@ -28,7 +28,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.awt.event.ActionListener;
-
+import java.util.Timer;
+import java.util.TimerTask;
 class Editor extends JFrame implements ActionListener  {
 
   // Text component//code
@@ -50,7 +51,7 @@ class Editor extends JFrame implements ActionListener  {
   private JTextPane t5;
 
   // Frame//frame-likewWindow
-  private JFrame f;
+  private JFrame f,f1;
 
   //prompt
   private String prompter=" \n % ";
@@ -109,7 +110,7 @@ class Editor extends JFrame implements ActionListener  {
   private CmrViewer testls;
 
   //supportcolorschemaforlangs
-  private String[] langSupport={"C","C++","Java"};
+  private String[] langSupport={"C","C++","Java","H","HPP"};
 
   //sizetabinspaces
   private static final int TAB_SIZE = 2;
@@ -194,7 +195,7 @@ class Editor extends JFrame implements ActionListener  {
   int posFileE;
 
 
-  //in this time not using 
+  //in this time not using
   private List<kvList> itt;
 
   private int NumberOfl=0;
@@ -253,10 +254,13 @@ class Editor extends JFrame implements ActionListener  {
 
       // Set metal look and feel
       UIManager.setLookAndFeel(new MetalLookAndFeel());
+
       // Set theme to ocean//set theme read in doc
       MetalLookAndFeel.setCurrentTheme(new OceanTheme());
+
     }
     catch (Exception e) {
+
     }
 
 
@@ -360,6 +364,20 @@ class Editor extends JFrame implements ActionListener  {
 
     formatText.setToolTipText("Click for formatText.");
 
+
+    // Create amenu for menu//menu for Analyzer
+    JMenu mAnalyzer = new JMenu("Analyzer");
+
+    mAnalyzer.setToolTipText("Click for Analyze.");
+
+    // Add action listener//connect event
+    mAnalyzer.addMouseListener(new Analyzer());
+
+
+
+
+
+
     mb.add(m1);
 
     mb.add(m2);
@@ -369,6 +387,13 @@ class Editor extends JFrame implements ActionListener  {
     mb.add(col);
 
     mb.add(formatText);
+
+    mb.add(mAnalyzer);
+
+
+
+
+
 
 
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -741,7 +766,7 @@ class Editor extends JFrame implements ActionListener  {
     else JOptionPane.showMessageDialog(f, "the user cancelled the operation");
 
 
-    System.gc();
+    //System.gc();
 
   }
 
@@ -956,14 +981,14 @@ class Editor extends JFrame implements ActionListener  {
           cmrColorTexte();
 
         }
-        else if(ExtFile.equals("cpp")){
+        else if(ExtFile.equals("cpp")||ExtFile.equals("hpp")){
 
           ExtFile=langSupport[1];
 
           cmrColorTexte();
 
         }
-        else if(ExtFile.equals("c")){
+        else if(ExtFile.equals("c")||ExtFile.equals("h")){
 
           ExtFile=langSupport[0];
 
@@ -1031,6 +1056,7 @@ class Editor extends JFrame implements ActionListener  {
     catch (Exception evt) {
 
       JOptionPane.showMessageDialog(f, evt.getMessage());
+
     }
 
   }
@@ -2037,6 +2063,70 @@ class Editor extends JFrame implements ActionListener  {
     public void mouseClicked(MouseEvent mouseEvent) {
 
       System.exit(0);
+
+    }
+
+  }
+
+  //Start AnalyzerSubsystem after clicked on Analyzer Menu!=item
+  class Analyzer extends MouseInputAdapter {
+
+    public void mouseClicked(MouseEvent mouseEvent) {
+
+      f.setVisible(false);
+
+      Timer timer = new Timer();
+
+      timer.schedule(new TimerTask() {
+
+        @Override
+        public void run() {
+
+          //System.out.println("Task executed after 1 second");
+          timer.cancel(); // Cancel the timer after execution
+
+          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+          int width = screenSize.width / 2;
+
+          int height = screenSize.height;
+
+          Point location = f.getLocation();
+
+          int y = 0;
+
+          f.setSize(width, height);
+
+          f.setLocation(0, 0);
+
+          int x = location.x + width;
+
+          f.setVisible(true);
+
+          Timer timer = new Timer();
+
+          timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+
+              f1 = new JFrame("Analyzer");
+
+              f1.setSize(width, height);
+
+              f1.setLocation(x, y);
+
+              f1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+              f1.setVisible(true);
+
+            }
+
+            }, 5000); // 1000 milliseconds = 1 second
+
+        }
+
+        }, 5000); // 1000 milliseconds = 1 second
 
     }
 
@@ -3689,7 +3779,7 @@ class Editor extends JFrame implements ActionListener  {
 
           appendToPane(t2,"\n % ",tTextWCF);
 
-        }//thinking
+          }//thinking
         else if(commander.contains("cd")){
 
 
@@ -3778,6 +3868,8 @@ class Editor extends JFrame implements ActionListener  {
                 }
 
               }
+
+              s=null;
 
               pR.destroy();
 
@@ -3937,14 +4029,14 @@ class Editor extends JFrame implements ActionListener  {
             cmrColorTexte();
 
           }
-          else if(ExtFile.equals("cpp")){
+          else if(ExtFile.equals("cpp")|ExtFile.equals("hpp")){
 
             ExtFile=langSupport[1];
 
             cmrColorTexte();
 
           }
-          else if(ExtFile.equals("c")){
+          else if(ExtFile.equals("c")|ExtFile.equals("h")){
 
             ExtFile=langSupport[0];
 
@@ -4082,6 +4174,8 @@ class Editor extends JFrame implements ActionListener  {
 
       }
 
+      s=null;
+
       pR.destroy();
 
     }
@@ -4128,7 +4222,7 @@ class Editor extends JFrame implements ActionListener  {
       }
       else{
 
-        JFrame fr;
+        JFrame fr;//
 
         JFrame.setDefaultLookAndFeelDecorated( true );
 
