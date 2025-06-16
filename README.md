@@ -1,6 +1,6 @@
 # simpleEditor
 
-simpleEditor (with a static aspect for text (for example: trivial session - we type text and if we need to format it - we press a button, we need to color the text - we press a button)) at this time it seems to be unstable but it works
+simpleEditor (with a static aspect for text (for example: trivial session - we type text and if we need to format it - we press a button, we need to color the text - we press a button)) at this time it seems to be unstable(in some situations at this time it really not stable, at this time i not recommended using it util maybe in some future it will be ) but in some situations it works
 
 
 ![Screenshot](https://github.com/user-attachments/assets/9eb51d63-44e4-4a47-8687-1320a6937e09)
