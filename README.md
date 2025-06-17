@@ -5,7 +5,7 @@ simpleEditor (with a static aspect for the text operations(by design - the main 
 
 ![Screenshot](https://github.com/user-attachments/assets/9eb51d63-44e4-4a47-8687-1320a6937e09)
 
-tiling combination
+tiling combination(combo situation)
 ![image](https://github.com/user-attachments/assets/12ab7ca2-e4d6-4fa4-a33e-2ce3f971884c)
 
 
