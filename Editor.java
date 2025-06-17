@@ -3945,7 +3945,9 @@ class Editor extends JFrame implements ActionListener  {
               String[] cmd = { "/bin/sh", "-c", "cd "+Path+";"+commander+";" };
 
               //call program
-              Process pR = Runtime.getRuntime().exec(cmd);
+              ProcessBuilder pb = new ProcessBuilder(cmd);
+
+              Process pR = pb.start();
 
 
               int exitCode = pR.waitFor();
@@ -4127,8 +4129,9 @@ class Editor extends JFrame implements ActionListener  {
               String[] cmd = { "/bin/sh", "-c", "cd "+Path+";"+commander+";" };
 
               //call program
-              Process pR = Runtime.getRuntime().exec(cmd);
+              ProcessBuilder pb = new ProcessBuilder(cmd);
 
+              Process pR = pb.start();
 
               int exitCode = pR.waitFor();
 
@@ -4431,10 +4434,15 @@ class Editor extends JFrame implements ActionListener  {
 
     try {
 
-      commander1="ls "+stringDir+"\n";
+      //commander1="ls "+stringDir+"\n";
+
+
+      String[] cmd = { "ls",stringDir };
 
       //call program
-      Process pR = Runtime.getRuntime().exec(commander1);
+      ProcessBuilder pb = new ProcessBuilder(cmd);
+
+      Process pR = pb.start();
 
       int exitCode = pR.waitFor();
 
