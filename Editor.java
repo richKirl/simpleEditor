@@ -198,6 +198,11 @@ class Editor extends JFrame implements ActionListener  {
   int posFileE;
 
 
+
+  private int width,height,x,y;
+
+
+
   //in this time not using
   private List<kvList> itt;
 
@@ -1619,6 +1624,10 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("return")){                             appendToPane(t,current,tMagenta);}
 
+        else if(current.equals("@")&&next.equals("Override")){         appendToPane(t,current,tBody);}
+
+        else if(current.equals("Override")&&previous.equals("@")){     appendToPane(t,current,tBody);}
+
         else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
 
         else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
@@ -1828,11 +1837,12 @@ class Editor extends JFrame implements ActionListener  {
 
       if(r.length()==1&&r.contains("}")){countCCCC--;}
       else if(r.length()==2&&r.contains("};")){countCCCC--;}
+      else if(r.length()==3&&r.contains("});")){countCCCC--;}
       for(int i=0;i<countCCCC;i++){if(r.equals("")){}else{ttt+="  ";}}
 
       if(r.length()==1&&r.contains("}")){countCCCC++;}
       else if(r.length()==2&&r.contains("};")){countCCCC++;}
-
+      else if(r.length()==3&&r.contains("});")){countCCCC++;}
       ttt+=r;ttt+="\n";
 
       String parts[] = r.split("(?U)(?<=\\s)(?=\\S)|(?<=\\S)(?=\\s)|(?<=\\w)(?=\\W)|(?<=\\W)");
@@ -2088,133 +2098,9 @@ class Editor extends JFrame implements ActionListener  {
 
       Timer timer = new Timer();
 
-      timer.schedule(new TimerTask() {
+      timer.schedule(new PrepareWindowOpenAnalyzer(),4000);
 
-        @Override
-        public void run() {
-
-          //System.out.println("Task executed after 1 second");
-          timer.cancel(); // Cancel the timer after execution
-
-          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-          int width = screenSize.width / 2;
-
-          int height = screenSize.height;
-
-          Point location = f.getLocation();
-
-          int y = 0;
-
-          f.setSize(width, height);
-
-          f.setLocation(0, 0);
-
-          int x = location.x + width;
-
-          f.setVisible(true);
-
-          Timer timer = new Timer();
-
-          timer.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-
-              f1 = new JFrame("Analyzer");
-
-              f1.setSize(width, height);
-
-              f1.setLocation(x, y);
-
-              f1.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-              // addListener on Wibndow Close operation
-              f1.addWindowListener(new WindowAdapter() {
-
-                @Override
-                public void windowClosing(WindowEvent e) {
-
-                  //Close
-                  f1.dispose();
-
-                  ToggleAnalyzer = 0;
-
-                  mbConsole.setVisible(true);
-
-                }
-
-                } );
-              mbConsole.setVisible(false);
-
-
-
-              // Create a menubar//menubar top
-              JMenuBar mbA = new JMenuBar();
-
-              //menu button for close instant
-              JMenu mcA = new JMenu("Options");
-
-              mbA.add(mcA);
-              
-              //set scroll to cli and set bottom position
-              JMenuBar mbConsole1;
-
-              mbConsole1 = new JMenuBar();
-
-              //create jtextarea with a1 a2 a3
-              Acli = new JTextPane();
-
-              Acli.setLocation(120,0);
-
-              Acli.setSize(380,200);
-
-              Acli.setFont(new Font("monospaced", Font.PLAIN, 16));
-
-              Acli.setPreferredSize(new Dimension(380,200));
-
-              Color c2 = new Color(0,0,0,255);
-
-              Color cf2 = new Color(200,200,200,255);
-
-              Acli.setBackground(c2);
-
-              Acli.setForeground(cf2);
-
-              //connect keyevent
-              Acli.addKeyListener(new CmrPrompterAnalyzer());
-
-              //connect jtextarea-cli to bottom menubar
-              mbConsole1.add(new JScrollPane(Acli));
-
-              mbConsole1.setLocation(0,200);
-
-              mbConsole1.setPreferredSize(new Dimension(500,mbConsoleSizeH));
-
-              mbConsole1.setSize(500,mbConsoleSizeH);
-
-              f1.add(mbA,BorderLayout.NORTH);
-
-              f1.add(mbConsole1,BorderLayout.CENTER);
-
-              f1.setVisible(true);
-
-
-
-              Acli.setCaretColor(Color.WHITE);
-
-              appendToPane(Acli,"\n"+" % ",tTextWCF);
-
-              ToggleAnalyzer = 1;
-              
-
-            }
-
-            }, 5000); // 5000 milliseconds = 1 second
-
-        }
-
-        }, 2500); // 2500 milliseconds = 1 second
+      //timer.cancel();
 
     }
 
@@ -3761,6 +3647,143 @@ class Editor extends JFrame implements ActionListener  {
   }
 
 
+  class PrepareWindowOpenAnalyzer extends TimerTask {
+
+    public void run() {
+
+      //System.out.println("Task executed after 1 second");
+      //timer.cancel(); // Cancel the timer after execution
+
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+      width = screenSize.width / 2;
+
+      height = screenSize.height;
+
+      Point location = f.getLocation();
+
+      y = 0;
+
+      f.setSize(width, height);
+
+      f.setLocation(0, 0);
+
+      x = location.x + width;
+
+      f.setVisible(true);
+
+      Timer timer = new Timer();
+
+      timer.schedule(new OpenAnalyzerWindow(),2500);
+
+      //timer.cancel();
+
+    }
+
+  }
+
+
+  class OpenAnalyzerWindow extends TimerTask {
+
+    public void run() {
+
+      //timer.cancel();
+
+      f1 = new JFrame("Analyzer");
+
+      f1.setSize(width, height);
+
+      f1.setLocation(x, y);
+
+      f1.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+      // addListener on Wibndow Close operation
+      f1.addWindowListener(new WindowCloser());
+
+      mbConsole.setVisible(false);
+
+
+
+      // Create a menubar//menubar top
+      JMenuBar mbA = new JMenuBar();
+
+      //menu button for close instant
+      JMenu mcA = new JMenu("Options");
+
+      mbA.add(mcA);
+
+      //set scroll to cli and set bottom position
+      JMenuBar mbConsole1;
+
+      mbConsole1 = new JMenuBar();
+
+      //create jtextarea with a1 a2 a3
+      Acli = new JTextPane();
+
+      Acli.setLocation(120,0);
+
+      Acli.setSize(380,200);
+
+      Acli.setFont(new Font("monospaced", Font.PLAIN, 16));
+
+      Acli.setPreferredSize(new Dimension(380,200));
+
+      Color c2 = new Color(0,0,0,255);
+
+      Color cf2 = new Color(200,200,200,255);
+
+      Acli.setBackground(c2);
+
+      Acli.setForeground(cf2);
+
+      //connect keyevent
+      Acli.addKeyListener(new CmrPrompterAnalyzer());
+
+      //connect jtextarea-cli to bottom menubar
+      mbConsole1.add(new JScrollPane(Acli));
+
+      mbConsole1.setLocation(0,200);
+
+      mbConsole1.setPreferredSize(new Dimension(500,mbConsoleSizeH));
+
+      mbConsole1.setSize(500,mbConsoleSizeH);
+
+      f1.add(mbA,BorderLayout.NORTH);
+
+      f1.add(mbConsole1,BorderLayout.CENTER);
+
+      f1.setVisible(true);
+
+
+
+      Acli.setCaretColor(Color.WHITE);
+
+      appendToPane(Acli,"\n"+" % ",tTextWCF);
+
+      ToggleAnalyzer = 1;
+
+
+    }
+
+
+  }
+
+
+  class WindowCloser extends WindowAdapter {
+
+    public void windowClosing(WindowEvent e) {
+
+      //Close
+      f1.dispose();
+
+      ToggleAnalyzer = 0;
+
+      mbConsole.setVisible(true);
+
+    }
+
+  }
+
   class SearchPrompter extends KeyAdapter {
 
     public void keyPressed(KeyEvent e) {
@@ -3867,9 +3890,9 @@ class Editor extends JFrame implements ActionListener  {
 
           appendToPane(t2,"\n % ",tTextWCF);
 
-          }//thinking
+        }
         else if(commander.contains("cd")){
-
+          //thinking
 
 
         }
@@ -4049,9 +4072,9 @@ class Editor extends JFrame implements ActionListener  {
 
           appendToPane(Acli,"\n % ",tTextWCF);
 
-          }//thinking
+        }
         else if(commander.contains("cd")){
-
+          //thinking
 
 
         }
@@ -4168,11 +4191,11 @@ class Editor extends JFrame implements ActionListener  {
         System.gc();
 
       }
-//      else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
-//
-//        t.requestFocus();t.setCaretPosition(CaretPosSave);
-//
-//      }
+      //      else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
+        //
+        //        t.requestFocus();t.setCaretPosition(CaretPosSave);
+        //
+        //      }
       else if(e.getKeyCode() == KeyEvent.VK_UP){
 
         e.consume();
