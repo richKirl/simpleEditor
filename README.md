@@ -6,6 +6,8 @@ simpleEditor (with a static aspect for the text operations(by design - the main 
 ![Screenshot](https://github.com/user-attachments/assets/9eb51d63-44e4-4a47-8687-1320a6937e09)
 
 
+![image](https://github.com/user-attachments/assets/97847254-024a-44cb-89ae-2f6c836268c9)
+
 
 
 
