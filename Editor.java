@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+
 class Editor extends JFrame implements ActionListener  {
 
   // Text component//code
@@ -846,7 +847,7 @@ class Editor extends JFrame implements ActionListener  {
       while ((s1 = br.readLine()) != null) {
 
         sl = sl + "\n" + s1;
-
+        appendToPane(t,""+sl+"\n",tTextWCF);
         //set linenumbers while if line
         LineNN+=1;
 
@@ -855,7 +856,7 @@ class Editor extends JFrame implements ActionListener  {
       }
 
       // Set the text
-      t.setText(sl);
+      //t.setText(sl);
 
       if(ExtFile.equals("java")){
 
@@ -889,6 +890,8 @@ class Editor extends JFrame implements ActionListener  {
     }
 
   }
+
+
 
   public void OpenFile() {
 
@@ -975,12 +978,16 @@ class Editor extends JFrame implements ActionListener  {
           //set linenumbers while if line
           LineNN+=1;
 
+          //appendToPane(t,s1+"\n",tTextWCF);
+
           appendToPane(t1,""+LineNN+"\n",tTextWCF);
 
         }
 
         // Set the text
         t.setText(sl);
+
+        appendToPane(t,"\n",tTextWCF);
 
         if(ExtFile.equals("java")){
 
@@ -1003,7 +1010,7 @@ class Editor extends JFrame implements ActionListener  {
           cmrColorTexte();
 
         }
-
+        s1 = ""; sl = "";
         System.gc();
 
       }
@@ -1260,15 +1267,17 @@ class Editor extends JFrame implements ActionListener  {
 
           for(next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
 
+            if(next.equals("\n")){ appendToPane(t,current,tGreen); break; }
+
+            else appendToPane(t,current,tGreen);
+
             previous = current;
 
             current = next;
 
             next = it.hasNext() ? it.next() : null;
 
-            if(next.equals("\n")){ appendToPane(t,current,tGreen); break; }
 
-            else appendToPane(t,current,tGreen);
 
           }
 
@@ -1590,6 +1599,7 @@ class Editor extends JFrame implements ActionListener  {
         // Do something using 'current', 'previous' and 'next'.
         // NB: 'previous' and/or 'next' are null when 'current' is
         // the first and/or last element respectively
+
       }
 
       list.clear();
@@ -1727,6 +1737,10 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("(")){                                  appendToPane(t,current,tBlue);}
 
         else if(current.equals(")")){                                  appendToPane(t,current,tBlue);}
+
+        else if(current.equals("<")){                                  appendToPane(t,current,tBody);}
+
+        else if(current.equals(">")){                                  appendToPane(t,current,tBody);}
 
         else if(current.equals("[")){                                  appendToPane(t,current,tBlue);}
 
