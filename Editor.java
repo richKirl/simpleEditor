@@ -123,39 +123,45 @@ class Editor extends JFrame implements ActionListener  {
   JMenuBar mbConsole;
 
 
-
+  //minicli height
   private int mbConsoleSizeH = 200;
 
+  //minicli toggle visual
   private int VisualConsole = 0;
 
   //fileViewer
   JMenuBar mbViewer;
 
+  //dir visualizer
   private int VisualViewer = 0;
 
+  //dir width
   private int mbViewerSizeW = 200;
 
 
 
-
+  //counter for gc
   private short CountFORFREE = 0;
 
-
+  //toggle for window analyze complex
   private short ToggleAnalyzer =0;
 
   //search from line
   JMenuBar mbSearcher;
 
+  //toggle searcher
   private int VisualSearcher = 0;
 
   //search from number
   JMenuBar mbJumper;
 
+  //toggle jumper
   private int VisualJumper = 0;
 
   //infobar chars|lines|namefile|language
   JMenuBar mbInfoBar;
 
+  //toggle infobar
   private int VisualInfoBar = 0;
 
 
@@ -173,16 +179,17 @@ class Editor extends JFrame implements ActionListener  {
   //panel
   JPanel panel1;
 
+  //scroll
   JScrollPane panelScrollText;
 
 
 
-
+  //support flag for comment complex
   private int FlagForComment = 0;
 
 
 
-
+  //support flag for braces complex
   private int FlagBraces = 0;
 
 
@@ -190,16 +197,17 @@ class Editor extends JFrame implements ActionListener  {
   //history-ring
   private List<String> HListCommands;
 
-  int CurrHListCom=0;
+  //current
+  private int CurrHListCom=0;
 
 
 
-  int posFileS;
+  private int posFileS;
 
-  int posFileE;
+  private int posFileE;
 
 
-
+  //info for current frame - main window 
   private int width,height,x,y;
 
 
@@ -207,8 +215,10 @@ class Editor extends JFrame implements ActionListener  {
   //in this time not using
   private List<kvList> itt;
 
+  //number of lines
   private int NumberOfl=0;
 
+  //kv list at this time not using
   public class kvList {
 
     private int k,v;
@@ -233,25 +243,28 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  //autocomplete complex at this time not using
   //HashSet<String> autocomplete;
 
 
   // Constructor
   public Editor() {
 
-    // Create a frame
+    // default style for frame 
     JFrame.setDefaultLookAndFeelDecorated( true );
 
+    //dialog default dialog boxes
     JDialog.setDefaultLookAndFeelDecorated( true );
 
-
+    //create frame
     f = new JFrame("editor");
 
 
 
-
+    //for complex search
     tempSearch = new ArrayList<Integer>();
 
+    //for complex comamnds history in mini cli
     HListCommands = new ArrayList<String>();
 
     //itt = new ArrayList<kvList>();
@@ -276,10 +289,13 @@ class Editor extends JFrame implements ActionListener  {
     //config jtextarea for numberLines
     t1 = new JTextPane();
 
+    //configure font for numberlines
     t1.setFont(new Font("monospaced", Font.PLAIN, 16));
 
+    //configure location for numberlines
     t1.setLocation(100,0);
 
+    //configure size for numberlines
     t1.setSize(20,300);
 
 
@@ -287,6 +303,7 @@ class Editor extends JFrame implements ActionListener  {
     //document area
     t = new JTextPane();
 
+    //main text area text
     t.setFont(new Font("monospaced", Font.PLAIN, 16));
 
     //set cursor position in doc
@@ -320,6 +337,7 @@ class Editor extends JFrame implements ActionListener  {
 
     mi9.addActionListener(this);
 
+    //add to the menu File
     m1.add(mi1);
 
     m1.add(mi2);
@@ -348,6 +366,7 @@ class Editor extends JFrame implements ActionListener  {
 
     mi6.addActionListener(this);
 
+    //add to the menu Edit
     m2.add(mi4);
 
     m2.add(mi5);
@@ -364,19 +383,23 @@ class Editor extends JFrame implements ActionListener  {
     //menu button for close instant
     JMenu formatText = new JMenu("formatText");
 
-    //connect event
+    //connect event Close
     mc.addMouseListener(new ExitAction());
 
+    //connect event ColotText
     col.addMouseListener(new ColorStyle());
 
+    //connect event formatText
     formatText.addMouseListener(new FormatStyle());
 
+    //tooltip for formatText
     formatText.setToolTipText("Click for formatText.");
 
 
     // Create amenu for menu//menu for Analyzer
     JMenu mAnalyzer = new JMenu("Analyzer");
 
+    //tooltip for Analyzer
     mAnalyzer.setToolTipText("Click for Analyze.");
 
     // Add action listener//connect event
@@ -386,7 +409,7 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
+    //connect to menu bar
     mb.add(m1);
 
     mb.add(m2);
@@ -404,12 +427,12 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
+    //default action with click X
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 
-    //create menubar-bottom for cli
+    //create menubar-bottom for cli and configure
     mbConsole = new JMenuBar();
 
     //create jtextarea with a1 a2 a3
@@ -418,7 +441,7 @@ class Editor extends JFrame implements ActionListener  {
     t2.setLocation(120,0);
 
     t2.setSize(380,200);
-
+    
     t2.setFont(new Font("monospaced", Font.PLAIN, 16));
 
     t2.setPreferredSize(new Dimension(380,200));
@@ -614,7 +637,7 @@ class Editor extends JFrame implements ActionListener  {
     panel2.add(panel1,BorderLayout.CENTER);
 
 
-
+    //config for mainframe Editor
     //connect all panel to frame
     f.add(panel2);
 
@@ -1010,7 +1033,9 @@ class Editor extends JFrame implements ActionListener  {
           cmrColorTexte();
 
         }
+
         s1 = ""; sl = "";
+
         System.gc();
 
       }
@@ -1076,7 +1101,7 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-
+  
   public void cutFunction() {
 
     t.cut();
@@ -1646,6 +1671,8 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("boolean")){                            appendToPane(t,current,tBlue);}
 
+        else if(current.equals("null")){                               appendToPane(t,current,tBlue);}
+
         else if(current.equals("unsigned")){                           appendToPane(t,current,tBlue);}
 
         else if(current.equals("long")){                               appendToPane(t,current,tBlue);}
@@ -2024,6 +2051,26 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  private void setColor(JTextPane tp, int curPos, String msg, Color c) {
+
+    StyleContext sc = StyleContext.getDefaultStyleContext();
+
+    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+    aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
+
+    aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
+
+
+    //int len = tp.getDocument().getLength();
+
+    tp.setCaretPosition(curPos);
+
+    tp.setCharacterAttributes(aset,true);
+
+    //tp.replaceSelection(msg);
+
+  }
 
   private void appendToPaneTabs(JTextPane tp, String msg, Color c) {
 
@@ -4208,11 +4255,6 @@ class Editor extends JFrame implements ActionListener  {
         System.gc();
 
       }
-      //      else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
-        //
-        //        t.requestFocus();t.setCaretPosition(CaretPosSave);
-        //
-        //      }
       else if(e.getKeyCode() == KeyEvent.VK_UP){
 
         e.consume();
