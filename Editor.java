@@ -207,7 +207,7 @@ class Editor extends JFrame implements ActionListener  {
   private int posFileE;
 
 
-  //info for current frame - main window 
+  //info for current frame - main window
   private int width,height,x,y;
 
 
@@ -230,12 +230,12 @@ class Editor extends JFrame implements ActionListener  {
       v=ve;
 
     }
-    int getKa() {
+    private int getKa() {
 
       return k;
 
     }
-    int getVe() {
+    private int getVe() {
 
       return v;
 
@@ -250,7 +250,7 @@ class Editor extends JFrame implements ActionListener  {
   // Constructor
   public Editor() {
 
-    // default style for frame 
+    // default style for frame
     JFrame.setDefaultLookAndFeelDecorated( true );
 
     //dialog default dialog boxes
@@ -406,7 +406,14 @@ class Editor extends JFrame implements ActionListener  {
     mAnalyzer.addMouseListener(new Analyzer());
 
 
+    // Create amenu for menu//menu for Navigation
+    JMenu mNavigation = new JMenu("Navigation");
 
+    //tooltip for Analyzer
+    mNavigation.setToolTipText("Click for Navigation.");
+
+    // Add action listener//connect event
+    //mNavigation.addMouseListener(new Analyzer());
 
 
     //connect to menu bar
@@ -422,7 +429,7 @@ class Editor extends JFrame implements ActionListener  {
 
     mb.add(mAnalyzer);
 
-
+    mb.add(mNavigation);
 
 
 
@@ -441,7 +448,7 @@ class Editor extends JFrame implements ActionListener  {
     t2.setLocation(120,0);
 
     t2.setSize(380,200);
-    
+
     t2.setFont(new Font("monospaced", Font.PLAIN, 16));
 
     t2.setPreferredSize(new Dimension(380,200));
@@ -1101,7 +1108,7 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-  
+
   public void cutFunction() {
 
     t.cut();
@@ -1903,7 +1910,7 @@ class Editor extends JFrame implements ActionListener  {
         next = it.hasNext() ? it.next() : null;
 
 
-        if(current.equals("{")) {
+        if(current.equals("{")&&!previous.equals("\\")) {
 
           countCCCC++;
 
@@ -4553,6 +4560,140 @@ class Editor extends JFrame implements ActionListener  {
     System.gc();
 
   }
+
+  //test
+
+  public class cmrNavigation {
+
+    void Name() {
+
+      String code1="";
+
+      String file = t.getText();
+
+      List<String> test1 = new ArrayList<>();
+
+      String[] parts = code1.split("\n");
+
+      List<String> classes = new ArrayList<>();
+
+      boolean constr=false;
+
+      for(String r:parts)test1.add(r);
+
+      for(String r:test1){
+
+        if(r.contains("class")&&!r.contains("\"class\"")){
+
+          String rt=r;
+
+          rt=rt.replaceAll("\\bpublic\\b", "");
+
+          rt=rt.replaceAll("\\bprivate\\b", "");
+
+          rt=rt.replaceAll("\\bclass\\b", "");
+
+          rt=rt.replaceAll("implements+\\s*\\w*", "");
+
+          rt=rt.replaceAll("extends+\\s*\\w*", "");
+
+          rt=rt.replaceAll("\\{", "");
+
+          rt=rt.replaceAll("\n", " ");
+
+          rt=rt.replaceAll("//.*", ""); // delete comments
+
+          rt=rt.replaceAll("\\s*", ""); // delete wts
+
+          if(rt.length()>0){
+
+            //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+
+            classes.add(rt);
+
+            constr=true;
+
+          }
+
+        }
+        else if(!r.contains("class")&&!r.contains("if")&&!r.contains("else")&&!r.contains("catch")&&!r.contains("for")&&!r.contains("while")&&r.contains("(")&&r.contains(")")&&r.contains("{")&&constr){
+
+          if(r!=null){
+
+            String rt=r;
+
+            rt=rt.replaceAll("\\bpublic\\b", "");
+
+            rt=rt.replaceAll("\\bprivate\\b", "");
+
+            rt=rt.replaceAll("\\bstatic\\b", "");
+
+            rt=rt.replaceAll("\\bvoid\\b", "");
+
+            rt=rt.replaceAll("\\bint\\b", "");
+
+            rt=rt.replaceAll("\\bfloat\\b", "");
+
+            rt=rt.replaceAll("\\bInteger\\b", "");
+
+            rt=rt.replaceAll("\\bString\\b", "");
+
+            rt=rt.replaceAll("\\bboolean\\b", "");
+
+            rt=rt.replaceAll("\\{", "");
+
+            rt=rt.replaceAll("\n", "");
+
+            rt=rt.replaceAll("//.*", ""); // delete comments
+
+            rt=rt.replaceAll("\\s*", "").trim(); // delete wts
+
+            for(String r1:classes){
+
+              if(r1.contains(rt)){
+
+                //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+
+                constr=false;
+
+              }
+              else if((!r.contains("class")&&!r.contains("if")&&!r.contains("else")&&!r.contains("catch")&&!r.contains("for")&&!r.contains("while")&&r.contains("public")||r.contains("private")||r.contains("void"))&&r.contains("{")&&r.contains("(")){
+
+                //String rt=r;
+
+                rt=rt.replaceAll("\\bpublic\\b", "");
+
+                rt=rt.replaceAll("\\bprivate\\b", "");
+
+                rt=rt.replaceAll("\\bstatic\\b", "");
+
+                rt=rt.replaceAll("\\bvoid\\b", "");
+
+                rt=rt.replaceAll("\\bint\\b", "");
+
+                rt=rt.replaceAll("\\(.*", "");
+
+                rt=rt.replaceAll("\\{", "");
+
+                rt=rt.replaceAll("\n", "");
+
+                rt=rt.replaceAll("//.*", ""); // delete comments
+
+                rt=rt.replaceAll("\\s*", "").trim(); // delete wts
+                //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+                break;
+              }
+              break;
+            }
+          }
+        }
+
+      }
+      //System.out.println("finded classes: " + classes);
+    }
+  }
+
+  //-----------------------------------------------------------------------------------------
 
   // Main class
   public static void main(String[] args) {
