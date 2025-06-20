@@ -1910,7 +1910,7 @@ class Editor extends JFrame implements ActionListener  {
         next = it.hasNext() ? it.next() : null;
 
 
-        if(current.equals("{")&&!previous.equals("\\")) {
+        if(current.equals("{")&&previous!=null&&!previous.equals("\\")) {
 
           countCCCC++;
 
@@ -4375,10 +4375,12 @@ class Editor extends JFrame implements ActionListener  {
             appendToPane(t1,""+LineNN+"\n",tTextWCF);
 
           }
+
           //set linenumbers while if line
           LineNN+=1;
 
           appendToPane(t1,""+LineNN+"\n",tTextWCF);
+
           // Set the text
           t.setText(sl);
 
@@ -4680,17 +4682,27 @@ class Editor extends JFrame implements ActionListener  {
                 rt=rt.replaceAll("//.*", ""); // delete comments
 
                 rt=rt.replaceAll("\\s*", "").trim(); // delete wts
+
                 //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+
                 break;
+
               }
+
               break;
+
             }
+
           }
+
         }
 
       }
+
       //System.out.println("finded classes: " + classes);
+
     }
+
   }
 
   //-----------------------------------------------------------------------------------------
