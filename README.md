@@ -8,6 +8,8 @@ simpleEditor (with a static aspect for the text operations(by design - the main 
 tiling combination(combo situation)
 ![image](https://github.com/user-attachments/assets/12ab7ca2-e4d6-4fa4-a33e-2ce3f971884c)
 
+some test visual
+![image](https://github.com/user-attachments/assets/f2020f95-7be2-4402-85a2-709cab5cf867)
 
 
 
