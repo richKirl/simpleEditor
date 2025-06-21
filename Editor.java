@@ -164,6 +164,15 @@ class Editor extends JFrame implements ActionListener  {
   //toggle infobar
   private int VisualInfoBar = 0;
 
+  //Navigation bar
+  JMenuBar mbNavigation;
+
+  //toggle infobar
+  private int VisualNavigationBar = 0;
+
+  //buffer for navigatorViewer
+  private JTextPane nBuff;
+
 
   //possave
   int CaretPosSave;
@@ -413,7 +422,7 @@ class Editor extends JFrame implements ActionListener  {
     mNavigation.setToolTipText("Click for Navigation.");
 
     // Add action listener//connect event
-    //mNavigation.addMouseListener(new Analyzer());
+    //mNavigation.addMouseListener(new CmrNavigation());
 
 
     //connect to menu bar
@@ -502,6 +511,28 @@ class Editor extends JFrame implements ActionListener  {
     mbViewer.setPreferredSize(new Dimension(200,300));
 
 
+    //mbnavigationViewer area
+    mbNavigation = new JMenuBar();
+
+    nBuff = new JTextPane();
+
+    nBuff.setLocation(0,0);
+
+    nBuff.setSize(100,300);
+
+    nBuff.setFont(new Font("monospaced",Font.PLAIN,16));
+
+    nBuff.setPreferredSize(new Dimension(200,300));
+
+    //nBuff.addKeyListener(new CmrViewer());
+
+    mbNavigation.add(new JScrollPane(nBuff));
+
+    mbNavigation.setLocation(0,0);
+
+    mbNavigation.setPreferredSize(new Dimension(200,300));
+
+
     //collors for all jtextareas t=code t1=numbers t2=cli
     tTextWC = new Color(0,0,0,255);
 
@@ -583,9 +614,24 @@ class Editor extends JFrame implements ActionListener  {
     mbInfoBar.add(t4);
 
 
+
+
+
+
+
     Pather.setBackground(new Color(0,0,0,255));
 
     Pather.setForeground(new Color(200,200,200,255));
+
+
+
+
+
+
+    nBuff.setBackground(new Color(0,0,0,255));
+
+    nBuff.setForeground(new Color(200,200,200,255));
+
 
     //ColorINIT
     tBlue=new Color(23,159,241);
@@ -651,7 +697,9 @@ class Editor extends JFrame implements ActionListener  {
     //menubar to up
     f.add(mb,BorderLayout.NORTH);
 
-    f.add(mbViewer,BorderLayout.WEST);
+    f.add(mbViewer,BorderLayout.EAST);
+
+    f.add(mbNavigation,BorderLayout.WEST);
 
     //set scroll to cli and set bottom position
     f.add(mbConsole,BorderLayout.SOUTH);
@@ -4565,13 +4613,13 @@ class Editor extends JFrame implements ActionListener  {
 
   //test
 
-  public class cmrNavigation {
+  class CmrNavigation extends KeyAdapter {
 
-    void Name() {
+    public void keyPressed(KeyEvent e) {
 
-      String code1="";
+      String code1=t.getText();
 
-      String file = t.getText();
+      //String file = t.getText();
 
       List<String> test1 = new ArrayList<>();
 
@@ -4583,7 +4631,7 @@ class Editor extends JFrame implements ActionListener  {
 
       for(String r:parts)test1.add(r);
 
-      for(String r:test1){
+      for(String r:test1) {
 
         if(r.contains("class")&&!r.contains("\"class\"")){
 
