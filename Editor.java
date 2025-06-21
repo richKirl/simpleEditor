@@ -168,7 +168,7 @@ class Editor extends JFrame implements ActionListener  {
   JMenuBar mbNavigation;
 
   //toggle infobar
-  private int VisualNavigationBar = 0;
+  private int VisualNavigation = 0;
 
   //buffer for navigatorViewer
   private JTextPane nBuff;
@@ -422,7 +422,7 @@ class Editor extends JFrame implements ActionListener  {
     mNavigation.setToolTipText("Click for Navigation.");
 
     // Add action listener//connect event
-    //mNavigation.addMouseListener(new CmrNavigation());
+    mNavigation.addMouseListener(new CmrNavigation());
 
 
     //connect to menu bar
@@ -516,7 +516,7 @@ class Editor extends JFrame implements ActionListener  {
 
     nBuff = new JTextPane();
 
-    nBuff.setLocation(0,0);
+    //nBuff.setLocation(0,0);
 
     nBuff.setSize(100,300);
 
@@ -697,9 +697,9 @@ class Editor extends JFrame implements ActionListener  {
     //menubar to up
     f.add(mb,BorderLayout.NORTH);
 
-    f.add(mbViewer,BorderLayout.EAST);
+    f.add(mbViewer,BorderLayout.WEST);
 
-    f.add(mbNavigation,BorderLayout.WEST);
+    f.add(mbNavigation,BorderLayout.EAST);
 
     //set scroll to cli and set bottom position
     f.add(mbConsole,BorderLayout.SOUTH);
@@ -2359,6 +2359,11 @@ class Editor extends JFrame implements ActionListener  {
         toggleConsole();
 
       }
+      else if(e.getKeyCode() == KeyEvent.VK_N &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
+
+        toggleNavigation();
+
+      }
       else if(e.getKeyCode() == KeyEvent.VK_V &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
 
         toggleViewer();
@@ -3585,6 +3590,25 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  public void toggleNavigation() {
+
+    VisualNavigation+=1;
+
+    if(VisualNavigation==2){
+
+      mbNavigation.setVisible(false);
+
+      VisualNavigation=0;
+
+    }
+    else {
+
+      mbNavigation.setVisible(true);
+
+    }
+
+  }
+
   public void toggleViewer() {
 
     VisualViewer+=1;
@@ -4612,28 +4636,75 @@ class Editor extends JFrame implements ActionListener  {
   }
 
   //test
+  //exit after clicked on Close Menu!=item
+  class CmrNavigation extends MouseInputAdapter {
 
-  class CmrNavigation extends KeyAdapter {
+    public void mouseClicked(MouseEvent mouseEvent) {
 
-    public void keyPressed(KeyEvent e) {
+      cmrNavigation();
 
-      String code1=t.getText();
+    }
 
-      //String file = t.getText();
+  }
 
-      List<String> test1 = new ArrayList<>();
 
-      String[] parts = code1.split("\n");
+  public void cmrNavigation() {
 
-      List<String> classes = new ArrayList<>();
+    String code1=t.getText();
 
-      boolean constr=false;
+    nBuff.setText("");
 
-      for(String r:parts)test1.add(r);
+    String temp = "";
 
-      for(String r:test1) {
+    List<String> test1 = new ArrayList<>();
 
-        if(r.contains("class")&&!r.contains("\"class\"")){
+    String[] parts = code1.split("\n");
+
+    List<String> classes = new ArrayList<>();
+
+    boolean constr=false;
+
+    for(String r:parts)test1.add(r);
+
+    for(String r:test1) {
+
+      if(r.contains("class")&&!r.contains("\"class\"")){
+
+        String rt=r;
+
+        rt=rt.replaceAll("\\bpublic\\b", "");
+
+        rt=rt.replaceAll("\\bprivate\\b", "");
+
+        rt=rt.replaceAll("\\bclass\\b", "");
+
+        rt=rt.replaceAll("implements+\\s*\\w*", "");
+
+        rt=rt.replaceAll("extends+\\s*\\w*", "");
+
+        rt=rt.replaceAll("\\{", "");
+
+        rt=rt.replaceAll("\n", " ");
+
+        rt=rt.replaceAll("//.*", ""); // delete comments
+
+        rt=rt.replaceAll("\\s*", ""); // delete wts
+
+        if(rt.length()>0){
+
+          //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+          appendToPane(nBuff,rt+"\n",tTextWCF);
+
+          classes.add(rt);
+
+          constr=true;
+
+        }
+
+      }
+      else if(!r.contains("class")&&!r.contains("if")&&!r.contains("else")&&!r.contains("catch")&&!r.contains("for")&&!r.contains("while")&&r.contains("(")&&r.contains(")")&&r.contains("{")&&constr){
+
+        if(r!=null){
 
           String rt=r;
 
@@ -4641,105 +4712,69 @@ class Editor extends JFrame implements ActionListener  {
 
           rt=rt.replaceAll("\\bprivate\\b", "");
 
-          rt=rt.replaceAll("\\bclass\\b", "");
+          rt=rt.replaceAll("\\bstatic\\b", "");
 
-          rt=rt.replaceAll("implements+\\s*\\w*", "");
+          rt=rt.replaceAll("\\bvoid\\b", "");
 
-          rt=rt.replaceAll("extends+\\s*\\w*", "");
+          rt=rt.replaceAll("\\bint\\b", "");
+
+          rt=rt.replaceAll("\\bfloat\\b", "");
+
+          rt=rt.replaceAll("\\bInteger\\b", "");
+
+          rt=rt.replaceAll("\\bString\\b", "");
+
+          rt=rt.replaceAll("\\bboolean\\b", "");
 
           rt=rt.replaceAll("\\{", "");
 
-          rt=rt.replaceAll("\n", " ");
+          rt=rt.replaceAll("\n", "");
 
           rt=rt.replaceAll("//.*", ""); // delete comments
 
-          rt=rt.replaceAll("\\s*", ""); // delete wts
+          rt=rt.replaceAll("\\s*", "").trim(); // delete wts
 
-          if(rt.length()>0){
+          for(String r1:classes){
 
-            //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+            if(r1.contains(rt)){
 
-            classes.add(rt);
+              //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+              appendToPane(nBuff,rt+"\n",tTextWCF);
+              constr=false;
 
-            constr=true;
+            }
+            else if((!r.contains("class")&&!r.contains("if")&&!r.contains("else")&&!r.contains("catch")&&!r.contains("for")&&!r.contains("while")&&r.contains("public")||r.contains("private")||r.contains("void"))&&r.contains("{")&&r.contains("(")){
 
-          }
+              //String rt=r;
 
-        }
-        else if(!r.contains("class")&&!r.contains("if")&&!r.contains("else")&&!r.contains("catch")&&!r.contains("for")&&!r.contains("while")&&r.contains("(")&&r.contains(")")&&r.contains("{")&&constr){
+              rt=rt.replaceAll("\\bpublic\\b", "");
 
-          if(r!=null){
+              rt=rt.replaceAll("\\bprivate\\b", "");
 
-            String rt=r;
+              rt=rt.replaceAll("\\bstatic\\b", "");
 
-            rt=rt.replaceAll("\\bpublic\\b", "");
+              rt=rt.replaceAll("\\bvoid\\b", "");
 
-            rt=rt.replaceAll("\\bprivate\\b", "");
+              rt=rt.replaceAll("\\bint\\b", "");
 
-            rt=rt.replaceAll("\\bstatic\\b", "");
+              rt=rt.replaceAll("\\(.*", "");
 
-            rt=rt.replaceAll("\\bvoid\\b", "");
+              rt=rt.replaceAll("\\{", "");
 
-            rt=rt.replaceAll("\\bint\\b", "");
+              rt=rt.replaceAll("\n", "");
 
-            rt=rt.replaceAll("\\bfloat\\b", "");
+              rt=rt.replaceAll("//.*", ""); // delete comments
 
-            rt=rt.replaceAll("\\bInteger\\b", "");
+              rt=rt.replaceAll("\\s*", "").trim(); // delete wts
 
-            rt=rt.replaceAll("\\bString\\b", "");
-
-            rt=rt.replaceAll("\\bboolean\\b", "");
-
-            rt=rt.replaceAll("\\{", "");
-
-            rt=rt.replaceAll("\n", "");
-
-            rt=rt.replaceAll("//.*", ""); // delete comments
-
-            rt=rt.replaceAll("\\s*", "").trim(); // delete wts
-
-            for(String r1:classes){
-
-              if(r1.contains(rt)){
-
-                //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
-
-                constr=false;
-
-              }
-              else if((!r.contains("class")&&!r.contains("if")&&!r.contains("else")&&!r.contains("catch")&&!r.contains("for")&&!r.contains("while")&&r.contains("public")||r.contains("private")||r.contains("void"))&&r.contains("{")&&r.contains("(")){
-
-                //String rt=r;
-
-                rt=rt.replaceAll("\\bpublic\\b", "");
-
-                rt=rt.replaceAll("\\bprivate\\b", "");
-
-                rt=rt.replaceAll("\\bstatic\\b", "");
-
-                rt=rt.replaceAll("\\bvoid\\b", "");
-
-                rt=rt.replaceAll("\\bint\\b", "");
-
-                rt=rt.replaceAll("\\(.*", "");
-
-                rt=rt.replaceAll("\\{", "");
-
-                rt=rt.replaceAll("\n", "");
-
-                rt=rt.replaceAll("//.*", ""); // delete comments
-
-                rt=rt.replaceAll("\\s*", "").trim(); // delete wts
-
-                //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
-
-                break;
-
-              }
-
+              //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
+              //temp+=rt+"\n";
+              appendToPane(nBuff,rt+"\n",tTextWCF);
               break;
 
             }
+
+            break;
 
           }
 
@@ -4747,11 +4782,14 @@ class Editor extends JFrame implements ActionListener  {
 
       }
 
-      //System.out.println("finded classes: " + classes);
-
     }
-
+    
+    temp="";
+    //System.out.println("finded classes: " + classes);
+    //nBuff.setText(temp);
   }
+
+
 
   //-----------------------------------------------------------------------------------------
 
