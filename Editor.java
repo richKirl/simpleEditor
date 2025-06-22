@@ -4370,7 +4370,6 @@ class Editor extends JFrame implements ActionListener  {
   //cmd\n - \n emulate enter
   class CmrViewer extends KeyAdapter {
 
-
     public void keyPressed(KeyEvent e) {
 
       if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -4636,6 +4635,7 @@ class Editor extends JFrame implements ActionListener  {
   }
 
   //test
+  //--------------------------------------------------------------------------------
   //exit after clicked on Close Menu!=item
   class CmrNavigation extends MouseInputAdapter {
 
@@ -4647,6 +4647,50 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  class  cmrNavigationPrompter extends KeyAdapter {
+
+    public void keyPressed(KeyEvent e) {
+
+      if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+        e.consume();
+
+        //nBuff.getDocument().getDefaultRootElement().getElementIndex(caretPos);
+
+        int jLine = 0;
+
+        t.requestFocus();
+
+        t5.setText("");
+
+        t5.setText("SearchJ: ");
+
+
+        String parts3[] = t.getText().split("\n");
+
+        int tpos=0;
+
+        int countLN=1;
+
+        for(String r:parts3) {
+
+          if(countLN==jLine)break;
+
+          tpos+=r.length()+1;
+
+          countLN++;
+
+        }
+
+        t.setCaretPosition(tpos);
+
+        System.gc();
+
+      }
+
+    }
+
+  }
 
   public void cmrNavigation() {
 
@@ -4668,7 +4712,7 @@ class Editor extends JFrame implements ActionListener  {
 
     for(String r:test1) {
 
-      if(r.contains("class")&&!r.contains("\"class\"")){
+      if(r.contains("class")&&!r.contains("\"class\"")&&!r.contains("\\bclass\\b")&&!r.contains("if")&&!r.contains("else")){
 
         String rt=r;
 
@@ -4728,7 +4772,7 @@ class Editor extends JFrame implements ActionListener  {
 
           rt=rt.replaceAll("\\{", "");
 
-          rt=rt.replaceAll("\n", "");
+          rt=rt.replaceAll("\\n", "");
 
           rt=rt.replaceAll("//.*", ""); // delete comments
 
@@ -4740,6 +4784,7 @@ class Editor extends JFrame implements ActionListener  {
 
               //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
               appendToPane(nBuff,rt+"\n",tTextWCF);
+
               constr=false;
 
             }
@@ -4761,7 +4806,7 @@ class Editor extends JFrame implements ActionListener  {
 
               rt=rt.replaceAll("\\{", "");
 
-              rt=rt.replaceAll("\n", "");
+              rt=rt.replaceAll("\\n", "");
 
               rt=rt.replaceAll("//.*", ""); // delete comments
 
@@ -4770,6 +4815,7 @@ class Editor extends JFrame implements ActionListener  {
               //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
               //temp+=rt+"\n";
               appendToPane(nBuff,rt+"\n",tTextWCF);
+
               break;
 
             }
@@ -4783,7 +4829,7 @@ class Editor extends JFrame implements ActionListener  {
       }
 
     }
-    
+
     temp="";
     //System.out.println("finded classes: " + classes);
     //nBuff.setText(temp);
@@ -4792,6 +4838,136 @@ class Editor extends JFrame implements ActionListener  {
 
 
   //-----------------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------------
+  //undo/redo
+  interface Command {
+
+    void setDoc(Doc doc);
+
+    void execute();
+
+    void unexecute();
+
+  }
+
+  //doc representation
+
+  class Doc {
+
+    private StringBuilder doc = new StringBuilder();
+
+    void addText(String text) {
+
+      doc.append(text);
+
+    }
+
+    void removeText(int length) {
+
+      if (length <= doc.length()) {
+
+        doc.delete(doc.length() - length, doc.length());
+
+      }
+
+    }
+
+    void show() {
+
+      System.out.println(doc.toString());
+
+    }
+
+  }
+
+  //command
+  class AddText implements Command {
+
+    private Doc doc;
+
+    private String textAdd;
+
+    public AddText(String text) {
+
+      this.textAdd = text;
+
+    }
+
+    @Override
+    public void setDoc(Doc doc) {
+
+      this.doc = doc;
+
+    }
+
+    @Override
+    public void execute() {
+
+      if (doc != null) {
+
+        doc.addText(textAdd);
+
+      }
+
+    }
+
+    @Override
+    public void unexecute() {
+
+      if (doc != null) {
+
+        doc.removeText(textAdd.length());
+
+      }
+
+    }
+
+  }
+
+  //Invoker
+  class Invoker {
+
+    private List<Command> doneCommands = new ArrayList<>();
+
+    private Doc doc = new Doc();
+
+    public void insert(String text) {
+
+      Command cmd = new AddText(text);
+
+      cmd.setDoc(doc);
+
+      cmd.execute();
+
+      doneCommands.add(cmd);
+    }
+
+    public void undo() {
+
+      if (!doneCommands.isEmpty()) {
+
+        Command last = doneCommands.remove(doneCommands.size() - 1);
+
+        last.unexecute();
+
+      }
+
+    }
+
+    public void show() {
+
+      doc.show();
+
+    }
+
+  }
+
+  //-----------------------------------------------------------------------------
+
+
+
+
+
 
   // Main class
   public static void main(String[] args) {
