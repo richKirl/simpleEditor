@@ -252,6 +252,8 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+  Invoker edi; // = new Invoker();
+
   //autocomplete complex at this time not using
   //HashSet<String> autocomplete;
 
@@ -294,6 +296,7 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
+    edi= new Invoker();
 
     //config jtextarea for numberLines
     t1 = new JTextPane();
@@ -2283,6 +2286,9 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_Z && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
+        edi.undo();
+
+        edi.show();
         //System.out.println("ctrl+z");
 
         //        itt.remove(itt.size()-1);
@@ -2501,6 +2507,7 @@ class Editor extends JFrame implements ActionListener  {
       CaretPosSave=t.getCaretPosition();
 
       //      itt.add(new kvList(CaretPosSave,1));
+      edi.insert("q",CaretPosSave);
 
       appendToPaneCurrPos(t,"q",tTextWCF,CaretPosSave);
 
@@ -2511,6 +2518,8 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
+      edi.insert("w",CaretPosSave);
+
       appendToPaneCurrPos(t,"w",tTextWCF,CaretPosSave);
 
       t.setCaretPosition(CaretPosSave+1);
@@ -2519,6 +2528,8 @@ class Editor extends JFrame implements ActionListener  {
     else if(e.getKeyCode() == KeyEvent.VK_E) {
 
       CaretPosSave=t.getCaretPosition();
+
+      edi.insert("e",CaretPosSave);
 
       appendToPaneCurrPos(t,"e",tTextWCF,CaretPosSave);
 
@@ -2529,6 +2540,8 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
+      edi.insert("r",CaretPosSave);
+
       appendToPaneCurrPos(t,"r",tTextWCF,CaretPosSave);
 
       t.setCaretPosition(CaretPosSave+1);
@@ -2538,6 +2551,8 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
+      edi.insert("t",CaretPosSave);
+
       appendToPaneCurrPos(t,"t",tTextWCF,CaretPosSave);
 
       t.setCaretPosition(CaretPosSave+1);
@@ -2546,6 +2561,8 @@ class Editor extends JFrame implements ActionListener  {
     else if(e.getKeyCode() == KeyEvent.VK_Y) {
 
       CaretPosSave=t.getCaretPosition();
+
+      edi.insert("y",CaretPosSave);
 
       appendToPaneCurrPos(t,"y",tTextWCF,CaretPosSave);
 
@@ -4856,13 +4873,23 @@ class Editor extends JFrame implements ActionListener  {
 
     private StringBuilder doc = new StringBuilder();
 
-    void addText(String text) {
+    public void addText(String text) {
 
       doc.append(text);
 
     }
 
-    void removeText(int length) {
+    public void insertTextAt(int index, String text) {
+
+      if (index >= 0 && index <= doc.length()) {
+
+        doc.insert(index, text);
+
+      }
+
+    }
+
+    public void removeText(int length) {
 
       if (length <= doc.length()) {
 
@@ -4872,10 +4899,19 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-    void show() {
+    public void removeTextAt(int index, int length) {
 
-      System.out.println(doc.toString());
+      if (index >= 0 && index + length <= doc.length()) {
 
+        doc.delete(index, index + length);
+
+      }
+
+    }
+
+
+    public String getText() {
+      return doc.toString();
     }
 
   }
@@ -4887,9 +4923,19 @@ class Editor extends JFrame implements ActionListener  {
 
     private String textAdd;
 
+    private int pos;
+
     public AddText(String text) {
 
       this.textAdd = text;
+
+    }
+
+    public AddText(String text, int position) {
+
+      this.textAdd = text;
+
+      this.pos = position;
 
     }
 
@@ -4905,7 +4951,8 @@ class Editor extends JFrame implements ActionListener  {
 
       if (doc != null) {
 
-        doc.addText(textAdd);
+        //doc.addText(textAdd);
+        doc.insertTextAt(pos, textAdd);
 
       }
 
@@ -4916,7 +4963,8 @@ class Editor extends JFrame implements ActionListener  {
 
       if (doc != null) {
 
-        doc.removeText(textAdd.length());
+        //doc.removeText(textAdd.length());
+        doc.removeTextAt(pos, textAdd.length());
 
       }
 
@@ -4940,6 +4988,19 @@ class Editor extends JFrame implements ActionListener  {
       cmd.execute();
 
       doneCommands.add(cmd);
+
+    }
+
+    public void insert(String text, int position) {
+
+      Command cmd = new AddText(text, position);
+
+      cmd.setDoc(doc);
+
+      cmd.execute();
+
+      doneCommands.add(cmd);
+
     }
 
     public void undo() {
@@ -4956,7 +5017,9 @@ class Editor extends JFrame implements ActionListener  {
 
     public void show() {
 
-      doc.show();
+      //doc.show();
+      //t.setText("");
+      t.setText(doc.getText());
 
     }
 
