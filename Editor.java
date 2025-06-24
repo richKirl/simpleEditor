@@ -943,7 +943,7 @@ class Editor extends JFrame implements ActionListener  {
 
         ExtFile=langSupport[2];
 
-        cmrColorTexte();
+        //cmrColorTexte();
 
       }
       else if(ExtFile.equals("cpp")){
@@ -1047,9 +1047,11 @@ class Editor extends JFrame implements ActionListener  {
         replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
 
         //System.out.println(spos+" "+epos);
-
+        
         // Initialize sl
         sl = br.readLine();
+        
+        String linesN="1"+"\n";
 
         // Take the input from the file
         while ((s1 = br.readLine()) != null) {
@@ -1058,15 +1060,15 @@ class Editor extends JFrame implements ActionListener  {
 
           //set linenumbers while if line
           LineNN+=1;
-
-          //appendToPane(t,s1+"\n",tTextWCF);
-
-          appendToPane(t1,""+LineNN+"\n",tTextWCF);
+          
+          linesN+=""+LineNN+"\n";
 
         }
 
         // Set the text
         t.setText(sl);
+        
+        t1.setText(linesN);
 
         appendToPane(t,"\n",tTextWCF);
 
@@ -1074,7 +1076,7 @@ class Editor extends JFrame implements ActionListener  {
 
           ExtFile=langSupport[2];
 
-          cmrColorTexte();
+          //cmrColorTexte();
 
         }
         else if(ExtFile.equals("cpp")||ExtFile.equals("hpp")){
