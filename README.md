@@ -11,7 +11,8 @@ tiling combination(combo situation)
 some test visual
 ![image](https://github.com/user-attachments/assets/f2020f95-7be2-4402-85a2-709cab5cf867)
 
-
+my setup
+![image](https://github.com/user-attachments/assets/1f4ffdd9-0f00-4a51-aa9d-8547c2fa092a)
 
 
 
