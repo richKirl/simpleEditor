@@ -1687,8 +1687,11 @@ class Editor extends JFrame implements ActionListener  {
 
       }
 
+      s1="";
+
       list.clear();
 
+      System.gc();
 
     }
     else if(ExtFile.equals("Java")) {
@@ -1724,6 +1727,8 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("Override")&&previous.equals("@")){     appendToPane(t,current,tBody);}
 
         else if(current.equals("int")){                                appendToPane(t,current,tBlue);}
+
+        else if(current.equals("this")){                               appendToPane(t,current,tBlue);}
 
         else if(current.equals("char")){                               appendToPane(t,current,tBlue);}
 
@@ -1904,7 +1909,7 @@ class Editor extends JFrame implements ActionListener  {
       }
 
       list.clear();
-
+      s1="";
     }
 
     t.setCaretPosition(currPosC);
