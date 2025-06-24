@@ -1047,10 +1047,10 @@ class Editor extends JFrame implements ActionListener  {
         replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
 
         //System.out.println(spos+" "+epos);
-        
+
         // Initialize sl
         sl = br.readLine();
-        
+
         String linesN="1"+"\n";
 
         // Take the input from the file
@@ -1060,14 +1060,14 @@ class Editor extends JFrame implements ActionListener  {
 
           //set linenumbers while if line
           LineNN+=1;
-          
+
           linesN+=""+LineNN+"\n";
 
         }
 
         // Set the text
         t.setText(sl);
-        
+
         t1.setText(linesN);
 
         appendToPane(t,"\n",tTextWCF);
@@ -1083,18 +1083,18 @@ class Editor extends JFrame implements ActionListener  {
 
           ExtFile=langSupport[1];
 
-          cmrColorTexte();
+          //cmrColorTexte();
 
         }
         else if(ExtFile.equals("c")||ExtFile.equals("h")){
 
           ExtFile=langSupport[0];
 
-          cmrColorTexte();
+          //cmrColorTexte();
 
         }
 
-        s1 = ""; sl = "";
+        s1 = ""; sl = "";linesN="";
 
         System.gc();
 
@@ -2045,6 +2045,8 @@ class Editor extends JFrame implements ActionListener  {
     t.setText(ttt);
 
     t.setCaretPosition(ccc);
+
+    s1="";ttt="";
 
     System.gc();
 
