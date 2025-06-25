@@ -23,6 +23,8 @@ import javax.swing.plaf.metal.*;
 import javax.swing.text.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -253,6 +255,7 @@ class Editor extends JFrame implements ActionListener  {
   }
 
   Invoker edi; // = new Invoker();
+
 
   //autocomplete complex at this time not using
   //HashSet<String> autocomplete;
@@ -1067,6 +1070,7 @@ class Editor extends JFrame implements ActionListener  {
 
         // Set the text
         t.setText(sl);
+        //edi.insert(t, 0);
 
         t1.setText(linesN);
 
@@ -2816,6 +2820,8 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
+      //edi.insert("[",CaretPosSave);
+
       appendToPaneCurrPos(t,"[",tBlue,CaretPosSave);
 
       t.setCaretPosition(CaretPosSave+1);
@@ -2824,6 +2830,8 @@ class Editor extends JFrame implements ActionListener  {
     else if(e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) {
 
       CaretPosSave=t.getCaretPosition();
+
+      //edi.insert("]",CaretPosSave);
 
       appendToPaneCurrPos(t,"]",tBlue,CaretPosSave);
 
@@ -4150,6 +4158,12 @@ class Editor extends JFrame implements ActionListener  {
 
               s=null;
 
+              cmdLineIn.close();
+
+              cmdLineOut.close();
+
+              cmdLineErr.close();
+
               pR.destroy();
 
             }
@@ -4332,6 +4346,12 @@ class Editor extends JFrame implements ActionListener  {
               }
 
               s=null;
+
+              cmdLineIn.close();
+
+              cmdLineOut.close();
+
+              cmdLineErr.close();
 
               pR.destroy();
 
@@ -4594,6 +4614,12 @@ class Editor extends JFrame implements ActionListener  {
 
     String commander1;
 
+    //    cmdLineIn = null;
+
+    //    cmdLineOut = null;
+
+    //    cmdLineErr = null;
+
     try {
 
       //commander1="ls "+stringDir+"\n";
@@ -4640,7 +4666,15 @@ class Editor extends JFrame implements ActionListener  {
 
       s=null;
 
+      cmdLineIn.close();
+
+      cmdLineOut.close();
+
+      cmdLineErr.close();
+
       pR.destroy();
+
+
 
     }
     catch (IOException e1) {
@@ -4653,6 +4687,8 @@ class Editor extends JFrame implements ActionListener  {
       e1.printStackTrace();
 
     }
+
+
 
     commander1= "";
 
