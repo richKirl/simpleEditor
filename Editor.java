@@ -1100,6 +1100,10 @@ class Editor extends JFrame implements ActionListener  {
 
         s1 = ""; sl = "";linesN="";
 
+        fr.close();
+
+        br.close();
+
         System.gc();
 
       }
