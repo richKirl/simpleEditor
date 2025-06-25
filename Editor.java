@@ -1104,6 +1104,10 @@ class Editor extends JFrame implements ActionListener  {
 
         br.close();
 
+        tt=null;
+
+        partsDirs = null;
+
         System.gc();
 
       }
@@ -1480,7 +1484,7 @@ class Editor extends JFrame implements ActionListener  {
         // the first and/or last element respectively
       }
 
-      list.clear();
+      list.clear();parts=null;s1="";s1=null;
 
     }
 
@@ -1695,9 +1699,9 @@ class Editor extends JFrame implements ActionListener  {
 
       }
 
-      s1="";
+      //s1="";
 
-      list.clear();
+      list.clear();parts=null;s1="";s1=null;
 
       System.gc();
 
@@ -1791,6 +1795,8 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("extends")){                            appendToPane(t,current,tBlue);}
 
         else if(current.equals("implements")){                         appendToPane(t,current,tBlue);}
+
+        else if(current.equals("interface")){                          appendToPane(t,current,tBlue);}
 
         else if(current.equals("/")&&next.equals("/")){
 
@@ -1916,8 +1922,7 @@ class Editor extends JFrame implements ActionListener  {
 
       }
 
-      list.clear();
-      s1="";
+      list.clear();parts=null;s1="";s1=null;
     }
 
     t.setCaretPosition(currPosC);
@@ -2059,7 +2064,7 @@ class Editor extends JFrame implements ActionListener  {
 
     t.setCaretPosition(ccc);
 
-    s1="";ttt="";
+    s1="";ttt="";s2=null;
 
     System.gc();
 
@@ -2257,7 +2262,7 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-    System.gc();
+    System.gc();parts10=null;
 
   }
 
@@ -2524,7 +2529,7 @@ class Editor extends JFrame implements ActionListener  {
       CaretPosSave=t.getCaretPosition();
 
       //      itt.add(new kvList(CaretPosSave,1));
-      edi.insert("q",CaretPosSave);
+      //edi.insert("q",CaretPosSave);
 
       appendToPaneCurrPos(t,"q",tTextWCF,CaretPosSave);
 
@@ -2535,7 +2540,7 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
-      edi.insert("w",CaretPosSave);
+      //edi.insert("w",CaretPosSave);
 
       appendToPaneCurrPos(t,"w",tTextWCF,CaretPosSave);
 
@@ -2546,7 +2551,7 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
-      edi.insert("e",CaretPosSave);
+      //edi.insert("e",CaretPosSave);
 
       appendToPaneCurrPos(t,"e",tTextWCF,CaretPosSave);
 
@@ -2557,7 +2562,7 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
-      edi.insert("r",CaretPosSave);
+      //edi.insert("r",CaretPosSave);
 
       appendToPaneCurrPos(t,"r",tTextWCF,CaretPosSave);
 
@@ -2568,7 +2573,7 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
-      edi.insert("t",CaretPosSave);
+      //edi.insert("t",CaretPosSave);
 
       appendToPaneCurrPos(t,"t",tTextWCF,CaretPosSave);
 
@@ -2579,7 +2584,7 @@ class Editor extends JFrame implements ActionListener  {
 
       CaretPosSave=t.getCaretPosition();
 
-      edi.insert("y",CaretPosSave);
+      //edi.insert("y",CaretPosSave);
 
       appendToPaneCurrPos(t,"y",tTextWCF,CaretPosSave);
 
@@ -3990,6 +3995,8 @@ class Editor extends JFrame implements ActionListener  {
 
         }
 
+        jLine=null;parts3=null;
+
         System.gc();
 
       }
@@ -4032,6 +4039,8 @@ class Editor extends JFrame implements ActionListener  {
         }
 
         t.setCaretPosition(tpos);
+
+        parts3=null;
 
         System.gc();
 
@@ -4160,7 +4169,7 @@ class Editor extends JFrame implements ActionListener  {
 
               }
 
-              s=null;
+              s=null;ttttt=null;
 
               cmdLineIn.close();
 
@@ -4349,7 +4358,7 @@ class Editor extends JFrame implements ActionListener  {
 
               }
 
-              s=null;
+              s=null;ttttt=null;
 
               cmdLineIn.close();
 
@@ -4750,6 +4759,8 @@ class Editor extends JFrame implements ActionListener  {
 
         t.setCaretPosition(tpos);
 
+        parts3=null;
+
         System.gc();
 
       }
@@ -4896,7 +4907,7 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-    temp="";
+    temp="";parts=null;classes=null;
     //System.out.println("finded classes: " + classes);
     //nBuff.setText(temp);
   }
