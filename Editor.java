@@ -1244,9 +1244,17 @@ class Editor extends JFrame implements ActionListener  {
 
         next = it.hasNext() ? it.next() : null;
 
-        if(current.equals("#")&&next.equals("include")){               appendToPane(t,current,tMagenta);}
+        if(current.equals("#")&&(next.equals("include")
+        ||next.equals("define")
+        ||next.equals("ifndef")
+        ||next.equals("ifdef")
+        ||next.equals("endif"))){                                      appendToPane(t,current,tMagenta);}
 
-        else if(current.equals("include")&&previous.equals("#")){      appendToPane(t,current,tMagenta);}
+        else if((current.equals("include")
+        ||current.equals("define")
+        ||current.equals("ifndef")
+        ||current.equals("ifdef")
+        ||current.equals("endif"))&&previous.equals("#")){             appendToPane(t,current,tMagenta);}
 
         else if(current.equals("<")){                                  appendToPane(t,current,tBody);}
 
@@ -1512,13 +1520,25 @@ class Editor extends JFrame implements ActionListener  {
 
         next = it.hasNext() ? it.next() : null;
 
-        if(current.equals("#")&&next.equals("include")){               appendToPane(t,current,tMagenta);}
+        if(current.equals("#")&&(next.equals("include")
+        ||next.equals("define")
+        ||next.equals("ifndef")
+        ||next.equals("ifdef")
+        ||next.equals("endif"))){                                      appendToPane(t,current,tMagenta);}
 
-        else if(current.equals("include")&&previous.equals("#")){      appendToPane(t,current,tMagenta);}
+        else if((current.equals("include")
+        ||current.equals("define")
+        ||current.equals("ifndef")
+        ||current.equals("ifdef")
+        ||current.equals("endif"))&&previous.equals("#")){             appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("typedef")){                            appendToPane(t,current,tBlue);}
 
         else if(current.equals("<")){                                  appendToPane(t,current,tBody);}
 
         else if(current.equals(">")){                                  appendToPane(t,current,tBody);}
+
+        else if(current.equals("extern"))                              appendToPane(t,current,tMagenta);
 
         else if(current.equals("return"))                              appendToPane(t,current,tMagenta);
 
