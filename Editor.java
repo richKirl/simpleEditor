@@ -1766,6 +1766,10 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("public")){                             appendToPane(t,current,tBlue);}
 
+        else if(current.equals("false")){                              appendToPane(t,current,tBlue);}
+
+        else if(current.equals("true")){                               appendToPane(t,current,tBlue);}
+
         else if(current.equals("private")){                            appendToPane(t,current,tBlue);}
 
         else if(current.equals("void")){                               appendToPane(t,current,tBlue);}
