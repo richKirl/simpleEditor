@@ -260,6 +260,97 @@ class Editor extends JFrame implements ActionListener  {
   //autocomplete complex at this time not using
   //HashSet<String> autocomplete;
 
+  //-----------------------------------------------------
+  //withoutShift
+  private static final Map<Integer, String> keyMap = new HashMap<>();
+
+  static {
+
+    keyMap.put(KeyEvent.VK_Q             ,"q");    keyMap.put(KeyEvent.VK_W             ,"w");    keyMap.put(KeyEvent.VK_E             ,"e");
+
+    keyMap.put(KeyEvent.VK_R             ,"r");    keyMap.put(KeyEvent.VK_T             ,"t");    keyMap.put(KeyEvent.VK_Y             ,"y");
+
+    keyMap.put(KeyEvent.VK_U             ,"u");    keyMap.put(KeyEvent.VK_I             ,"i");    keyMap.put(KeyEvent.VK_O             ,"o");
+
+    keyMap.put(KeyEvent.VK_P             ,"p");    keyMap.put(KeyEvent.VK_A             ,"a");    keyMap.put(KeyEvent.VK_S             ,"s");
+
+    keyMap.put(KeyEvent.VK_D             ,"d");    keyMap.put(KeyEvent.VK_F             ,"f");    keyMap.put(KeyEvent.VK_G             ,"g");
+
+    keyMap.put(KeyEvent.VK_H             ,"h");    keyMap.put(KeyEvent.VK_J             ,"j");    keyMap.put(KeyEvent.VK_K             ,"k");
+
+    keyMap.put(KeyEvent.VK_L             ,"l");    keyMap.put(KeyEvent.VK_Z             ,"z");    keyMap.put(KeyEvent.VK_X             ,"x");
+
+    keyMap.put(KeyEvent.VK_C             ,"c");    keyMap.put(KeyEvent.VK_V             ,"v");    keyMap.put(KeyEvent.VK_B             ,"b");
+
+    keyMap.put(KeyEvent.VK_N             ,"n");    keyMap.put(KeyEvent.VK_M             ,"m");    keyMap.put(KeyEvent.VK_COMMA         ,",");
+
+    keyMap.put(KeyEvent.VK_PERIOD        ,".");    keyMap.put(KeyEvent.VK_SLASH         ,"/");    keyMap.put(KeyEvent.VK_SEMICOLON     ,";");
+
+    keyMap.put(KeyEvent.VK_QUOTE         ,"'");    keyMap.put(KeyEvent.VK_BACK_SLASH    ,"\\");   keyMap.put(KeyEvent.VK_OPEN_BRACKET  ,"[");
+
+    keyMap.put(KeyEvent.VK_CLOSE_BRACKET ,"]");    keyMap.put(KeyEvent.VK_1             ,"1");    keyMap.put(KeyEvent.VK_2             ,"2");
+
+    keyMap.put(KeyEvent.VK_3             ,"3");    keyMap.put(KeyEvent.VK_4             ,"4");    keyMap.put(KeyEvent.VK_5             ,"5");
+
+    keyMap.put(KeyEvent.VK_6             ,"6");    keyMap.put(KeyEvent.VK_7             ,"7");    keyMap.put(KeyEvent.VK_8             ,"8");
+
+    keyMap.put(KeyEvent.VK_9             ,"9");    keyMap.put(KeyEvent.VK_0             ,"0");    keyMap.put(KeyEvent.VK_MINUS         ,"-");
+
+    keyMap.put(KeyEvent.VK_EQUALS        ,"=");    keyMap.put(KeyEvent.VK_NUMPAD0       ,"0");    keyMap.put(KeyEvent.VK_NUMPAD1       ,"1");
+
+    keyMap.put(KeyEvent.VK_NUMPAD2       ,"2");    keyMap.put(KeyEvent.VK_NUMPAD3       ,"3");    keyMap.put(KeyEvent.VK_NUMPAD4       ,"4");
+
+    keyMap.put(KeyEvent.VK_NUMPAD5       ,"5");    keyMap.put(KeyEvent.VK_NUMPAD6       ,"6");    keyMap.put(KeyEvent.VK_NUMPAD7       ,"7");
+
+    keyMap.put(KeyEvent.VK_NUMPAD8       ,"8");    keyMap.put(KeyEvent.VK_NUMPAD9       ,"9");    keyMap.put(KeyEvent.VK_MULTIPLY      ,"*");
+
+    keyMap.put(KeyEvent.VK_DIVIDE        ,"/");    keyMap.put(KeyEvent.VK_ADD           ,"+");    keyMap.put(KeyEvent.VK_SUBTRACT      ,"-");
+
+    keyMap.put(KeyEvent.VK_SPACE         ," ");    keyMap.put(KeyEvent.VK_BACK_SPACE    ,"");
+
+  };
+
+  //withShift
+  private static final Map<Integer, String> keyMapns = new HashMap<>();
+
+  static {
+
+    keyMap.put(KeyEvent.VK_BACK_QUOTE   ,"~");    keyMap.put(KeyEvent.VK_1            ,"!");    keyMap.put(KeyEvent.VK_2            ,"@");
+
+    keyMap.put(KeyEvent.VK_3            ,"#");    keyMap.put(KeyEvent.VK_4            ,"$");    keyMap.put(KeyEvent.VK_5            ,"%");
+
+    keyMap.put(KeyEvent.VK_6            ,"^");    keyMap.put(KeyEvent.VK_7            ,"&");    keyMap.put(KeyEvent.VK_8            ,"*");
+
+    keyMap.put(KeyEvent.VK_9            ,"(");    keyMap.put(KeyEvent.VK_0            ,")");    keyMap.put(KeyEvent.VK_MINUS        ,"_");
+
+    keyMap.put(KeyEvent.VK_EQUALS       ,"+");    keyMap.put(KeyEvent.VK_Q            ,"Q");    keyMap.put(KeyEvent.VK_W            ,"W");
+
+    keyMap.put(KeyEvent.VK_E            ,"E");    keyMap.put(KeyEvent.VK_R            ,"R");    keyMap.put(KeyEvent.VK_T            ,"T");
+
+    keyMap.put(KeyEvent.VK_Y            ,"Y");    keyMap.put(KeyEvent.VK_U            ,"U");    keyMap.put(KeyEvent.VK_I            ,"I");
+
+    keyMap.put(KeyEvent.VK_O            ,"O");    keyMap.put(KeyEvent.VK_P            ,"P");    keyMap.put(KeyEvent.VK_A            ,"A");
+
+    keyMap.put(KeyEvent.VK_S            ,"S");    keyMap.put(KeyEvent.VK_D            ,"D");    keyMap.put(KeyEvent.VK_F            ,"F");
+
+    keyMap.put(KeyEvent.VK_G            ,"G");    keyMap.put(KeyEvent.VK_H            ,"H");    keyMap.put(KeyEvent.VK_J            ,"J");
+
+    keyMap.put(KeyEvent.VK_K            ,"K");    keyMap.put(KeyEvent.VK_L            ,"L");    keyMap.put(KeyEvent.VK_Z            ,"Z");
+
+    keyMap.put(KeyEvent.VK_X            ,"X");    keyMap.put(KeyEvent.VK_C            ,"C");    keyMap.put(KeyEvent.VK_V            ,"V");
+
+    keyMap.put(KeyEvent.VK_B            ,"B");    keyMap.put(KeyEvent.VK_N            ,"N");    keyMap.put(KeyEvent.VK_M            ,"M");
+
+    keyMap.put(KeyEvent.VK_COMMA        ,"<");    keyMap.put(KeyEvent.VK_PERIOD       ,">");    keyMap.put(KeyEvent.VK_SLASH        ,"?");
+
+    keyMap.put(KeyEvent.VK_SEMICOLON    ,":");    keyMap.put(KeyEvent.VK_QUOTE        ,"\"");   keyMap.put(KeyEvent.VK_BACK_SLASH   ,"|");
+
+    keyMap.put(KeyEvent.VK_OPEN_BRACKET ,"{");    keyMap.put(KeyEvent.VK_CLOSE_BRACKET,"}");
+
+  };
+
+  //-----------------------------------------------------
+
 
   // Constructor
   public Editor() {
@@ -1629,7 +1720,19 @@ class Editor extends JFrame implements ActionListener  {
 
             next = it.hasNext() ? it.next() : null;
 
-            if(current.equals("*")&&next.equals("/")){ appendToPane(t,current,tGreen); appendToPane(t,next,tGreen);previous = current;current = next;next = it.hasNext() ? it.next() : null; break; }
+            if(current.equals("*")&&next.equals("/")){
+
+              appendToPane(t,current,tGreen);
+
+              appendToPane(t,next,tGreen);
+
+              previous = current;
+
+              current = next;
+
+              next = it.hasNext() ? it.next() : null; break;
+
+            }
             else appendToPane(t,current,tGreen);
 
           }
