@@ -315,37 +315,37 @@ class Editor extends JFrame implements ActionListener  {
 
   static {
 
-    keyMap.put(KeyEvent.VK_BACK_QUOTE   ,"~");    keyMap.put(KeyEvent.VK_1            ,"!");    keyMap.put(KeyEvent.VK_2            ,"@");
+    keyMapns.put(KeyEvent.VK_BACK_QUOTE   ,"~");    keyMapns.put(KeyEvent.VK_1            ,"!");    keyMapns.put(KeyEvent.VK_2            ,"@");
 
-    keyMap.put(KeyEvent.VK_3            ,"#");    keyMap.put(KeyEvent.VK_4            ,"$");    keyMap.put(KeyEvent.VK_5            ,"%");
+    keyMapns.put(KeyEvent.VK_3            ,"#");    keyMapns.put(KeyEvent.VK_4            ,"$");    keyMapns.put(KeyEvent.VK_5            ,"%");
 
-    keyMap.put(KeyEvent.VK_6            ,"^");    keyMap.put(KeyEvent.VK_7            ,"&");    keyMap.put(KeyEvent.VK_8            ,"*");
+    keyMapns.put(KeyEvent.VK_6            ,"^");    keyMapns.put(KeyEvent.VK_7            ,"&");    keyMapns.put(KeyEvent.VK_8            ,"*");
 
-    keyMap.put(KeyEvent.VK_9            ,"(");    keyMap.put(KeyEvent.VK_0            ,")");    keyMap.put(KeyEvent.VK_MINUS        ,"_");
+    keyMapns.put(KeyEvent.VK_9            ,"(");    keyMapns.put(KeyEvent.VK_0            ,")");    keyMapns.put(KeyEvent.VK_MINUS        ,"_");
 
-    keyMap.put(KeyEvent.VK_EQUALS       ,"+");    keyMap.put(KeyEvent.VK_Q            ,"Q");    keyMap.put(KeyEvent.VK_W            ,"W");
+    keyMapns.put(KeyEvent.VK_EQUALS       ,"+");    keyMapns.put(KeyEvent.VK_Q            ,"Q");    keyMapns.put(KeyEvent.VK_W            ,"W");
 
-    keyMap.put(KeyEvent.VK_E            ,"E");    keyMap.put(KeyEvent.VK_R            ,"R");    keyMap.put(KeyEvent.VK_T            ,"T");
+    keyMapns.put(KeyEvent.VK_E            ,"E");    keyMapns.put(KeyEvent.VK_R            ,"R");    keyMapns.put(KeyEvent.VK_T            ,"T");
 
-    keyMap.put(KeyEvent.VK_Y            ,"Y");    keyMap.put(KeyEvent.VK_U            ,"U");    keyMap.put(KeyEvent.VK_I            ,"I");
+    keyMapns.put(KeyEvent.VK_Y            ,"Y");    keyMapns.put(KeyEvent.VK_U            ,"U");    keyMapns.put(KeyEvent.VK_I            ,"I");
 
-    keyMap.put(KeyEvent.VK_O            ,"O");    keyMap.put(KeyEvent.VK_P            ,"P");    keyMap.put(KeyEvent.VK_A            ,"A");
+    keyMapns.put(KeyEvent.VK_O            ,"O");    keyMapns.put(KeyEvent.VK_P            ,"P");    keyMapns.put(KeyEvent.VK_A            ,"A");
 
-    keyMap.put(KeyEvent.VK_S            ,"S");    keyMap.put(KeyEvent.VK_D            ,"D");    keyMap.put(KeyEvent.VK_F            ,"F");
+    keyMapns.put(KeyEvent.VK_S            ,"S");    keyMapns.put(KeyEvent.VK_D            ,"D");    keyMapns.put(KeyEvent.VK_F            ,"F");
 
-    keyMap.put(KeyEvent.VK_G            ,"G");    keyMap.put(KeyEvent.VK_H            ,"H");    keyMap.put(KeyEvent.VK_J            ,"J");
+    keyMapns.put(KeyEvent.VK_G            ,"G");    keyMapns.put(KeyEvent.VK_H            ,"H");    keyMapns.put(KeyEvent.VK_J            ,"J");
 
-    keyMap.put(KeyEvent.VK_K            ,"K");    keyMap.put(KeyEvent.VK_L            ,"L");    keyMap.put(KeyEvent.VK_Z            ,"Z");
+    keyMapns.put(KeyEvent.VK_K            ,"K");    keyMapns.put(KeyEvent.VK_L            ,"L");    keyMapns.put(KeyEvent.VK_Z            ,"Z");
 
-    keyMap.put(KeyEvent.VK_X            ,"X");    keyMap.put(KeyEvent.VK_C            ,"C");    keyMap.put(KeyEvent.VK_V            ,"V");
+    keyMapns.put(KeyEvent.VK_X            ,"X");    keyMapns.put(KeyEvent.VK_C            ,"C");    keyMapns.put(KeyEvent.VK_V            ,"V");
 
-    keyMap.put(KeyEvent.VK_B            ,"B");    keyMap.put(KeyEvent.VK_N            ,"N");    keyMap.put(KeyEvent.VK_M            ,"M");
+    keyMapns.put(KeyEvent.VK_B            ,"B");    keyMapns.put(KeyEvent.VK_N            ,"N");    keyMapns.put(KeyEvent.VK_M            ,"M");
 
-    keyMap.put(KeyEvent.VK_COMMA        ,"<");    keyMap.put(KeyEvent.VK_PERIOD       ,">");    keyMap.put(KeyEvent.VK_SLASH        ,"?");
+    keyMapns.put(KeyEvent.VK_COMMA        ,"<");    keyMapns.put(KeyEvent.VK_PERIOD       ,">");    keyMapns.put(KeyEvent.VK_SLASH        ,"?");
 
-    keyMap.put(KeyEvent.VK_SEMICOLON    ,":");    keyMap.put(KeyEvent.VK_QUOTE        ,"\"");   keyMap.put(KeyEvent.VK_BACK_SLASH   ,"|");
+    keyMapns.put(KeyEvent.VK_SEMICOLON    ,":");    keyMapns.put(KeyEvent.VK_QUOTE        ,"\"");   keyMapns.put(KeyEvent.VK_BACK_SLASH   ,"|");
 
-    keyMap.put(KeyEvent.VK_OPEN_BRACKET ,"{");    keyMap.put(KeyEvent.VK_CLOSE_BRACKET,"}");
+    keyMapns.put(KeyEvent.VK_OPEN_BRACKET ,"{");    keyMapns.put(KeyEvent.VK_CLOSE_BRACKET,"}");
 
   };
 
