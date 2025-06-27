@@ -861,7 +861,7 @@ class Editor extends JFrame implements ActionListener  {
     }
     else if (s.equals("Open")) {
 
-      OpenFile();
+      OpenFile(null);
 
     }
     else if (s.equals("New")) {
@@ -954,14 +954,45 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-  public void Open(String file) {
+  public void OpenFile(String df) {
 
-    try(FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr);) {
+    File fi=null;
+
+    if(df==null){
+      // Create an object of JFileChooser class
+      JFileChooser j = new JFileChooser("f:");
+
+      // Invoke the showsOpenDialog function to show the save dialog
+      int r = j.showOpenDialog(null);
+
+      // If the user selects a file
+      if (r == JFileChooser.APPROVE_OPTION) {
+
+        // Set the label to the path of the selected directory
+        fi = new File(j.getSelectedFile().getAbsolutePath());
+
+      }
+
+      // If the user cancelled the operation
+      else JOptionPane.showMessageDialog(f, "the user cancelled the operation");
+    }
+    else {
+
+      fi = new File(df);
+
+    }
+    try(FileReader fr = new FileReader(fi); BufferedReader br = new BufferedReader(fr);) {
 
       // String
       String s1 = "", sl = "";
 
-      FilePathw=file.toString();
+      // File reader
+
+
+      // Buffered reader
+
+
+      FilePathw=fi.toString();
 
       String partsDirs[] = FilePathw.split("/");
 
@@ -1012,20 +1043,27 @@ class Editor extends JFrame implements ActionListener  {
       // Initialize sl
       sl = br.readLine();
 
+      String linesN="1"+"\n";
+
       // Take the input from the file
       while ((s1 = br.readLine()) != null) {
 
         sl = sl + "\n" + s1;
-        appendToPane(t,""+sl+"\n",tTextWCF);
+
         //set linenumbers while if line
         LineNN+=1;
 
-        appendToPane(t1,""+LineNN+"\n",tTextWCF);
+        linesN+=""+LineNN+"\n";
 
       }
 
       // Set the text
-      //t.setText(sl);
+      t.setText(sl);
+      //edi.insert(t, 0);
+
+      t1.setText(linesN);
+
+      appendToPane(t,"\n",tTextWCF);
 
       if(ExtFile.equals("java")){
 
@@ -1034,20 +1072,30 @@ class Editor extends JFrame implements ActionListener  {
         //cmrColorTexte();
 
       }
-      else if(ExtFile.equals("cpp")){
+      else if(ExtFile.equals("cpp")||ExtFile.equals("hpp")){
 
         ExtFile=langSupport[1];
 
-        cmrColorTexte();
+        //cmrColorTexte();
 
       }
-      else if(ExtFile.equals("c")){
+      else if(ExtFile.equals("c")||ExtFile.equals("h")){
 
         ExtFile=langSupport[0];
 
-        cmrColorTexte();
+        //cmrColorTexte();
 
       }
+
+      s1 = ""; sl = "";linesN="";
+
+      //fr.close();
+
+      //br.close();
+
+      tt=null;
+
+      partsDirs = null;
 
       System.gc();
 
@@ -1058,154 +1106,7 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-  }
 
-
-
-  public void OpenFile() {
-
-    // Create an object of JFileChooser class
-    JFileChooser j = new JFileChooser("f:");
-
-    // Invoke the showsOpenDialog function to show the save dialog
-    int r = j.showOpenDialog(null);
-
-    // If the user selects a file
-    if (r == JFileChooser.APPROVE_OPTION) {
-
-      // Set the label to the path of the selected directory
-      File fi = new File(j.getSelectedFile().getAbsolutePath());
-
-
-      try(FileReader fr = new FileReader(fi); BufferedReader br = new BufferedReader(fr);) {
-
-        // String
-        String s1 = "", sl = "";
-
-        // File reader
-
-
-        // Buffered reader
-
-
-        FilePathw=fi.toString();
-
-        String partsDirs[] = FilePathw.split("/");
-
-        int sz1 = partsDirs.length;
-
-        FileExt = partsDirs[sz1-1];
-
-        ExtFile = FileExt.substring(FileExt.indexOf(".")+1,FileExt.length());
-
-
-
-        String tt=new String();
-
-        for(int i=1;i<partsDirs.length-1;i++) {
-
-          tt+="/"+partsDirs[i];
-
-        }
-
-        tt+="/";
-
-        Path=tt;
-
-        viewDir(Path);
-
-        //FileExt;
-
-        posFileS=Pather.getText().lastIndexOf(FileExt+"\n");
-
-        int spos =Pather.getText().lastIndexOf("\n",posFileS);
-
-        int epos =Pather.getText().indexOf("\n",posFileS);
-
-
-        Pather.setSelectionStart(spos);
-
-        Pather.setSelectionEnd(epos);
-
-        posFileS=spos;
-
-        posFileE=epos;
-
-        //Pather.select(spos,epos);
-        replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
-
-        //System.out.println(spos+" "+epos);
-
-        // Initialize sl
-        sl = br.readLine();
-
-        String linesN="1"+"\n";
-
-        // Take the input from the file
-        while ((s1 = br.readLine()) != null) {
-
-          sl = sl + "\n" + s1;
-
-          //set linenumbers while if line
-          LineNN+=1;
-
-          linesN+=""+LineNN+"\n";
-
-        }
-
-        // Set the text
-        t.setText(sl);
-        //edi.insert(t, 0);
-
-        t1.setText(linesN);
-
-        appendToPane(t,"\n",tTextWCF);
-
-        if(ExtFile.equals("java")){
-
-          ExtFile=langSupport[2];
-
-          //cmrColorTexte();
-
-        }
-        else if(ExtFile.equals("cpp")||ExtFile.equals("hpp")){
-
-          ExtFile=langSupport[1];
-
-          //cmrColorTexte();
-
-        }
-        else if(ExtFile.equals("c")||ExtFile.equals("h")){
-
-          ExtFile=langSupport[0];
-
-          //cmrColorTexte();
-
-        }
-
-        s1 = ""; sl = "";linesN="";
-
-        //fr.close();
-
-        //br.close();
-
-        tt=null;
-
-        partsDirs = null;
-
-        System.gc();
-
-      }
-      catch (Exception evt) {
-
-        JOptionPane.showMessageDialog(f, evt.getMessage());
-
-      }
-
-    }
-
-    // If the user cancelled the operation
-    else JOptionPane.showMessageDialog(f, "the user cancelled the operation");
 
   }
 
@@ -2409,7 +2310,7 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_O && (e.getModifiersEx() ==( KeyEvent.CTRL_DOWN_MASK))) {
 
-        OpenFile();
+        OpenFile(null);
 
         cmrColorTexte();
 
@@ -4110,7 +4011,7 @@ class Editor extends JFrame implements ActionListener  {
 
           Editor ed = new Editor();
 
-          ed.Open(file1.getAbsolutePath());
+          ed.OpenFile(file1.getAbsolutePath());
 
         }
         else{
