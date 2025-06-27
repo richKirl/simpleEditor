@@ -1083,16 +1083,16 @@ class Editor extends JFrame implements ActionListener  {
       File fi = new File(j.getSelectedFile().getAbsolutePath());
 
 
-      try {
+      try(FileReader fr = new FileReader(fi); BufferedReader br = new BufferedReader(fr);) {
 
         // String
         String s1 = "", sl = "";
 
         // File reader
-        FileReader fr = new FileReader(fi);
+
 
         // Buffered reader
-        BufferedReader br = new BufferedReader(fr);
+
 
         FilePathw=fi.toString();
 
@@ -1191,9 +1191,9 @@ class Editor extends JFrame implements ActionListener  {
 
         s1 = ""; sl = "";linesN="";
 
-        fr.close();
+        //fr.close();
 
-        br.close();
+        //br.close();
 
         tt=null;
 
@@ -1918,6 +1918,8 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("try")){                                appendToPane(t,current,tMagenta);}
 
         else if(current.equals("catch")){                              appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("finally")){                            appendToPane(t,current,tMagenta);}
 
         else if(current.equals("extends")){                            appendToPane(t,current,tBlue);}
 
@@ -3215,6 +3217,161 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
+
+  public void cmrProvide(JTextPane textP,String cmd1) {
+
+    if (cmd1 == null) {
+
+    commander = textP.getText().substring(textP.getText().lastIndexOf("% ")+2,textP.getText().length());
+    
+    }
+    else {
+
+    commander = cmd1;
+
+    }
+
+    String ttttt="";
+
+    if(commander.equals("clear")==true){
+
+      textP.setText("");
+
+      appendToPane(textP,"\n % ",tTextWCF);
+
+      HListCommands.clear();
+
+    }
+    else if(commander.equals(" ")||commander.equals("")){
+
+      appendToPane(textP,"\n % ",tTextWCF);
+
+    }
+    else if(commander.contains("cd")){
+      //thinking
+
+
+    }
+    else {
+
+      if(commander.contains("*")) {
+
+        String Temparts[] = commander.split(" ");
+
+        File dir=new File(".");
+
+        File[] files1 = dir.listFiles();
+
+        for(String r:Temparts) {
+
+          if(r.contains("*")) {
+
+            String trTemp=new String();
+
+            trTemp = r.replaceAll("\\W","");
+
+
+
+            for(File ffff:files1) {
+
+              if(ffff.toString().contains(trTemp))
+
+              ttttt+=ffff.toString()+" ";
+
+            }
+
+          }
+
+          if(!r.contains("*")) ttttt+=r+" ";
+
+        }
+
+        commander="";
+
+        commander+=ttttt;
+
+        System.gc();
+
+
+      }
+      if(!commander.equals(" ")||!commander.equals("")){
+
+        try {
+
+          String[] cmd = { "/bin/sh", "-c", "cd "+Path+";"+commander+";" };
+
+          //call program
+          ProcessBuilder pb = new ProcessBuilder(cmd);
+
+          Process pR = pb.start();
+
+
+          int exitCode = pR.waitFor();
+
+          try(PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
+
+          BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
+
+          BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));) {
+
+            String s = null;
+
+            if(exitCode==0||exitCode==2) {
+
+              //read line by line
+              while((s=cmdLineOut.readLine())!=null){
+
+                appendToPane(textP,"\n"+s,tTextWCF);
+
+              }
+
+            }
+
+            if(exitCode!=0) {
+
+              //read line by line
+              while((s=cmdLineErr.readLine())!=null){
+
+                appendToPane(textP,"\n"+s,tConsoleTextError);
+
+              }
+
+              s=null;ttttt=null;
+
+            }
+
+          }
+          finally {
+
+            if(pR.isAlive())pR.destroy();
+
+          }
+
+        }
+        catch (IOException | InterruptedException e1) {
+
+          e1.printStackTrace();
+
+        }
+
+        HListCommands.add(commander);
+
+        commander= "";
+
+        appendToPane(textP,"\n % ",tTextWCF);
+
+      }
+
+    }
+
+    System.gc();
+
+  }
+
+
+
+
+
   //command provider procesess for mainwindow-editor like toggle cli, and work with history-ring
   //cmd\n - \n emulate enter
   class CmrPrompter extends KeyAdapter {
@@ -3225,148 +3382,7 @@ class Editor extends JFrame implements ActionListener  {
 
         e.consume();
 
-        commander = t2.getText().substring(t2.getText().lastIndexOf("% ")+2,t2.getText().length());
-
-        String ttttt=new String();
-
-        if(commander.equals("clear")==true){
-
-          t2.setText("");
-
-          appendToPane(t2,"\n % ",tTextWCF);
-
-          HListCommands.clear();
-
-        }
-        else if(commander.equals(" ")||commander.equals("")){
-
-          appendToPane(t2,"\n % ",tTextWCF);
-
-        }
-        else if(commander.contains("cd")){
-          //thinking
-
-
-        }
-        else {
-
-          if(commander.contains("*")) {
-
-            String Temparts[] = commander.split(" ");
-
-            File dir=new File(".");
-
-            File[] files1 = dir.listFiles();
-
-            for(String r:Temparts) {
-
-              if(r.contains("*")) {
-
-                String trTemp=new String();
-
-                trTemp = r.replaceAll("\\W","");
-
-
-
-                for(File ffff:files1) {
-
-                  if(ffff.toString().contains(trTemp))
-
-                  ttttt+=ffff.toString()+" ";
-
-                }
-
-              }
-
-              if(!r.contains("*")) ttttt+=r+" ";
-
-            }
-
-            commander="";
-
-            commander+=ttttt;
-
-            System.gc();
-
-
-          }
-          if(!commander.equals(" ")||!commander.equals("")){
-
-            try {
-
-              String[] cmd = { "/bin/sh", "-c", "cd "+Path+";"+commander+";" };
-
-              //call program
-              ProcessBuilder pb = new ProcessBuilder(cmd);
-
-              Process pR = pb.start();
-
-
-              int exitCode = pR.waitFor();
-
-              PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
-
-              BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
-
-              BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
-
-              String s = null;
-
-              if(exitCode==0||exitCode==2) {
-
-                //read line by line
-                while((s=cmdLineOut.readLine())!=null){
-
-                  appendToPane(t2,"\n"+s,tTextWCF);
-
-                }
-
-              }
-
-              if(exitCode!=0) {
-
-                //read line by line
-                while((s=cmdLineErr.readLine())!=null){
-
-                  appendToPane(t2,"\n"+s,tConsoleTextError);
-
-                }
-
-              }
-
-              s=null;ttttt=null;
-
-              cmdLineIn.close();
-
-              cmdLineOut.close();
-
-              cmdLineErr.close();
-
-              pR.destroy();
-
-            }
-            catch (IOException e1) {
-
-              e1.printStackTrace();
-
-            }
-            catch (InterruptedException e1) {
-
-              e1.printStackTrace();
-
-            }
-
-            HListCommands.add(commander);
-
-            commander= "";
-
-            appendToPane(t2,"\n % ",tTextWCF);
-
-          }
-
-        }
-
-        System.gc();
+        cmrProvide(t2,null);
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
@@ -3398,7 +3414,6 @@ class Editor extends JFrame implements ActionListener  {
         CurrHListCom--;
 
         System.gc();
-
       }
 
     }
@@ -3411,151 +3426,11 @@ class Editor extends JFrame implements ActionListener  {
 
     public void keyPressed(KeyEvent e) {
 
-      if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+      if(e.getKeyCode() == KeyEvent.VK_ENTER) {//Acli
 
         e.consume();
 
-        commander = Acli.getText().substring(Acli.getText().lastIndexOf("% ")+2,Acli.getText().length());
-
-        String ttttt=new String();
-
-        if(commander.equals("clear")==true){
-
-          Acli.setText("");
-
-          appendToPane(Acli,"\n % ",tTextWCF);
-
-          HListCommands.clear();
-
-        }
-        else if(commander.equals(" ")||commander.equals("")){
-
-          appendToPane(Acli,"\n % ",tTextWCF);
-
-        }
-        else if(commander.contains("cd")){
-          //thinking
-
-
-        }
-        else {
-
-          if(commander.contains("*")) {
-
-            String Temparts[] = commander.split(" ");
-
-            File dir=new File(".");
-
-            File[] files1 = dir.listFiles();
-
-            for(String r:Temparts) {
-
-              if(r.contains("*")) {
-
-                String trTemp=new String();
-
-                trTemp = r.replaceAll("\\W","");
-
-
-
-                for(File ffff:files1) {
-
-                  if(ffff.toString().contains(trTemp))
-
-                  ttttt+=ffff.toString()+" ";
-
-                }
-
-              }
-
-              if(!r.contains("*")) ttttt+=r+" ";
-
-            }
-
-            commander="";
-
-            commander+=ttttt;
-
-            System.gc();
-
-
-          }
-          if(!commander.equals(" ")||!commander.equals("")){
-
-            try {
-
-              String[] cmd = { "/bin/sh", "-c", "cd "+Path+";"+commander+";" };
-
-              //call program
-              ProcessBuilder pb = new ProcessBuilder(cmd);
-
-              Process pR = pb.start();
-
-              int exitCode = pR.waitFor();
-
-              PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
-
-              BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
-
-              BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
-
-              String s = null;
-
-              if(exitCode==0||exitCode==2) {
-
-                //read line by line
-                while((s=cmdLineOut.readLine())!=null){
-
-                  appendToPane(Acli,"\n"+s,tTextWCF);
-
-                }
-
-              }
-
-              if(exitCode!=0) {
-
-                //read line by line
-                while((s=cmdLineErr.readLine())!=null){
-
-                  appendToPane(Acli,"\n"+s,tConsoleTextError);
-
-                }
-
-              }
-
-              s=null;ttttt=null;
-
-              cmdLineIn.close();
-
-              cmdLineOut.close();
-
-              cmdLineErr.close();
-
-              pR.destroy();
-
-            }
-            catch (IOException e1) {
-
-              e1.printStackTrace();
-
-            }
-            catch (InterruptedException e1) {
-
-              e1.printStackTrace();
-
-            }
-
-            HListCommands.add(commander);
-
-            commander= "";
-
-            appendToPane(Acli,"\n % ",tTextWCF);
-
-          }
-
-        }
-
-        System.gc();
+        cmrProvide(Acli,null);
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -3686,14 +3561,14 @@ class Editor extends JFrame implements ActionListener  {
             cmrColorTexte();
 
           }
-          else if(ExtFile.equals("cpp")|ExtFile.equals("hpp")){
+          else if(ExtFile.equals("cpp")||ExtFile.equals("hpp")){
 
             ExtFile=langSupport[1];
 
             cmrColorTexte();
 
           }
-          else if(ExtFile.equals("c")|ExtFile.equals("h")){
+          else if(ExtFile.equals("c")||ExtFile.equals("h")){
 
             ExtFile=langSupport[0];
 
@@ -3788,89 +3663,9 @@ class Editor extends JFrame implements ActionListener  {
   //provider command process ls for viewer
   public void viewDir(String stringDir) {
 
-    Pather.setText("");
+      String cmd = "ls "+stringDir;
 
-    String commander1;
-
-    //    cmdLineIn = null;
-
-    //    cmdLineOut = null;
-
-    //    cmdLineErr = null;
-
-    try {
-
-      //commander1="ls "+stringDir+"\n";
-
-
-      String[] cmd = { "ls",stringDir };
-
-      //call program
-      ProcessBuilder pb = new ProcessBuilder(cmd);
-
-      Process pR = pb.start();
-
-      int exitCode = pR.waitFor();
-
-      PrintWriter cmdLineIn = new PrintWriter(pR.getOutputStream());
-
-      BufferedReader cmdLineOut = new BufferedReader(new InputStreamReader(pR.getInputStream()));
-
-      BufferedReader cmdLineErr = new BufferedReader(new InputStreamReader(pR.getErrorStream()));
-
-      String s = null;
-
-      if(exitCode==0||exitCode==2) {
-
-        //read line by line
-        while((s=cmdLineOut.readLine())!=null) {
-
-          appendToPane(Pather,"\n"+s,tTextWCF);
-
-        }
-
-      }
-
-      if(exitCode!=0) {
-
-        //read line by line
-        while((s=cmdLineErr.readLine())!=null) {
-
-          appendToPane(Pather,"\n"+s,tConsoleTextError);
-
-        }
-
-      }
-
-      s=null;
-
-      cmdLineIn.close();
-
-      cmdLineOut.close();
-
-      cmdLineErr.close();
-
-      pR.destroy();
-
-
-
-    }
-    catch (IOException e1) {
-
-      e1.printStackTrace();
-
-    }
-    catch (InterruptedException e1) {
-
-      e1.printStackTrace();
-
-    }
-
-
-
-    commander1= "";
-
-    System.gc();
+      cmrProvide(Pather,cmd);
 
   }
 
@@ -3887,52 +3682,52 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-  class  cmrNavigationPrompter extends KeyAdapter {
-
-    public void keyPressed(KeyEvent e) {
-
-      if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-
-        e.consume();
-
-        //nBuff.getDocument().getDefaultRootElement().getElementIndex(caretPos);
-
-        int jLine = 0;
-
-        t.requestFocus();
-
-        t5.setText("");
-
-        t5.setText("SearchJ: ");
-
-
-        String parts3[] = t.getText().split("\n");
-
-        int tpos=0;
-
-        int countLN=1;
-
-        for(String r:parts3) {
-
-          if(countLN==jLine)break;
-
-          tpos+=r.length()+1;
-
-          countLN++;
-
-        }
-
-        t.setCaretPosition(tpos);
-
-        parts3=null;
-
-        System.gc();
-
-      }
-
-    }
-
-  }
+  //  class  cmrNavigationPrompter extends KeyAdapter {
+    //
+    //    public void keyPressed(KeyEvent e) {
+      //
+      //      if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+        //
+        //        e.consume();
+        //
+        //        //nBuff.getDocument().getDefaultRootElement().getElementIndex(caretPos);
+        //
+        //        int jLine = 0;
+        //
+        //        t.requestFocus();
+        //
+        //        //t5.setText("");
+        //
+        //        //t5.setText("SearchJ: ");
+        //
+        //
+        //        String parts3[] = t.getText().split("\n");
+        //
+        //        int tpos=0;
+        //
+        //        int countLN=1;
+        //
+        //        for(String r:parts3) {
+          //
+          //          if(countLN==jLine)break;
+          //
+          //          tpos+=r.length()+1;
+          //
+          //          countLN++;
+          //
+          //        }
+        //
+        //        t.setCaretPosition(tpos);
+        //
+        //        parts3=null;
+        //
+        //        System.gc();
+        //
+        //      }
+      //
+      //    }
+    //
+    //  }
 
   public void cmrNavigation() {
 
