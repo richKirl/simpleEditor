@@ -35,23 +35,8 @@ import java.util.TimerTask;
 
 class Editor extends JFrame implements ActionListener  {
 
-  // Text component//code
-  private JTextPane t;
-
-  //lineNumbers
-  private JTextPane t1;
-
-  //mini cli
-  private JTextPane t2;
-
-  //top linesearch
-  private JTextPane t3;
-
-  //bottom
-  private JTextPane t4;
-
-  //top Jumper
-  private JTextPane t5;
+  //t Text component//code
+  private JTextPane t,t1,t2,t3,t4,t5,Pather,Acli,nBuff;
 
   // Frame//frame-likewWindow
   private JFrame f,f1;
@@ -60,52 +45,16 @@ class Editor extends JFrame implements ActionListener  {
   private String prompter=" \n % ";
 
   //command after prompt
-  String commander;
+  private String commander;
 
   //number of lines on doc
   private int LineNN=1;
 
-  //Style//new Color(0,0,0,255);BackGround
-  private Color tTextWC;
-
-  //new Color(200,200,200,255);ForeGround
-  private Color tTextWCF;
-
-  //new Color(23,159,241);
-  private Color tBlue;
-
-  //new Color(206,145,120);
-  private Color tBody;
-
-  //new Color(218,112,214);
-  private Color tMagenta;
-
-  //new Color(156,220,254);
-  private Color tLBlue;
-
-  //new Color(255,201,20);
-  private Color tYellow;
-
-  //new Color(25,201,20);
-  private Color tGreen;
-
-  //new Color(255,101,100);
-  private Color tConsoleTextError;
+  //Style//new Color(0,0,0,255);BackGroundColor(200,200,200,255)
+  final private Color tTextWC,tTextWCF,tBlue,tBody,tMagenta,tLBlue,tYellow,tGreen,tConsoleTextError;
 
   //Path for widget Pather
-  private String Path;
-
-  //nameFile with res
-  private String FilePathw;
-
-  //nameFile
-  private String FileExt;
-
-  //.{}
-  private String ExtFile;
-
-  //buffer for pathViewer
-  private JTextPane Pather;
+  private String Path, FilePathw, FileExt, ExtFile;
 
   private int PatherVisualFlag=1;
 
@@ -113,79 +62,19 @@ class Editor extends JFrame implements ActionListener  {
   private CmrViewer testls;
 
   //supportcolorschemaforlangs
-  private String[] langSupport={"C","C++","Java","H","HPP"};
+  final private String[] langSupport={"C","C++","Java","H","HPP"};
 
   //sizetabinspaces
   private static final int TAB_SIZE = 2;
 
-  //mini cli
-  JTextPane Acli;
-
   //console
-  JMenuBar mbConsole;
-
+  JMenuBar mbConsole,mbViewer,mbSearcher,mbJumper,mbInfoBar,mbNavigation;
 
   //minicli height
-  private int mbConsoleSizeH = 200;
-
-  //minicli toggle visual
-  private int VisualConsole = 0;
-
-  //fileViewer
-  JMenuBar mbViewer;
-
-  //dir visualizer
-  private int VisualViewer = 0;
-
-  //dir width
-  private int mbViewerSizeW = 200;
-
-
-
-  //counter for gc
-  private short CountFORFREE = 0;
-
-  //toggle for window analyze complex
-  private short ToggleAnalyzer =0;
-
-  //search from line
-  JMenuBar mbSearcher;
-
-  //toggle searcher
-  private int VisualSearcher = 0;
-
-  //search from number
-  JMenuBar mbJumper;
-
-  //toggle jumper
-  private int VisualJumper = 0;
-
-  //infobar chars|lines|namefile|language
-  JMenuBar mbInfoBar;
-
-  //toggle infobar
-  private int VisualInfoBar = 0;
-
-  //Navigation bar
-  JMenuBar mbNavigation;
-
-  //toggle infobar
-  private int VisualNavigation = 0;
-
-  //buffer for navigatorViewer
-  private JTextPane nBuff;
-
-
-  //possave
-  int CaretPosSave;
+  private int mbConsoleSizeH = 200, VisualConsole = 0, VisualViewer = 0, mbViewerSizeW = 200, CountFORFREE = 0, ToggleAnalyzer =0, VisualSearcher = 0,VisualJumper = 0,VisualInfoBar= 0,VisualNavigation = 0, CaretPosSave,StartTempSearch=0,FlagForComment = 0, FlagBraces = 0,CurrHListCom=0, posFileS, posFileE,width,height,x,y,NumberOfl=0;
 
   //listforsearch
   private List<Integer> tempSearch;
-
-  //startposinsave
-  private int StartTempSearch=0;
-
-
 
   //panel
   JPanel panel1;
@@ -193,41 +82,11 @@ class Editor extends JFrame implements ActionListener  {
   //scroll
   JScrollPane panelScrollText;
 
-
-
-  //support flag for comment complex
-  private int FlagForComment = 0;
-
-
-
-  //support flag for braces complex
-  private int FlagBraces = 0;
-
-
-
   //history-ring
   private List<String> HListCommands;
 
-  //current
-  private int CurrHListCom=0;
-
-
-
-  private int posFileS;
-
-  private int posFileE;
-
-
-  //info for current frame - main window
-  private int width,height,x,y;
-
-
-
   //in this time not using
   private List<kvList> itt;
-
-  //number of lines
-  private int NumberOfl=0;
 
   //kv list at this time not using
   public class kvList {
@@ -254,7 +113,7 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-  Invoker edi; // = new Invoker();
+  private Invoker edi; // = new Invoker();
 
 
   //autocomplete complex at this time not using
