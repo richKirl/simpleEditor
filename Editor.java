@@ -654,7 +654,6 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
     Color c2 = new Color(0,0,0,255);
 
     Color cf2 = new Color(200,200,200,255);
@@ -712,16 +711,9 @@ class Editor extends JFrame implements ActionListener  {
 
 
 
-
-
-
-
     Pather.setBackground(new Color(0,0,0,255));
 
     Pather.setForeground(new Color(200,200,200,255));
-
-
-
 
 
 
@@ -986,11 +978,6 @@ class Editor extends JFrame implements ActionListener  {
       // String
       String s1 = "", sl = "";
 
-      // File reader
-
-
-      // Buffered reader
-
 
       FilePathw=fi.toString();
 
@@ -1105,8 +1092,6 @@ class Editor extends JFrame implements ActionListener  {
       JOptionPane.showMessageDialog(f, evt.getMessage());
 
     }
-
-
 
   }
 
@@ -2538,8 +2523,6 @@ class Editor extends JFrame implements ActionListener  {
 
         e.consume();
 
-
-
       }
 
     }
@@ -2896,9 +2879,6 @@ class Editor extends JFrame implements ActionListener  {
 
     public void run() {
 
-      //System.out.println("Task executed after 1 second");
-      //timer.cancel(); // Cancel the timer after execution
-
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
       width = screenSize.width / 2;
@@ -2946,7 +2926,6 @@ class Editor extends JFrame implements ActionListener  {
       f1.addWindowListener(new WindowCloser());
 
       mbConsole.setVisible(false);
-
 
 
       // Create a menubar//menubar top
@@ -3144,8 +3123,6 @@ class Editor extends JFrame implements ActionListener  {
     }
     else if(commander.contains("cd")){
       //thinking
-
-
     }
     else {
 
@@ -3164,7 +3141,6 @@ class Editor extends JFrame implements ActionListener  {
             String trTemp=new String();
 
             trTemp = r.replaceAll("\\W","");
-
 
 
             for(File ffff:files1) {
@@ -3262,10 +3238,6 @@ class Editor extends JFrame implements ActionListener  {
     System.gc();
 
   }
-
-
-
-
 
   //command provider procesess for mainwindow-editor like toggle cli, and work with history-ring
   //cmd\n - \n emulate enter
@@ -3372,113 +3344,11 @@ class Editor extends JFrame implements ActionListener  {
 
         t.setText("");
 
-        t1.setText("");
+        t1.setText("");//Path+(Pather.getText().substring(posFileS+1,posFileE))
 
         LineNN=0;
 
-        try {
-
-          // String
-          String s1 = "", sl = "",sf = "";
-
-          // File reader
-          FileReader fr = new FileReader(Path+(Pather.getText().substring(posFileS+1,posFileE)));
-
-          // Buffered reader
-          BufferedReader br = new BufferedReader(fr);
-
-          FilePathw=Path+(Pather.getText().substring(posFileS+1,posFileE));
-
-
-
-          FileExt = Pather.getText().substring(posFileS+1,posFileE);
-
-          String partsDim[] = FileExt.split("\\W");
-
-          int sz2 = partsDim.length;
-
-          ExtFile = partsDim[sz2-1];
-
-
-          Path=Path;
-
-          viewDir(Path);
-
-          //FileExt;
-
-          posFileS=Pather.getText().lastIndexOf(FileExt+"\n");
-
-          int spos =Pather.getText().lastIndexOf("\n",posFileS);
-
-          int epos =Pather.getText().indexOf("\n",posFileS);
-
-
-          Pather.setSelectionStart(spos);
-
-          Pather.setSelectionEnd(epos);
-
-          posFileS=spos;
-
-          posFileE=epos;
-
-          //Pather.select(spos,epos);
-          replaceToPane(Pather,Pather.getText().substring(spos,epos),tGreen,spos,epos);
-
-
-
-          // Initialize sl
-          sl = br.readLine();
-
-          // Take the input from the file
-          while ((s1 = br.readLine()) != null) {
-
-            sl = sl + "\n" + s1;
-
-            //set linenumbers while if line
-            LineNN+=1;
-
-            appendToPane(t1,""+LineNN+"\n",tTextWCF);
-
-          }
-
-          //set linenumbers while if line
-          LineNN+=1;
-
-          appendToPane(t1,""+LineNN+"\n",tTextWCF);
-
-          // Set the text
-          t.setText(sl);
-
-          if(ExtFile.equals("java")){
-
-            ExtFile=langSupport[2];
-
-            cmrColorTexte();
-
-          }
-          else if(ExtFile.equals("cpp")||ExtFile.equals("hpp")){
-
-            ExtFile=langSupport[1];
-
-            cmrColorTexte();
-
-          }
-          else if(ExtFile.equals("c")||ExtFile.equals("h")){
-
-            ExtFile=langSupport[0];
-
-            cmrColorTexte();
-
-          }
-
-          System.gc();
-
-        }
-        catch (Exception evt) {
-
-          JOptionPane.showMessageDialog(f, evt.getMessage());
-
-        }
+        OpenFile(Path+(Pather.getText().substring(posFileS+1,posFileE)));
 
 
       }
@@ -3532,18 +3402,14 @@ class Editor extends JFrame implements ActionListener  {
         posFileS=Pather.getText().lastIndexOf("\n",posFileS-2);
 
 
-
         Pather.setSelectionStart(posFileS);
 
         Pather.setSelectionEnd(posFileE);
 
 
-
         replaceToPane(Pather,Pather.getText().substring(posFileS,posFileE),tGreen,posFileS,posFileE);
 
         Pather.setCaretPosition(posFileS+1);
-
-
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_W && (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))) {
@@ -3576,53 +3442,6 @@ class Editor extends JFrame implements ActionListener  {
     }
 
   }
-
-  //  class  cmrNavigationPrompter extends KeyAdapter {
-    //
-    //    public void keyPressed(KeyEvent e) {
-      //
-      //      if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-        //
-        //        e.consume();
-        //
-        //        //nBuff.getDocument().getDefaultRootElement().getElementIndex(caretPos);
-        //
-        //        int jLine = 0;
-        //
-        //        t.requestFocus();
-        //
-        //        //t5.setText("");
-        //
-        //        //t5.setText("SearchJ: ");
-        //
-        //
-        //        String parts3[] = t.getText().split("\n");
-        //
-        //        int tpos=0;
-        //
-        //        int countLN=1;
-        //
-        //        for(String r:parts3) {
-          //
-          //          if(countLN==jLine)break;
-          //
-          //          tpos+=r.length()+1;
-          //
-          //          countLN++;
-          //
-          //        }
-        //
-        //        t.setCaretPosition(tpos);
-        //
-        //        parts3=null;
-        //
-        //        System.gc();
-        //
-        //      }
-      //
-      //    }
-    //
-    //  }
 
   public void cmrNavigation() {
 
@@ -3668,7 +3487,6 @@ class Editor extends JFrame implements ActionListener  {
 
         if(rt.length()>0){
 
-          //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
           appendToPane(nBuff,rt+"\n",tTextWCF);
 
           classes.add(rt);
@@ -3714,7 +3532,6 @@ class Editor extends JFrame implements ActionListener  {
 
             if(r1.contains(rt)){
 
-              //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
               appendToPane(nBuff,rt+"\n",tTextWCF);
 
               constr=false;
@@ -3744,8 +3561,6 @@ class Editor extends JFrame implements ActionListener  {
 
               rt=rt.replaceAll("\\s*", "").trim(); // delete wts
 
-              //System.out.println(""+(test1.indexOf(r)+1)+" "+rt);
-              //temp+=rt+"\n";
               appendToPane(nBuff,rt+"\n",tTextWCF);
 
               break;
@@ -3763,11 +3578,8 @@ class Editor extends JFrame implements ActionListener  {
     }
 
     temp="";parts=null;classes=null;
-    //System.out.println("finded classes: " + classes);
-    //nBuff.setText(temp);
+
   }
-
-
 
   //-----------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------------
@@ -3941,12 +3753,6 @@ class Editor extends JFrame implements ActionListener  {
   }
 
   //-----------------------------------------------------------------------------
-
-
-
-
-
-
   // Main class
   public static void main(String[] args) {
 
