@@ -956,16 +956,10 @@ class Editor extends JFrame implements ActionListener  {
 
   public void Open(String file) {
 
-    try {
+    try(FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr);) {
 
       // String
       String s1 = "", sl = "";
-
-      // File reader
-      FileReader fr = new FileReader(file);
-
-      // Buffered reader
-      BufferedReader br = new BufferedReader(fr);
 
       FilePathw=file.toString();
 
@@ -3222,12 +3216,12 @@ class Editor extends JFrame implements ActionListener  {
 
     if (cmd1 == null) {
 
-    commander = textP.getText().substring(textP.getText().lastIndexOf("% ")+2,textP.getText().length());
-    
+      commander = textP.getText().substring(textP.getText().lastIndexOf("% ")+2,textP.getText().length());
+
     }
     else {
 
-    commander = cmd1;
+      commander = cmd1;
 
     }
 
@@ -3663,9 +3657,9 @@ class Editor extends JFrame implements ActionListener  {
   //provider command process ls for viewer
   public void viewDir(String stringDir) {
 
-      String cmd = "ls "+stringDir;
+    String cmd = "ls "+stringDir;
 
-      cmrProvide(Pather,cmd);
+    cmrProvide(Pather,cmd);
 
   }
 
@@ -4059,6 +4053,16 @@ class Editor extends JFrame implements ActionListener  {
 
       //jump to editor
       Editor e = new Editor();
+
+    }
+    else if (args.length == 1 && args[0].equals("--help")) {
+
+      System.out.println("Print Help!");
+
+    }
+    else if (args.length == 1 && args[0].equals("--v")) {
+
+      System.out.println("Editor Version 0.0.01 Beta");
 
     }
     else if(args.length == 1){
