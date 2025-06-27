@@ -4057,45 +4057,78 @@ class Editor extends JFrame implements ActionListener  {
     }
     else if (args.length == 1 && args[0].equals("--help")) {
 
-      System.out.println("Print Help!");
+      //System.out.println("Print Help!");
+      System.out.println(
+      "How to use\n"+
+      "manual\n"+
+      "base funcs\n"+
+      "ctrl+v default;\n"+
+      "ctrl+c default;\n"+
+      "ctrl+x default;\n"+
+      "ctrl+s default;\n"+
+      "ctrl+o open doc;\n"+
+      "ctrl+p print doc;\n"+
+      "simpleFuncs editor space\n"+
+      "ctrl+w comment;\n"+
+      "ctrl+d delete curr string\n"+
+      "ctrl+r select cur line\n"+
+      "format on panel //{without \"//}\" \"= {\"};\n"+
+        "shift+9 () with focus on doc with select substring/string\n"+
+        "specific\n"+
+        "ctrl+j notVisible/Visible panel SearchJ - search from number line;\n"+
+        "ctrl+f notVisible/Visible panel SearchL - search text - type text then use ctrl+down/up and if end with searching ctrl+q for free container;\n"+
+        "ctrl+down/up;\n"+
+        "ctrl+q;\n"+
+        "panels funcs\n"+
+        "alt+v notVisible/Visible viewerFile;\n"+
+        "alt+m notVisible/Visible minicli;\n"+
+        "alt+q to minicli/to return ;\n"+
+        "alt+up/down/left/right withFocus-caret on File-space up/down change Height minicli,withFocus-caret on File-space left/right change Width viewerFile;\n"+
+        "alt+w to viewerFile/to return\n"+
+        "viewerFile\n"+
+        "ctrl+down selectColorStatus file to down\n"+
+        "ctrl+up selectColorStatus file to up\n"+
+        "Enter openFile from selectColorStatus file\n"+
+        "minicli space\n"+
+        "up minicli history-ring\n"+
+        "clear clear-miniclitextspace, clear-history-ring");
+      }
+      else if (args.length == 1 && args[0].equals("--v")) {
 
-    }
-    else if (args.length == 1 && args[0].equals("--v")) {
-
-      System.out.println("Editor Version 0.0.01 Beta");
-
-    }
-    else if(args.length == 1){
-
-      String pathString = args[0];
-
-      //Path path = Paths.get(pathString);
-
-      File file1 = new File(pathString);
-
-      if(file1.exists()&&file1.isFile()){
-
-        Editor ed = new Editor();
-
-        ed.Open(file1.getAbsolutePath());
+        System.out.println("Editor Version 0.0.01 Beta");
 
       }
-      else{
+      else if(args.length == 1){
 
-        JFrame fr;//
+        String pathString = args[0];
 
-        JFrame.setDefaultLookAndFeelDecorated( true );
+        //Path path = Paths.get(pathString);
 
-        fr = new JFrame("editor");
+        File file1 = new File(pathString);
 
-        fr.setVisible(true);
+        if(file1.exists()&&file1.isFile()){
 
-        JOptionPane.showMessageDialog(fr, "file does not exist.");
+          Editor ed = new Editor();
+
+          ed.Open(file1.getAbsolutePath());
+
+        }
+        else{
+
+          JFrame fr;//
+
+          JFrame.setDefaultLookAndFeelDecorated( true );
+
+          fr = new JFrame("editor");
+
+          fr.setVisible(true);
+
+          JOptionPane.showMessageDialog(fr, "file does not exist.");
+
+        }
 
       }
 
     }
 
   }
-
-}
