@@ -2103,27 +2103,8 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(e.getKeyCode() == KeyEvent.VK_Z && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
-        edi.undo();
-
-        edi.show();
-        //System.out.println("ctrl+z");
-
-        //        itt.remove(itt.size()-1);
-
-        //        int tempItt=itt.size()-1;
-
-        //replaceToPane(JTextPane tp, String msg, Color c,int start,int end)
-
-        //        CaretPosSave=t.getCaretPosition();
-
-        //        replaceToPane(t,"",tTextWCF,itt.get(tempItt).getKa(),itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
-
-        //t.setCaretPosition(itt.get(tempItt).getKa()+itt.get(tempItt).getVe());
-
       }
       else if(e.getKeyCode() == KeyEvent.VK_E && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
-
-        //System.out.println("ctrl+e");
 
       }
       else if((e.getModifiersEx() == (KeyEvent.SHIFT_DOWN_MASK))) {
@@ -2145,15 +2126,7 @@ class Editor extends JFrame implements ActionListener  {
 
         tempPrevNLines = LineNN;
 
-        //CaretPosSave=t.getCaretPosition();
-
         t.paste();
-
-        //int tempCaretPosSave=t.getCaretPosition();
-
-        //System.out.println(tempCaretPosSave-CaretPosSave);
-
-        //itt.add(new kvList(CaretPosSave,tempCaretPosSave));
 
         int tempCurrNLines=0;
 
