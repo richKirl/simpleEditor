@@ -85,34 +85,6 @@ class Editor extends JFrame implements ActionListener  {
   //history-ring
   private List<String> HListCommands;
 
-  //in this time not using
-  private List<kvList> itt;
-
-  //kv list at this time not using
-  public class kvList {
-
-    private int k,v;
-
-    public kvList(int ka,int ve) {
-
-      k=ka;
-
-      v=ve;
-
-    }
-    private int getKa() {
-
-      return k;
-
-    }
-    private int getVe() {
-
-      return v;
-
-    }
-
-  }
-
   private Invoker edi; // = new Invoker();
 
 
@@ -125,45 +97,35 @@ class Editor extends JFrame implements ActionListener  {
 
   static {
 
-    keyMap.put(KeyEvent.VK_Q             ,"q");    keyMap.put(KeyEvent.VK_W             ,"w");    keyMap.put(KeyEvent.VK_E             ,"e");
+    keyMap.put(KeyEvent.VK_Q             ,"q");    keyMap.put(KeyEvent.VK_W             ,"w");    keyMap.put(KeyEvent.VK_E             ,"e");    keyMap.put(KeyEvent.VK_R             ,"r");
 
-    keyMap.put(KeyEvent.VK_R             ,"r");    keyMap.put(KeyEvent.VK_T             ,"t");    keyMap.put(KeyEvent.VK_Y             ,"y");
+    keyMap.put(KeyEvent.VK_T             ,"t");    keyMap.put(KeyEvent.VK_Y             ,"y");    keyMap.put(KeyEvent.VK_U             ,"u");    keyMap.put(KeyEvent.VK_I             ,"i");
 
-    keyMap.put(KeyEvent.VK_U             ,"u");    keyMap.put(KeyEvent.VK_I             ,"i");    keyMap.put(KeyEvent.VK_O             ,"o");
+    keyMap.put(KeyEvent.VK_O             ,"o");    keyMap.put(KeyEvent.VK_P             ,"p");    keyMap.put(KeyEvent.VK_A             ,"a");    keyMap.put(KeyEvent.VK_S             ,"s");
 
-    keyMap.put(KeyEvent.VK_P             ,"p");    keyMap.put(KeyEvent.VK_A             ,"a");    keyMap.put(KeyEvent.VK_S             ,"s");
+    keyMap.put(KeyEvent.VK_D             ,"d");    keyMap.put(KeyEvent.VK_F             ,"f");    keyMap.put(KeyEvent.VK_G             ,"g");    keyMap.put(KeyEvent.VK_H             ,"h");
 
-    keyMap.put(KeyEvent.VK_D             ,"d");    keyMap.put(KeyEvent.VK_F             ,"f");    keyMap.put(KeyEvent.VK_G             ,"g");
+    keyMap.put(KeyEvent.VK_J             ,"j");    keyMap.put(KeyEvent.VK_K             ,"k");    keyMap.put(KeyEvent.VK_L             ,"l");    keyMap.put(KeyEvent.VK_Z             ,"z");
 
-    keyMap.put(KeyEvent.VK_H             ,"h");    keyMap.put(KeyEvent.VK_J             ,"j");    keyMap.put(KeyEvent.VK_K             ,"k");
+    keyMap.put(KeyEvent.VK_X             ,"x");    keyMap.put(KeyEvent.VK_C             ,"c");    keyMap.put(KeyEvent.VK_V             ,"v");    keyMap.put(KeyEvent.VK_B             ,"b");
 
-    keyMap.put(KeyEvent.VK_L             ,"l");    keyMap.put(KeyEvent.VK_Z             ,"z");    keyMap.put(KeyEvent.VK_X             ,"x");
+    keyMap.put(KeyEvent.VK_N             ,"n");    keyMap.put(KeyEvent.VK_M             ,"m");    keyMap.put(KeyEvent.VK_COMMA         ,",");    keyMap.put(KeyEvent.VK_PERIOD        ,".");
 
-    keyMap.put(KeyEvent.VK_C             ,"c");    keyMap.put(KeyEvent.VK_V             ,"v");    keyMap.put(KeyEvent.VK_B             ,"b");
+    keyMap.put(KeyEvent.VK_SLASH         ,"/");    keyMap.put(KeyEvent.VK_SEMICOLON     ,";");    keyMap.put(KeyEvent.VK_QUOTE         ,"'");    keyMap.put(KeyEvent.VK_BACK_SLASH    ,"\\");
 
-    keyMap.put(KeyEvent.VK_N             ,"n");    keyMap.put(KeyEvent.VK_M             ,"m");    keyMap.put(KeyEvent.VK_COMMA         ,",");
+    keyMap.put(KeyEvent.VK_OPEN_BRACKET  ,"[");    keyMap.put(KeyEvent.VK_CLOSE_BRACKET ,"]");    keyMap.put(KeyEvent.VK_1             ,"1");    keyMap.put(KeyEvent.VK_2             ,"2");
 
-    keyMap.put(KeyEvent.VK_PERIOD        ,".");    keyMap.put(KeyEvent.VK_SLASH         ,"/");    keyMap.put(KeyEvent.VK_SEMICOLON     ,";");
+    keyMap.put(KeyEvent.VK_3             ,"3");    keyMap.put(KeyEvent.VK_4             ,"4");    keyMap.put(KeyEvent.VK_5             ,"5");    keyMap.put(KeyEvent.VK_6             ,"6");
 
-    keyMap.put(KeyEvent.VK_QUOTE         ,"'");    keyMap.put(KeyEvent.VK_BACK_SLASH    ,"\\");   keyMap.put(KeyEvent.VK_OPEN_BRACKET  ,"[");
+    keyMap.put(KeyEvent.VK_7             ,"7");    keyMap.put(KeyEvent.VK_8             ,"8");    keyMap.put(KeyEvent.VK_9             ,"9");    keyMap.put(KeyEvent.VK_0             ,"0");
 
-    keyMap.put(KeyEvent.VK_CLOSE_BRACKET ,"]");    keyMap.put(KeyEvent.VK_1             ,"1");    keyMap.put(KeyEvent.VK_2             ,"2");
+    keyMap.put(KeyEvent.VK_MINUS         ,"-");    keyMap.put(KeyEvent.VK_EQUALS        ,"=");    keyMap.put(KeyEvent.VK_NUMPAD0       ,"0");    keyMap.put(KeyEvent.VK_NUMPAD1       ,"1");
 
-    keyMap.put(KeyEvent.VK_3             ,"3");    keyMap.put(KeyEvent.VK_4             ,"4");    keyMap.put(KeyEvent.VK_5             ,"5");
+    keyMap.put(KeyEvent.VK_NUMPAD2       ,"2");    keyMap.put(KeyEvent.VK_NUMPAD3       ,"3");    keyMap.put(KeyEvent.VK_NUMPAD4       ,"4");    keyMap.put(KeyEvent.VK_NUMPAD5       ,"5");
 
-    keyMap.put(KeyEvent.VK_6             ,"6");    keyMap.put(KeyEvent.VK_7             ,"7");    keyMap.put(KeyEvent.VK_8             ,"8");
+    keyMap.put(KeyEvent.VK_NUMPAD6       ,"6");    keyMap.put(KeyEvent.VK_NUMPAD7       ,"7");    keyMap.put(KeyEvent.VK_NUMPAD8       ,"8");    keyMap.put(KeyEvent.VK_NUMPAD9       ,"9");
 
-    keyMap.put(KeyEvent.VK_9             ,"9");    keyMap.put(KeyEvent.VK_0             ,"0");    keyMap.put(KeyEvent.VK_MINUS         ,"-");
-
-    keyMap.put(KeyEvent.VK_EQUALS        ,"=");    keyMap.put(KeyEvent.VK_NUMPAD0       ,"0");    keyMap.put(KeyEvent.VK_NUMPAD1       ,"1");
-
-    keyMap.put(KeyEvent.VK_NUMPAD2       ,"2");    keyMap.put(KeyEvent.VK_NUMPAD3       ,"3");    keyMap.put(KeyEvent.VK_NUMPAD4       ,"4");
-
-    keyMap.put(KeyEvent.VK_NUMPAD5       ,"5");    keyMap.put(KeyEvent.VK_NUMPAD6       ,"6");    keyMap.put(KeyEvent.VK_NUMPAD7       ,"7");
-
-    keyMap.put(KeyEvent.VK_NUMPAD8       ,"8");    keyMap.put(KeyEvent.VK_NUMPAD9       ,"9");    keyMap.put(KeyEvent.VK_MULTIPLY      ,"*");
-
-    keyMap.put(KeyEvent.VK_DIVIDE        ,"/");    keyMap.put(KeyEvent.VK_ADD           ,"+");    keyMap.put(KeyEvent.VK_SUBTRACT      ,"-");
+    keyMap.put(KeyEvent.VK_MULTIPLY      ,"*");    keyMap.put(KeyEvent.VK_DIVIDE        ,"/");    keyMap.put(KeyEvent.VK_ADD           ,"+");    keyMap.put(KeyEvent.VK_SUBTRACT      ,"-");
 
     keyMap.put(KeyEvent.VK_SPACE         ," ");    keyMap.put(KeyEvent.VK_BACK_SPACE    ,"");
 
@@ -174,37 +136,29 @@ class Editor extends JFrame implements ActionListener  {
 
   static {
 
-    keyMapns.put(KeyEvent.VK_BACK_QUOTE   ,"~");    keyMapns.put(KeyEvent.VK_1            ,"!");    keyMapns.put(KeyEvent.VK_2            ,"@");
+    keyMapns.put(KeyEvent.VK_BACK_QUOTE   ,"~");    keyMapns.put(KeyEvent.VK_1            ,"!");    keyMapns.put(KeyEvent.VK_2            ,"@");    keyMapns.put(KeyEvent.VK_3            ,"#");
 
-    keyMapns.put(KeyEvent.VK_3            ,"#");    keyMapns.put(KeyEvent.VK_4            ,"$");    keyMapns.put(KeyEvent.VK_5            ,"%");
+    keyMapns.put(KeyEvent.VK_4            ,"$");    keyMapns.put(KeyEvent.VK_5            ,"%");    keyMapns.put(KeyEvent.VK_6            ,"^");    keyMapns.put(KeyEvent.VK_7            ,"&");
 
-    keyMapns.put(KeyEvent.VK_6            ,"^");    keyMapns.put(KeyEvent.VK_7            ,"&");    keyMapns.put(KeyEvent.VK_8            ,"*");
+    keyMapns.put(KeyEvent.VK_8            ,"*");    keyMapns.put(KeyEvent.VK_9            ,"(");    keyMapns.put(KeyEvent.VK_0            ,")");    keyMapns.put(KeyEvent.VK_MINUS        ,"_");
 
-    keyMapns.put(KeyEvent.VK_9            ,"(");    keyMapns.put(KeyEvent.VK_0            ,")");    keyMapns.put(KeyEvent.VK_MINUS        ,"_");
+    keyMapns.put(KeyEvent.VK_EQUALS       ,"+");    keyMapns.put(KeyEvent.VK_Q            ,"Q");    keyMapns.put(KeyEvent.VK_W            ,"W");    keyMapns.put(KeyEvent.VK_E            ,"E");
 
-    keyMapns.put(KeyEvent.VK_EQUALS       ,"+");    keyMapns.put(KeyEvent.VK_Q            ,"Q");    keyMapns.put(KeyEvent.VK_W            ,"W");
+    keyMapns.put(KeyEvent.VK_R            ,"R");    keyMapns.put(KeyEvent.VK_T            ,"T");    keyMapns.put(KeyEvent.VK_Y            ,"Y");    keyMapns.put(KeyEvent.VK_U            ,"U");
 
-    keyMapns.put(KeyEvent.VK_E            ,"E");    keyMapns.put(KeyEvent.VK_R            ,"R");    keyMapns.put(KeyEvent.VK_T            ,"T");
+    keyMapns.put(KeyEvent.VK_I            ,"I");    keyMapns.put(KeyEvent.VK_O            ,"O");    keyMapns.put(KeyEvent.VK_P            ,"P");    keyMapns.put(KeyEvent.VK_A            ,"A");
 
-    keyMapns.put(KeyEvent.VK_Y            ,"Y");    keyMapns.put(KeyEvent.VK_U            ,"U");    keyMapns.put(KeyEvent.VK_I            ,"I");
+    keyMapns.put(KeyEvent.VK_S            ,"S");    keyMapns.put(KeyEvent.VK_D            ,"D");    keyMapns.put(KeyEvent.VK_F            ,"F");    keyMapns.put(KeyEvent.VK_G            ,"G");
 
-    keyMapns.put(KeyEvent.VK_O            ,"O");    keyMapns.put(KeyEvent.VK_P            ,"P");    keyMapns.put(KeyEvent.VK_A            ,"A");
+    keyMapns.put(KeyEvent.VK_H            ,"H");    keyMapns.put(KeyEvent.VK_J            ,"J");    keyMapns.put(KeyEvent.VK_K            ,"K");    keyMapns.put(KeyEvent.VK_L            ,"L");
 
-    keyMapns.put(KeyEvent.VK_S            ,"S");    keyMapns.put(KeyEvent.VK_D            ,"D");    keyMapns.put(KeyEvent.VK_F            ,"F");
+    keyMapns.put(KeyEvent.VK_Z            ,"Z");    keyMapns.put(KeyEvent.VK_X            ,"X");    keyMapns.put(KeyEvent.VK_C            ,"C");    keyMapns.put(KeyEvent.VK_V            ,"V");
 
-    keyMapns.put(KeyEvent.VK_G            ,"G");    keyMapns.put(KeyEvent.VK_H            ,"H");    keyMapns.put(KeyEvent.VK_J            ,"J");
+    keyMapns.put(KeyEvent.VK_B            ,"B");    keyMapns.put(KeyEvent.VK_N            ,"N");    keyMapns.put(KeyEvent.VK_M            ,"M");    keyMapns.put(KeyEvent.VK_COMMA        ,"<");
 
-    keyMapns.put(KeyEvent.VK_K            ,"K");    keyMapns.put(KeyEvent.VK_L            ,"L");    keyMapns.put(KeyEvent.VK_Z            ,"Z");
+    keyMapns.put(KeyEvent.VK_PERIOD       ,">");    keyMapns.put(KeyEvent.VK_SLASH        ,"?");    keyMapns.put(KeyEvent.VK_SEMICOLON    ,":");    keyMapns.put(KeyEvent.VK_QUOTE        ,"\"");
 
-    keyMapns.put(KeyEvent.VK_X            ,"X");    keyMapns.put(KeyEvent.VK_C            ,"C");    keyMapns.put(KeyEvent.VK_V            ,"V");
-
-    keyMapns.put(KeyEvent.VK_B            ,"B");    keyMapns.put(KeyEvent.VK_N            ,"N");    keyMapns.put(KeyEvent.VK_M            ,"M");
-
-    keyMapns.put(KeyEvent.VK_COMMA        ,"<");    keyMapns.put(KeyEvent.VK_PERIOD       ,">");    keyMapns.put(KeyEvent.VK_SLASH        ,"?");
-
-    keyMapns.put(KeyEvent.VK_SEMICOLON    ,":");    keyMapns.put(KeyEvent.VK_QUOTE        ,"\"");   keyMapns.put(KeyEvent.VK_BACK_SLASH   ,"|");
-
-    keyMapns.put(KeyEvent.VK_OPEN_BRACKET ,"{");    keyMapns.put(KeyEvent.VK_CLOSE_BRACKET,"}");
+    keyMapns.put(KeyEvent.VK_BACK_SLASH   ,"|");    keyMapns.put(KeyEvent.VK_OPEN_BRACKET ,"{");    keyMapns.put(KeyEvent.VK_CLOSE_BRACKET,"}");
 
   };
 
@@ -230,10 +184,6 @@ class Editor extends JFrame implements ActionListener  {
 
     //for complex comamnds history in mini cli
     HListCommands = new ArrayList<String>();
-
-    //itt = new ArrayList<kvList>();
-
-    //    HashSet<String> autocomplete = new HashSet<String>();
 
     //set default theme setting(in this time not customisation)
     try {
@@ -3326,31 +3276,15 @@ class Editor extends JFrame implements ActionListener  {
 
         String rt=r;
 
-        rt=rt.replaceAll("\\bpublic\\b", "");
+        rt=rt.replaceAll("\\bpublic\\b", "");            rt=rt.replaceAll("\\bprivate\\b", "");         rt=rt.replaceAll("\\bclass\\b", "");
 
-        rt=rt.replaceAll("\\bprivate\\b", "");
+        rt=rt.replaceAll("implements+\\s*\\w*", "");     rt=rt.replaceAll("extends+\\s*\\w*", "");      rt=rt.replaceAll("\\{", "");
 
-        rt=rt.replaceAll("\\bclass\\b", "");
-
-        rt=rt.replaceAll("implements+\\s*\\w*", "");
-
-        rt=rt.replaceAll("extends+\\s*\\w*", "");
-
-        rt=rt.replaceAll("\\{", "");
-
-        rt=rt.replaceAll("\n", " ");
-
-        rt=rt.replaceAll("//.*", ""); // delete comments
-
-        rt=rt.replaceAll("\\s*", ""); // delete wts
+        rt=rt.replaceAll("\n", " ");                     rt=rt.replaceAll("//.*", "");                  rt=rt.replaceAll("\\s*", ""); // delete wts
 
         if(rt.length()>0){
 
-          appendToPane(nBuff,rt+"\n",tTextWCF);
-
-          classes.add(rt);
-
-          constr=true;
+          appendToPane(nBuff,rt+"\n",tTextWCF);          classes.add(rt);          constr=true;
 
         }
 
@@ -3361,66 +3295,34 @@ class Editor extends JFrame implements ActionListener  {
 
           String rt=r;
 
-          rt=rt.replaceAll("\\bpublic\\b", "");
+          rt=rt.replaceAll("\\bpublic\\b", "");          rt=rt.replaceAll("\\bprivate\\b", "");          rt=rt.replaceAll("\\bstatic\\b", "");
 
-          rt=rt.replaceAll("\\bprivate\\b", "");
+          rt=rt.replaceAll("\\bvoid\\b", "");            rt=rt.replaceAll("\\bint\\b", "");              rt=rt.replaceAll("\\bfloat\\b", "");
 
-          rt=rt.replaceAll("\\bstatic\\b", "");
+          rt=rt.replaceAll("\\bInteger\\b", "");         rt=rt.replaceAll("\\bString\\b", "");           rt=rt.replaceAll("\\bboolean\\b", "");
 
-          rt=rt.replaceAll("\\bvoid\\b", "");
+          rt=rt.replaceAll("\\{", "");                   rt=rt.replaceAll("\\n", "");                    rt=rt.replaceAll("//.*", ""); // delete comments
 
-          rt=rt.replaceAll("\\bint\\b", "");
-
-          rt=rt.replaceAll("\\bfloat\\b", "");
-
-          rt=rt.replaceAll("\\bInteger\\b", "");
-
-          rt=rt.replaceAll("\\bString\\b", "");
-
-          rt=rt.replaceAll("\\bboolean\\b", "");
-
-          rt=rt.replaceAll("\\{", "");
-
-          rt=rt.replaceAll("\\n", "");
-
-          rt=rt.replaceAll("//.*", ""); // delete comments
-
-          rt=rt.replaceAll("\\s*", "").trim(); // delete wts
+          rt=rt.replaceAll("\\s*", "").trim();
 
           for(String r1:classes){
 
             if(r1.contains(rt)){
 
-              appendToPane(nBuff,rt+"\n",tTextWCF);
-
-              constr=false;
+              appendToPane(nBuff,rt+"\n",tTextWCF);      constr=false;
 
             }
             else if((!r.contains("class")&&!r.contains("if")&&!r.contains("else")&&!r.contains("catch")&&!r.contains("for")&&!r.contains("while")&&r.contains("public")||r.contains("private")||r.contains("void"))&&r.contains("{")&&r.contains("(")){
 
               //String rt=r;
 
-              rt=rt.replaceAll("\\bpublic\\b", "");
+              rt=rt.replaceAll("\\bpublic\\b", "");      rt=rt.replaceAll("\\bprivate\\b", "");          rt=rt.replaceAll("\\bstatic\\b", "");
 
-              rt=rt.replaceAll("\\bprivate\\b", "");
+              rt=rt.replaceAll("\\bvoid\\b", "");        rt=rt.replaceAll("\\bint\\b", "");              rt=rt.replaceAll("\\(.*", "");
 
-              rt=rt.replaceAll("\\bstatic\\b", "");
+              rt=rt.replaceAll("\\{", "");               rt=rt.replaceAll("\\n", "");                    rt=rt.replaceAll("//.*", ""); // delete comments
 
-              rt=rt.replaceAll("\\bvoid\\b", "");
-
-              rt=rt.replaceAll("\\bint\\b", "");
-
-              rt=rt.replaceAll("\\(.*", "");
-
-              rt=rt.replaceAll("\\{", "");
-
-              rt=rt.replaceAll("\\n", "");
-
-              rt=rt.replaceAll("//.*", ""); // delete comments
-
-              rt=rt.replaceAll("\\s*", "").trim(); // delete wts
-
-              appendToPane(nBuff,rt+"\n",tTextWCF);
+              rt=rt.replaceAll("\\s*", "").trim(); // delete wts                                         appendToPane(nBuff,rt+"\n",tTextWCF);
 
               break;
 
@@ -3603,8 +3505,6 @@ class Editor extends JFrame implements ActionListener  {
 
     public void show() {
 
-      //doc.show();
-      //t.setText("");
       t.setText(doc.getText());
 
     }
@@ -3666,28 +3566,18 @@ class Editor extends JFrame implements ActionListener  {
       }
       else if(args.length == 1){
 
-        String pathString = args[0];
-
-        //Path path = Paths.get(pathString);
-
-        File file1 = new File(pathString);
+        String pathString = args[0];        File file1 = new File(pathString);
 
         if(file1.exists()&&file1.isFile()){
 
-          Editor ed = new Editor();
-
-          ed.OpenFile(file1.getAbsolutePath());
+          Editor ed = new Editor();         ed.OpenFile(file1.getAbsolutePath());
 
         }
         else{
 
-          JFrame fr;//
+          JFrame fr;          JFrame.setDefaultLookAndFeelDecorated( true );
 
-          JFrame.setDefaultLookAndFeelDecorated( true );
-
-          fr = new JFrame("editor");
-
-          fr.setVisible(true);
+          fr = new JFrame("editor");                  fr.setVisible( true );
 
           JOptionPane.showMessageDialog(fr, "file does not exist.");
 
