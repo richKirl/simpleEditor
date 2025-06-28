@@ -970,8 +970,6 @@ class Editor extends JFrame implements ActionListener  {
 
     t.paste();
 
-    //System.out.println(t.getText().split("/n").length);
-
   }
 
   //exit after clicked on Close Menu!=item
@@ -1946,27 +1944,6 @@ class Editor extends JFrame implements ActionListener  {
     tp.setCharacterAttributes(aset,false);
 
     tp.replaceSelection(msg);
-
-  }
-
-  private void setColor(JTextPane tp, int curPos, String msg, Color c) {
-
-    StyleContext sc = StyleContext.getDefaultStyleContext();
-
-    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-    aset = sc.addAttribute(aset, StyleConstants.FontFamily, "monospaced");
-
-    aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_LEFT);
-
-
-    //int len = tp.getDocument().getLength();
-
-    tp.setCaretPosition(curPos);
-
-    tp.setCharacterAttributes(aset,true);
-
-    //tp.replaceSelection(msg);
 
   }
 
