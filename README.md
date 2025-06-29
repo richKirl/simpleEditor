@@ -93,7 +93,7 @@ clear clear-miniclitextspace, clear-history-ring
 
 # navigation space
 
-Code navigation - (now)beta opetion
+Code navigation - (now)beta option
 
 # analyzer
 
