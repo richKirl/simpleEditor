@@ -95,7 +95,7 @@ clear clear-miniclitextspace, clear-history-ring
 
 Code navigation - (now)beta opetion
 
-# Analyzer
+# analyzer
 
 tiling new window for minicli space (when status Analyzer active, minicli in mainWindow not showed)(beta function)
 
