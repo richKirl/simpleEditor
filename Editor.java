@@ -85,12 +85,7 @@ class Editor extends JFrame implements ActionListener  {
   //history-ring
   private List<String> HListCommands;
 
-  private Invoker edi; // = new Invoker();
-
-
-  //autocomplete complex at this time not using
-  //HashSet<String> autocomplete;
-
+  private Invoker edi;
   //-----------------------------------------------------
   //withoutShift
   private static final Map<Integer, String> keyMap = new HashMap<>();
@@ -163,8 +158,6 @@ class Editor extends JFrame implements ActionListener  {
   };
 
   //-----------------------------------------------------
-
-
   // Constructor
   public Editor() {
 
@@ -176,8 +169,6 @@ class Editor extends JFrame implements ActionListener  {
 
     //create frame
     f = new JFrame("editor");
-
-
 
     //for complex search
     tempSearch = new ArrayList<Integer>();
@@ -198,7 +189,6 @@ class Editor extends JFrame implements ActionListener  {
     catch (Exception e) {
 
     }
-
     edi= new Invoker();
 
     //config jtextarea for numberLines
@@ -213,8 +203,6 @@ class Editor extends JFrame implements ActionListener  {
     //configure size for numberlines
     t1.setSize(20,300);
 
-
-
     //document area
     t = new JTextPane();
 
@@ -226,7 +214,6 @@ class Editor extends JFrame implements ActionListener  {
 
     //connect listen keyboard
     t.addKeyListener(new CounterLines());
-
 
     // Create a menubar//menubar top
     JMenuBar mb = new JMenuBar();
@@ -261,8 +248,6 @@ class Editor extends JFrame implements ActionListener  {
 
     m1.add(mi9);
     //EndCreateMenuBar
-
-
 
     // Create amenu for menu//menu for Edit
     JMenu m2 = new JMenu("Edit");
@@ -330,7 +315,6 @@ class Editor extends JFrame implements ActionListener  {
     // Add action listener//connect event
     mNavigation.addMouseListener(new CmrNavigation());
 
-
     //connect to menu bar
     mb.add(m1);
 
@@ -346,13 +330,8 @@ class Editor extends JFrame implements ActionListener  {
 
     mb.add(mNavigation);
 
-
-
-
     //default action with click X
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
 
     //create menubar-bottom for cli and configure
     mbConsole = new JMenuBar();
@@ -370,7 +349,6 @@ class Editor extends JFrame implements ActionListener  {
 
     //connect keyevent
     t2.addKeyListener(new CmrPrompter());
-
 
 
     t3 = new JTextPane();
@@ -773,7 +751,6 @@ class Editor extends JFrame implements ActionListener  {
         fi = new File(j.getSelectedFile().getAbsolutePath());
 
       }
-
       // If the user cancelled the operation
       else JOptionPane.showMessageDialog(f, "the user cancelled the operation");
     }
@@ -797,7 +774,6 @@ class Editor extends JFrame implements ActionListener  {
       FileExt = partsDirs[sz1-1];
 
       ExtFile = FileExt.substring(FileExt.indexOf(".")+1,FileExt.length());
-
 
 
       String tt=new String();
@@ -885,10 +861,6 @@ class Editor extends JFrame implements ActionListener  {
 
       s1 = ""; sl = "";linesN="";
 
-      //fr.close();
-
-      //br.close();
-
       tt=null;
 
       partsDirs = null;
@@ -952,7 +924,6 @@ class Editor extends JFrame implements ActionListener  {
     }
 
   }
-
 
   public void cutFunction() {
 
@@ -1055,7 +1026,6 @@ class Editor extends JFrame implements ActionListener  {
           next = it.hasNext() ? it.next() : null;
 
         }
-
         else if(previous.equals("<")&&current.equals("std")==false){   appendToPane(t,current,tBody);}
 
         else if(current.equals(">")){                                  appendToPane(t,current,tBody);}
@@ -1160,8 +1130,6 @@ class Editor extends JFrame implements ActionListener  {
 
             next = it.hasNext() ? it.next() : null;
 
-
-
           }
 
         }
@@ -1261,9 +1229,7 @@ class Editor extends JFrame implements ActionListener  {
           }
 
         }
-
         else appendToPane(t,current,tTextWCF);
-
 
         // Do something using 'current', 'previous' and 'next'.
         // NB: 'previous' and/or 'next' are null when 'current' is
@@ -1502,14 +1468,11 @@ class Editor extends JFrame implements ActionListener  {
 
         else appendToPane(t,current,tTextWCF);
 
-
         // Do something using 'current', 'previous' and 'next'.
         // NB: 'previous' and/or 'next' are null when 'current' is
         // the first and/or last element respectively
 
       }
-
-      //s1="";
 
       list.clear();parts=null;s1="";s1=null;
 
@@ -2112,7 +2075,6 @@ class Editor extends JFrame implements ActionListener  {
         checkShiftKeys(e);
 
       }
-
       else if(e.getKeyCode() == KeyEvent.VK_D && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
 
         cmrDeleterLineTemp();
@@ -2138,9 +2100,7 @@ class Editor extends JFrame implements ActionListener  {
 
           appendToPane(t1,""+LineNN+"\n",tTextWCF);
 
-
         }
-
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_TAB) {
@@ -2241,7 +2201,6 @@ class Editor extends JFrame implements ActionListener  {
         t.requestFocus();
 
         t.setCaretPosition(tempSearch.get(StartTempSearch));
-
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_J && (e.getModifiersEx() == (KeyEvent.CTRL_DOWN_MASK))) {
@@ -2581,8 +2540,6 @@ class Editor extends JFrame implements ActionListener  {
 
       appendToPaneCurrPos(t,"//"+tttt,tGreen,getStart);
 
-
-
     }
 
     t.setCaretPosition(currentPos);
@@ -2686,7 +2643,6 @@ class Editor extends JFrame implements ActionListener  {
 
       mbConsole.setVisible(false);
 
-
       // Create a menubar//menubar top
       JMenuBar mbA = new JMenuBar();
 
@@ -2738,7 +2694,6 @@ class Editor extends JFrame implements ActionListener  {
       f1.setVisible(true);
 
 
-
       Acli.setCaretColor(Color.WHITE);
 
       appendToPane(Acli,"\n"+" % ",tTextWCF);
@@ -2748,9 +2703,7 @@ class Editor extends JFrame implements ActionListener  {
 
     }
 
-
   }
-
 
   class WindowCloser extends WindowAdapter {
 
@@ -2851,7 +2804,7 @@ class Editor extends JFrame implements ActionListener  {
   }
 
 
-  public void cmrProvide(JTextPane textP,String cmd1) {
+  public void cmrProvide(JTextPane textP,String cmd1, boolean history) {
 
     if (cmd1 == null) {
 
@@ -2984,11 +2937,14 @@ class Editor extends JFrame implements ActionListener  {
 
         }
 
-        HListCommands.add(commander);
-
         commander= "";
 
-        appendToPane(textP,"\n % ",tTextWCF);
+        if(history==true){
+          HListCommands.add(commander);
+
+          appendToPane(textP,"\n % ",tTextWCF);
+
+        }
 
       }
 
@@ -3008,7 +2964,7 @@ class Editor extends JFrame implements ActionListener  {
 
         e.consume();
 
-        cmrProvide(t2,null);
+        cmrProvide(t2,null,true);
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_Q &&  (e.getModifiersEx() == (KeyEvent.ALT_DOWN_MASK))){
@@ -3056,7 +3012,7 @@ class Editor extends JFrame implements ActionListener  {
 
         e.consume();
 
-        cmrProvide(Acli,null);
+        cmrProvide(Acli,null,true);
 
       }
       else if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -3185,7 +3141,7 @@ class Editor extends JFrame implements ActionListener  {
 
     String cmd = "ls "+stringDir;
 
-    cmrProvide(Pather,cmd);
+    cmrProvide(Pather,cmd,false);
 
   }
 
@@ -3488,53 +3444,61 @@ class Editor extends JFrame implements ActionListener  {
       "ctrl+w comment;\n"+
       "ctrl+d delete curr string\n"+
       "ctrl+r select cur line\n"+
-      "format on panel //{without \"//}\" \"= {\"};\n"+
-        "shift+9 () with focus on doc with select substring/string\n"+
-        "specific\n"+
-        "ctrl+j notVisible/Visible panel SearchJ - search from number line;\n"+
-        "ctrl+f notVisible/Visible panel SearchL - search text - type text then use ctrl+down/up and if end with searching ctrl+q for free container;\n"+
-        "ctrl+down/up;\n"+
-        "ctrl+q;\n"+
-        "panels funcs\n"+
-        "alt+v notVisible/Visible viewerFile;\n"+
-        "alt+m notVisible/Visible minicli;\n"+
-        "alt+q to minicli/to return ;\n"+
-        "alt+up/down/left/right withFocus-caret on File-space up/down change Height minicli,withFocus-caret on File-space left/right change Width viewerFile;\n"+
-        "alt+w to viewerFile/to return\n"+
-        "viewerFile\n"+
-        "ctrl+down selectColorStatus file to down\n"+
-        "ctrl+up selectColorStatus file to up\n"+
-        "Enter openFile from selectColorStatus file\n"+
-        "minicli space\n"+
-        "up minicli history-ring\n"+
-        "clear clear-miniclitextspace, clear-history-ring");
+      "format on panel\n"+
+      "shift+9 () with focus on doc with select substring/string\n"+
+      "specific\n"+
+      "ctrl+j notVisible/Visible panel SearchJ - search from number line;\n"+
+      "ctrl+f notVisible/Visible panel SearchL - search text - type text then use ctrl+down/up and if end with searching ctrl+q for free container;\n"+
+      "ctrl+down/up;\n"+
+      "ctrl+q;\n"+
+      "panels funcs\n"+
+      "alt+v notVisible/Visible viewerFile;\n"+
+      "alt+m notVisible/Visible minicli;\n"+
+      "alt+q to minicli/to return ;\n"+
+      "alt+up/down/left/right withFocus-caret on File-space up/down change Height minicli,withFocus-caret on File-space left/right change Width viewerFile;\n"+
+      "alt+w to viewerFile/to return\n"+
+      "viewerFile\n"+
+      "ctrl+down selectColorStatus file to down\n"+
+      "ctrl+up selectColorStatus file to up\n"+
+      "Enter openFile from selectColorStatus file\n"+
+      "minicli space\n"+
+      "up minicli history-ring\n"+
+      "clear clear-miniclitextspace, clear-history-ring");
+    }
+    else if (args.length == 1 && args[0].equals("--v")) {
+
+      System.out.println("Editor Version 0.0.01 Beta");
+
+    }
+    else if(args.length == 1){
+
+      String pathString = args[0];
+
+      File file1 = new File(pathString);
+
+      if(file1.exists()&&file1.isFile()){
+
+        Editor ed = new Editor();
+
+        ed.OpenFile(file1.getAbsolutePath());
+
       }
-      else if (args.length == 1 && args[0].equals("--v")) {
+      else{
 
-        System.out.println("Editor Version 0.0.01 Beta");
+        JFrame fr;
 
-      }
-      else if(args.length == 1){
+        JFrame.setDefaultLookAndFeelDecorated( true );
 
-        String pathString = args[0];        File file1 = new File(pathString);
+        fr = new JFrame("editor");
 
-        if(file1.exists()&&file1.isFile()){
+        fr.setVisible( true );
 
-          Editor ed = new Editor();         ed.OpenFile(file1.getAbsolutePath());
-
-        }
-        else{
-
-          JFrame fr;          JFrame.setDefaultLookAndFeelDecorated( true );
-
-          fr = new JFrame("editor");                  fr.setVisible( true );
-
-          JOptionPane.showMessageDialog(fr, "file does not exist.");
-
-        }
+        JOptionPane.showMessageDialog(fr, "file does not exist.");
 
       }
 
     }
 
   }
+
+}
