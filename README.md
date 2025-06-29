@@ -65,9 +65,11 @@ ctrl+q;
 
 # panels funcs
 
-alt+v notVisible/Visible viewerFile;
+alt+v toggle viewerFile;
 
-alt+m notVisible/Visible minicli;
+alt+m toggle minicli;
+
+alt+n toggle Navigation
 
 alt+q to minicli/to return ;
 
@@ -88,3 +90,14 @@ Enter openFile from selectColorStatus file
 up minicli history-ring
 
 clear clear-miniclitextspace, clear-history-ring
+
+# navigation space
+
+Code navigation - (now)beta opetion
+
+# Analyzer
+
+tiling new window for minicli space (when status Analyzer active, minicli in mainWindow not showed)(beta function)
+
+in future will be have config in Options (C/C++)(now not have)
+
