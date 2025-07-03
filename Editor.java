@@ -830,8 +830,10 @@ class Editor extends JFrame implements ActionListener  {
       }
 
       // Set the text
-      t.setText(sl);
-      //edi.insert(t, 0);
+      //t.setText(sl);
+      edi.insert(sl, 0);
+      
+      edi.show();
 
       t1.setText(linesN);
 
@@ -1110,6 +1112,18 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("catch")){                              appendToPane(t,current,tMagenta);}
 
+        else if(current.equals("continue")){                           appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("break")){                              appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("default")){                            appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("explicit")){                           appendToPane(t,current,tBlue);}
+
+        else if(current.equals("virtual")){                            appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("auto")){                               appendToPane(t,current,tMagenta);}
+
         else if(previous.equals(":")&&!current.equals(":")){           appendToPane(t,current,tBlue);}
 
         else if(current.equals("/")&&next.equals("/")){
@@ -1337,6 +1351,14 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("else")){                               appendToPane(t,current,tMagenta);}
 
         else if(current.equals("switch")){                             appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("continue")){                           appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("break")){                              appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("default")){                            appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("explicit")){                           appendToPane(t,current,tMagenta);}
 
         else if(current.equals("/")&&next.equals("/")){
 
@@ -1733,12 +1755,12 @@ class Editor extends JFrame implements ActionListener  {
 
       r=r.replaceFirst("\\s*$", "");
 
-      if(r.length()==1&&r.contains("}")){countCCCC--;}
+      if((r.length()==1&&r.contains("}"))||(r.length()==1&&r.contains("private:")||r.contains("public:")||r.contains("protected:"))){countCCCC--;}
       else if(r.length()==2&&r.contains("};")){countCCCC--;}
       else if(r.length()==3&&r.contains("});")){countCCCC--;}
       for(int i=0;i<countCCCC;i++){if(r.equals("")){}else{ttt+="  ";}}
 
-      if(r.length()==1&&r.contains("}")){countCCCC++;}
+      if((r.length()==1&&r.contains("}"))||(r.length()==1&&r.contains("private:")||r.contains("public:")||r.contains("protected:"))){countCCCC++;}
       else if(r.length()==2&&r.contains("};")){countCCCC++;}
       else if(r.length()==3&&r.contains("});")){countCCCC++;}
       ttt+=r;ttt+="\n";
@@ -2623,7 +2645,6 @@ class Editor extends JFrame implements ActionListener  {
 
   }
 
-
   class OpenAnalyzerWindow extends TimerTask {
 
     public void run() {
@@ -3305,7 +3326,9 @@ class Editor extends JFrame implements ActionListener  {
 
 
     public String getText() {
+
       return doc.toString();
+
     }
 
   }
