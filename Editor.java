@@ -1126,6 +1126,8 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("throw")){                              appendToPane(t,current,tMagenta);}
 
+        else if(current.equals("override")){                           appendToPane(t,current,tMagenta);}
+
         else if(previous.equals(":")&&!current.equals(":")){           appendToPane(t,current,tBlue);}
 
         else if(current.equals("/")&&next.equals("/")){
