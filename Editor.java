@@ -832,7 +832,7 @@ class Editor extends JFrame implements ActionListener  {
       // Set the text
       //t.setText(sl);
       edi.insert(sl, 0);
-      
+
       edi.show();
 
       t1.setText(linesN);
@@ -1123,6 +1123,8 @@ class Editor extends JFrame implements ActionListener  {
         else if(current.equals("virtual")){                            appendToPane(t,current,tMagenta);}
 
         else if(current.equals("auto")){                               appendToPane(t,current,tMagenta);}
+
+        else if(current.equals("throw")){                              appendToPane(t,current,tMagenta);}
 
         else if(previous.equals(":")&&!current.equals(":")){           appendToPane(t,current,tBlue);}
 
@@ -1755,12 +1757,12 @@ class Editor extends JFrame implements ActionListener  {
 
       r=r.replaceFirst("\\s*$", "");
 
-      if((r.length()==1&&r.contains("}"))||(r.length()==1&&r.contains("private:")||r.contains("public:")||r.contains("protected:"))){countCCCC--;}
+    if((r.length()==1&&r.contains("}"))||(r.length()==1&&r.contains("private:")||r.contains("public:")||r.contains("protected:"))){countCCCC--;}
       else if(r.length()==2&&r.contains("};")){countCCCC--;}
       else if(r.length()==3&&r.contains("});")){countCCCC--;}
       for(int i=0;i<countCCCC;i++){if(r.equals("")){}else{ttt+="  ";}}
 
-      if((r.length()==1&&r.contains("}"))||(r.length()==1&&r.contains("private:")||r.contains("public:")||r.contains("protected:"))){countCCCC++;}
+    if((r.length()==1&&r.contains("}"))||(r.length()==1&&r.contains("private:")||r.contains("public:")||r.contains("protected:"))){countCCCC++;}
       else if(r.length()==2&&r.contains("};")){countCCCC++;}
       else if(r.length()==3&&r.contains("});")){countCCCC++;}
       ttt+=r;ttt+="\n";
