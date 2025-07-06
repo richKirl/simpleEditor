@@ -986,6 +986,10 @@ class Editor extends JFrame implements ActionListener  {
       for(String r: parts)list.add(r);
 
       final Iterator<String> it = list.iterator();
+      
+      int flagBrt=0;
+
+      int flagBrs=0;
 
       for(String next = (it.hasNext() ? it.next() : null), current = null; next != null;) {
 
@@ -1120,6 +1124,8 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("explicit")){                           appendToPane(t,current,tBlue);}
 
+        else if(current.equals("this")){                               appendToPane(t,current,tBlue);}
+
         else if(current.equals("virtual")){                            appendToPane(t,current,tMagenta);}
 
         else if(current.equals("auto")){                               appendToPane(t,current,tMagenta);}
@@ -1187,9 +1193,9 @@ class Editor extends JFrame implements ActionListener  {
 
         else if(current.equals("main")){                               appendToPane(t,current,tBlue);}
 
-        else if(current.equals("\"")||current.equals("\'")){
+        else if(current.equals("\"")){
 
-          if(current.equals("\"")&&next.equals("\"")||current.equals("\'")&&next.equals("\'")){
+          if(current.equals("\"")&&next.equals("\"")){
 
             appendToPane(t,current,tBody);
 
@@ -1216,9 +1222,9 @@ class Editor extends JFrame implements ActionListener  {
 
               next = it.hasNext() ? it.next() : null;
 
-              if(current.equals("\"")||current.equals("\'")) {
+              if(current.equals("\"")) {
 
-                if(next.equals("\"")||next.equals("\'")) {
+                if(next.equals("\"")&&!previous.equals("\\")) {
 
                   appendToPane(t,current,tBody);
 
@@ -2962,14 +2968,15 @@ class Editor extends JFrame implements ActionListener  {
 
         }
 
-        commander= "";
-
         if(history==true){
+
           HListCommands.add(commander);
 
           appendToPane(textP,"\n % ",tTextWCF);
 
         }
+
+        commander= "";
 
       }
 
