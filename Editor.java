@@ -986,7 +986,7 @@ class Editor extends JFrame implements ActionListener  {
       for(String r: parts)list.add(r);
 
       final Iterator<String> it = list.iterator();
-      
+
       int flagBrt=0;
 
       int flagBrs=0;
